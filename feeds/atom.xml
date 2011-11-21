@@ -1,0 +1,31 @@
+---
+layout: nil
+---
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>rudyjahchan.com</title>
+  <link href="http://rudyjahchan.com/"/>
+  <link type="application/atom+xml" rel="self"
+    href="http://rudyjahchan.com/atom.xml"/>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <id>http://rudyjahchan.com/</id>
+  <author>
+    <name>Rudy Jahchan</name>
+  </author>
+
+  {% for post in site.posts %}
+  <entry>
+    <id>http://rudyjahchan.com{{ post.url }}</id>
+    <link type="text/html" rel="alternate" href="http://rudyjahchan.com{{ post.url }}"/>
+    <title>{{ post.title }}</title>
+    <updated>{{ post.date | date_to_xmlschema }}</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+      <uri>http://rudyjahchan.com/</uri>
+    </author>
+    <content type="html">{{ post.content | xml_escape }}</content>
+  </entry>
+  {% endfor %}
+
+</feed>
