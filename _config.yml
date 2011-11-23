@@ -1,2 +1,5 @@
 title: Rudy Jahchan
+safe: true
+lsi: false
+pygments: true
 permalink: /:year/:month/:day/:title/

@@ -10,9 +10,7 @@ meta:
   _edit_last: "2"
   thumbnail: http://farm4.static.flickr.com/3213/2758105122_40c4686654_s.jpg
 ---
-<div style="text-align:center;">
 <a href="http://www.flickr.com/photos/coderonin/2758105122/" title="Daily Self Portrait - August 12th 2008 by Rudy Jahchan, on Flickr" class="image"><img src="http://farm4.static.flickr.com/3213/2758105122_40c4686654.jpg" width="500" height="375" alt="Daily Self Portrait - August 12th 2008" /></a>
-</div>
 
 As the song says, going to California to make a new start.
 

@@ -13,4 +13,4 @@ Lover of adventures through time-and-space as documented on
 /
 Found on
 [Twitter](http://twitter.com) &
-[Facebook](http://facebook.com/rudyjahchan)
+[Facebook](http://facebook.com/rudyjahchan).

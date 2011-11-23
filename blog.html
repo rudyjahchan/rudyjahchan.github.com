@@ -1,0 +1,42 @@
+---
+
+layout: page
+permalink: /blog/
+title: Blog
+
+---
+<div class='hfeed blog'>
+{% assign monthYear = '' %}
+
+{% for post in site.posts %}
+
+  <article class="hentry">
+    <h2 class="entry-title"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    <time class="published"><i class="icon-calendar"></i>{{ post.date | date_to_string }}</time>
+    <nav class="comments">
+      <i class="icon-comment"></i>
+      <a href="http://rudyjahchan.com{{ post.url }}#disqus_thread">Leave a comment</a>
+    </nav>
+  </article>
+
+{% endfor %}
+
+</div>
+
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR
+     WEBPAGE * * */
+var disqus_shortname = 'rudyjahchan';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+ var s = document.createElement('script'); s.async = true;
+ s.type = 'text/javascript';
+ s.src = 'http://' + disqus_shortname +
+ '.disqus.com/count.js';
+ (document.getElementsByTagName('HEAD')[0]
+  ||
+  document.getElementsByTagName('BODY')[0]).appendChild(s);
+ }());
+
+</script>

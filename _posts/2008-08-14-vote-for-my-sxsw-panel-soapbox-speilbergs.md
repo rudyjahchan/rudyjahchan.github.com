@@ -10,9 +10,7 @@ type: post
 published: true
 
 ---
-<div style="text-align:center;">
 <a href="http://panelpicker.sxsw.com/ideas/view/2061" title="My SXSW Panel by Rudy Jahchan, on Flickr" class="center"><img src="http://farm4.static.flickr.com/3031/2763790968_8503c179ae.jpg" width="500" height="188" alt="My SXSW Panel" /></a>
-</div>
 
 First off: <a href="http://panelpicker.sxsw.com/ideas/view/2061">GO VOTE FOR THIS PANEL</a>!!!
 

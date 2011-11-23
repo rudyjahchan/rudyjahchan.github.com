@@ -10,9 +10,7 @@ meta:
   _edit_last: "2"
   thumbnail: http://farm4.static.flickr.com/3251/2791974570_fd39d92c96_s.jpg
 ---
-<div style="text-align:center;">
 <a href="http://www.flickr.com/photos/coderonin/2791974570/" title="Black Diamond by Rudy Jahchan, on Flickr" class="image"><img src="http://farm4.static.flickr.com/3251/2791974570_fd39d92c96.jpg" width="500" height="375" alt="Black Diamond" /></a>
-</div>
 
 A comicbook review! Bear with me, as this needs some set up.
 

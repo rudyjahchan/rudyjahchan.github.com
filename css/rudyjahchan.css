@@ -1,0 +1,457 @@
+header > .wrap {
+  text-align: center;
+}
+
+header > .wrap > .avatar {
+  display: inline-block;
+}
+
+header > .wrap > .avatar > a {
+  background: url('/images/rudyjahchan.png') white;
+  background-size: 100% 100%;
+  background-origin: content-box;
+  display: block;
+}
+
+header > .wrap > hgroup > h1 {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+body.home > header {
+  display:none;
+}
+
+body.home > .nav.main {
+  display: none;
+}
+
+body.home .hello-world.hero-unit > header {
+  margin-bottom: 22px;
+}
+
+body.home .hello-world.hero-unit > header > h1 {
+  padding-left: 70px;
+  background-size: 60px 60px;
+  background-image: url(/images/rudyjahchan.png);
+  background-repeat: no-repeat;
+}
+
+h1 a,
+h1 a:hover,
+h1 a:active,
+h1 a:link,
+h1 a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+header > .wrap > .social-icons > a {
+  display:inline-block;
+  width: 32px;
+  height: 32px;
+  color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-indent: 100%;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.25;
+  transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+}
+
+header > .wrap > .social-icons > a:hover,
+header > .wrap > .social-icons > a:active {
+  opacity: 1.0;
+}
+
+header > .wrap > .social-icons > a.twitter {
+  background-image: url('/images/twitter.png');
+}
+
+header > .wrap > .social-icons > a.github {
+  background-image: url('/images/octocat.png');
+}
+
+header > .wrap > .social-icons > a.rss {
+  background-image: url('/images/rss.png');
+}
+
+header > .wrap > .social-icons > a.instagram {
+  background-image: url('/images/instagram.png');
+}
+
+.nav a {
+  color: inherit;
+  font-weight: bold;
+  transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  -moz-transition: opacity 0.5s;
+  opacity: 0.5;
+}
+
+.nav a:hover,
+.nav a:active {
+  text-decoration: none;
+  opacity: 1.0;
+}
+
+.hfeed article {
+  margin: 13px 0;
+}
+
+.hfeed article nav {
+  display: inline;
+}
+
+.hfeed article nav:before {
+  content: '\B7';
+  display: inline;
+}
+
+h2 a,
+h2 a:hover,
+h2 a:active,
+h2 a:link,
+h2 a:visited {
+  font-size: 18px;
+  line-height: 20px;
+  color: black;
+  text-decoration: none;
+}
+
+.entry-content.hero-unit {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.hello-world a.logoed {
+  display: inline-block;
+  padding-left: 22px;
+  background-size: 18px 18px;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+
+.hello-world a.github {
+  background-image: url(/images/octocat.png);
+}
+
+.hello-world a.twitter {
+  background-image: url(/images/twitter.png);
+}
+
+.hello-world a.instagram {
+  background-image: url(/images/instagram.png);
+}
+
+.hello-world a.feed {
+  background-image: url(/images/rss.png);
+}
+
+.links.hero-unit {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+article section img { 
+  width: 100%;
+  height: auto;
+}
+
+article .metadata {
+  margin: 13px 0;
+}
+
+article .metadata nav {
+  display: inline;
+}
+
+article .metadata nav:before {
+  content: '\B7';
+  display: inline;
+}
+
+article .metadata nav:first-child:before {
+  content: '';
+}
+
+.video {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.video object,
+.video embed,
+.video iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+footer {
+  text-align: center;
+  padding: 13px;
+}
+
+@media (max-width: 480px) {
+
+  body > header {
+    height: 60px;
+  }
+
+  header > .wrap > .avatar {
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+  }
+
+  header > .wrap > .avatar > a {
+    width: 40px;
+    height: 40px;
+  }
+
+  header > .wrap > hgroup {
+    display: inline-block;
+    margin: 10px;
+  }
+
+  header > .wrap > .social-icons {
+    display: none;
+  }
+
+  header > .wrap > .social-icons > a {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    margin-left: 4px;
+  }
+
+  header > .wrap > .social-buttons {
+    display: none;
+  }
+
+  .nav {
+    text-align: center;
+  }
+
+  .nav a {
+    margin-left: 1em;
+  }
+
+  .nav a:first-child {
+    margin-left: 0em;
+  }
+
+  .nav a.page {
+    display: none;
+  }
+
+  body.home .hello-world.hero-unit {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 481px) {
+
+  body > header {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 90px;
+    width: 100%;
+    background: white;
+  }
+
+  header > .wrap {
+    margin: 0 20px;
+  }
+
+  header > .wrap > .avatar {
+    width: 60px;
+    height: 60px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  header > .wrap > .avatar > a {
+    width: 60px;
+    height: 60px;
+  }
+
+  header > .wrap > hgroup {
+    float: left;
+    display: inline-table;
+    margin-top: 25px;
+    margin-bottom: 25px;
+  }
+
+  header > .wrap > .social-icons {
+    float: right;
+    display: inline-table;
+    margin-top: 31px;
+    margin-bottom: 31px;
+    line-height: 28px;
+  }
+
+  header > .wrap > .social-icons > a {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 4px;
+  }
+
+  header > .wrap > .social-buttons {
+    display: none;
+  }
+
+  section.main {
+    padding-top: 110px;
+  }
+
+  body.home section.main {
+    padding-top: inherit;
+  }
+
+  .nav.main {
+    position: fixed;
+    z-index: 1;
+    top: 90px;
+    left: 0;
+    background: white;
+    width: 100%;
+    height: 18px;
+  }
+
+  .nav.main:after {
+    content: '';
+    margin-top: -1px;
+    display: block;
+    width: 100%;
+    height: 25px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,1)), to(rgba(255,255,255,0)));
+    background-image: -webkit-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+    background-image: -moz-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+    background-image: -ms-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+    background-image: -o-linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+    background-image: linear-gradient(top, rgba(255,255,255,1), rgba(255,255,255,0));
+  }
+
+  .nav {
+    text-align: center;
+  }
+
+  .nav a {
+    margin-left: 1em;
+  }
+
+  .nav a:first-child {
+    margin-left: 0em;
+  }
+
+  .nav a.page {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  section.main {
+    width: 80%;
+  }
+
+  section.main > * {
+    max-width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 100px;
+  }
+
+  body > header {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: auto;
+    width: 20%;
+    right: 0;
+    bottom: 0;
+    background: white;
+  }
+
+  header > .wrap {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    left: 0;
+  }
+
+  header > .wrap > .avatar {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    margin-top: -100px;
+  }
+
+  header > .wrap > .avatar >  a {
+    width: 100px;
+    height: 100px;
+  }
+
+  header > .wrap > .social-icons {
+    margin-top: 27px;
+    line-height: 32px;
+  }
+
+  header > .wrap > .social-icons > a {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+  }
+
+  header > .wrap > .social-buttons {
+    margin-top: 27px;
+  }
+
+  .nav a {
+    display: block;
+  }
+
+  .nav a.page {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: fixed;
+    z-index: 2;
+    right: 0;
+    width: 20%;
+    text-align: center;
+  }
+
+  .nav a.previous {
+    bottom: 27px;
+  }
+
+  .nav a.next {
+    top: 27px;
+  }
+
+  .nav.main {
+    position: fixed;
+    top: 27px;
+    left: 27px;
+  }
+
+}

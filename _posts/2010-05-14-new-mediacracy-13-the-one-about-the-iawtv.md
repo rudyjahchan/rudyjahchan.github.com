@@ -12,9 +12,7 @@ meta:
   _wp_old_slug: ""
   _edit_last: "2"
 ---
-<div style="text-align:center;">
 <a href="http://newmediacracy.com/2010/05/episode-13-the-one-about-the-iawtv.html#comments"><img src="http://29.media.tumblr.com/tumblr_l2df188eIy1qz56moo1_500.jpg"></a>
-</div>
 
 I was lucky enough to sit among the many brilliant minds at this session of New Mediacracy. Chris McCaleb and I talked about why we love doing these, and it like verbal 
 jazz sessions, where we all riff off of each others' thoughts. I tried weakly comparing this episode to Led Zeppelin's No Quarter. Yeah, I know, that's quite a stretch.</p>

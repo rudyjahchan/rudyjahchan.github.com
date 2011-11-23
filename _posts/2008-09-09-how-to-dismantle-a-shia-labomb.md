@@ -11,7 +11,7 @@ type: post
 published: true
 
 ---
-<object width="425" height="350" class="image"> <param name="movie" value="http://www.youtube.com/v/o8XanqiBnOI"> </param> <embed src="http://www.youtube.com/v/o8XanqiBnOI" type="application/x-shockwave-flash" width="425" height="350"> </embed> </object>
+<div class="video"> <object class="image"> <param name="movie" value="http://www.youtube.com/v/o8XanqiBnOI"> </param> <embed src="http://www.youtube.com/v/o8XanqiBnOI" type="application/x-shockwave-flash"> </embed> </object> </div>
 
 Above is the core of what I dub the Shia LaBomb. Notice the stylish use of crotch shots.
 
@@ -19,24 +19,15 @@ But the full Shia LaBouef is the above video playing as the DESKTOP BACKGROUND o
 
 Assembling your own is easy, and I post them here for the sake of mutually assured destruction:
 
-1.  First, collect <a href="http://www.shialabeouf.us/">images from here</a>
-1.  Then, use some <a href="http://www.youtube.com/watch?v=eBGIQ7ZuuiU">long forgotten music</a>.
-1.  Assemble the above with your favorite video editor into a loving montage of the man in question. I used iMovie.
-  1.  Grab this <a href="http://s.sudre.free.fr/Software/SaveHollywood.html">freeware screen-saver</a> that let's you play movies.
-  1.  Load the video in question.
-  1.  Using Apple's Script Editor, create an application using this code:
+1. First, collect <a href="http://www.shialabeouf.us/">images from here</a>
+1. Then, use some <a href="http://www.youtube.com/watch?v=eBGIQ7ZuuiU">long forgotten music</a>.
+1. Assemble the above with your favorite video editor into a loving montage of the man in question. I used iMovie.
+1. Grab this <a href="http://s.sudre.free.fr/Software/SaveHollywood.html">freeware screen-saver</a> that let's you play movies.
+1. Load the video in question.
+1. Using Apple's Script Editor, create an application using this code test:
+   <script src="https://gist.github.com/3350546.js"> </script>
+1. You run it to turn on/off the currently selected screensaver. Run it to start the ball rolling and and voila, instant Shia LaBomb!
 
-          {% highlight applescript %}
-            tell application "System Events"
-              if process "ScreenSaverEngine" exists then
-                tell application "ScreenSaverEngine" to quit
-              else
-                do shell script "/System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -background > /dev/null 2>&1 &"
-              end if
-            end tell
-          {% endhighlight %}
-
-  1.  You run it to turn on/off the currently selected screensaver. Run it to start the ball rolling and and voila, instant Shia LaBomb!
 
 So what could bring me to develop such a monstrous creation? Well ...
 

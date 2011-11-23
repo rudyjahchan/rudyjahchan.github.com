@@ -10,9 +10,7 @@ type: post
 published: true
 
 ---
-<div style="text-align:center;">
 <a href="http://www.flickr.com/photos/shovellingson/2624060661/" title="Twitter - New 'Over Capacity' Graphic by Shovelling Son, on Flickr"><img src="http://farm4.static.flickr.com/3069/2624060661_a7797d3dee.jpg" width="500" height="375" alt="Twitter - New 'Over Capacity' Graphic" /></a>
-</div>
 
 A Twitter tradition I have only vaguely dabbled in is Follow Friday; the way people dump the hash tag and a huge list of names turned me off. I like it when they take the time to explain WHY we should follow them. And I was simply to lazy to do it.
 

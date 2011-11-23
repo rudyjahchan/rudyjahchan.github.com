@@ -1,7 +1,7 @@
 --- 
 layout: post
 title: Bumps In the Night - An Exorcise in Futility
-tags: 
+tags:
 - Web shows
 status: publish
 type: post
@@ -10,13 +10,14 @@ meta:
   _wp_old_slug: ""
   _edit_last: "2"
 ---
-<object width="700" height="386"><param name="movie"
+<div class="video"><object width="700" height="386"><param name="movie"
 value="http://www.youtube.com/v/6OYaICXUi6Q?version=3&amp;hl=en_US&amp;rel=0&amp;hd=1"></param><param
 name="allowFullScreen" value="true"></param><param
 name="allowscriptaccess" value="always"></param><embed
 src="http://www.youtube.com/v/6OYaICXUi6Q?version=3&amp;hl=en_US&amp;rel=0&amp;hd=1"
 type="application/x-shockwave-flash" width="700" height="386"
-allowscriptaccess="always" allowfullscreen="true"></embed></object>
+allowscriptaccess="always"
+allowfullscreen="true"></embed></object></div>
 
 Over two months ago, I was whining to <a href="http://www.jennipowell.com/">Jenni Powell</a> how I didn't get to collaborate anymore. So did the logical thing? Told me to shut up and invited me to guest-direct an episode of the horror-comedy show she produces called <a href="http://bumpsinthenight.tv">Bumps in the Night</a>.
 

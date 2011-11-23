@@ -3,61 +3,24 @@
 layout: default
 
 ---
-<article class="hentry">
-    <h2 class="row">
-      <a href="{{ page.url }}" rel="bookmark" class="entry-title span9">{{ page.title }}</a>
-      <span class="published span3">{{ page.date | date_to_string }}</span>
-    </h2>
+<header>
+  <h1><a href="{{ page.url }}" rel="bookmark" class="entry-title">{{ page.title }}</a></h1>
+  <time class="published"><i class="icon-calendar"></i>{{ page.date | date_to_string }}</time>
+</header>
 
-  <div class="entry-content">
-    {{content}}
-  </div>
+<section class="entry-content hero-unit">
+  {{content}}
+</section>
 
-  <p>
-  <strong>Share this:</strong>
-  <span  class='st_email'></span>
-  <span class='st_tumblr_hcount' displayText='Tumblr'></span>
-  <span class='st_reddit_hcount' displayText='Reddit'></span>
-  <span class='st_twitter_hcount' displayText='Tweet'></span>
-  <span class='st_plusone_hcount' ></span>
-  <span class='st_fblike_hcount'></span>
-  </p>
-
-  <p>
-    {% if page.categories != empty %}
-      Posted in:
-      {% for category in page.categories %}
-        {% if forloop.last and forloop.index0 != 0 %}and{% endif %}
-        <a href="/categories/{{ category }}">{{ category }}</a>{% if forloop.last != true %},{% endif %}
-      {% endfor %}
-      |
-    {% endif %}
-    {% if page.tags != empty %}
-      Tags:
-      {% for tag in page.tags %}
-        {% if forloop.last and forloop.index0 != 0 %}and{% endif %}
-        <a href="/tags/{{ tag }}">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
-      {% endfor %}
-      |
-    {% endif %}
-    <a href="http://rudyjahchan.com{{page.url}}#disqus_thread">Leave a comment</a>
-  </p>
-
-  <nav class="post-navigation">
-    {% if page.previous %}
-      <p class="row">
-        <span class="span3">Previous:</span>
-        <a href="{{ page.previous.url }}" class="span9">{{ page.previous.title }}</a>
-      </p>
-    {% endif %}
-    {% if page.next %}
-      <p class="row">
-        <span class="span3">Next:</span>
-        <a href="{{ page.next.url }}" class="span9">{{ page.next.title }}</a>
-        </p>
-    {% endif %}
-  </nav>
-</article>
+<section>
+<strong>Share this:</strong>
+<span  class='st_email'></span>
+<span class='st_tumblr_hcount' displayText='Tumblr'></span>
+<span class='st_reddit_hcount' displayText='Reddit'></span>
+<span class='st_twitter_hcount' displayText='Tweet'></span>
+<span class='st_plusone_hcount' ></span>
+<span class='st_fblike_hcount'></span>
+</section>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">
