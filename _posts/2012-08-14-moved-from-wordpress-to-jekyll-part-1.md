@@ -6,6 +6,7 @@ tags:
 status: publish
 type: post
 published: true
+
 ---
 
 Welcome to my redesigned website!
