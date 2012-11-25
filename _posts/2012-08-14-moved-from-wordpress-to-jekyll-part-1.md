@@ -131,3 +131,5 @@ send an email; I am sure you can guess the address.
   [Squarespace]: http://squarespace.com
   [Liquid]: http://liquidmarkup.org/
   [git]: http://git-scm.com/
+  [rit_li]: http://quietdynamite.com/
+  [markdown]: http://daringfireball.net/projects/markdown/
