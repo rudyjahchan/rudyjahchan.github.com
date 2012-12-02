@@ -16,14 +16,14 @@ as our wedding favors. It would be something different and hence
 memorable.
 
 We selected our flavors and found three pictures we felt
-represented the depth and range of our relationships. Then came the fun
+represented the depth and range of our relationship. Then came the fun
 bit for me, the resident family writer: coming up with the label text.
 On normal Jones bottles the label speaks of the quality ingredients that go
 into the soda and blah blah blah whatever. I just relished the challenge
 of coming up with fun little tales about the photo in 300 characters!
 
 So for those who were unable to attend, here are the photos we used, the
-label I came up with, and the backstory behind each of them. Hope you
+labels I came up with, and the backstory behind each of them. Hope you
 enjoy them.
 
 ## Sugar Cane Cola
