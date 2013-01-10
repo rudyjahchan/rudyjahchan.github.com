@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bonsai my Social Trees
+title: Bonsai-ing my Social Trees
 tags:
 - Writing
 status: publish
