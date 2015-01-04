@@ -83,6 +83,11 @@ article {
 }
 
 .jumbotron { background-color: inherit; }
+.index.jumbotron h1 img {
+  width: 1em;
+  height: 1em;
+  max-width: 100%;
+}
 
 .img-inline {
   margin-top: 1em;
