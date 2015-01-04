@@ -19,48 +19,7 @@ body {
   padding-bottom: $navbar-height;
 }
 
-.featured-video { background-color: #000; }
-.featured-image {
-  position: relative;
-  background-size: cover;
-  background-position: center center;
-  width: 100%;
-  height: 100vh;
-  margin-bottom: 1em;
-
-  .overlay {
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: rgba(0,0,0,.5);
-  }
-
-  header {
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-bottom: 100px;
-
-    h1 {
-      a {
-        display:block;
-        color: #ffffff;
-        text-decoration: none;
-        &:hover {
-          color: #ffffff;
-          text-decoration: none;
-        }
-      }
-    }
-
-    time { color: #ffffff; }
-  }
-}
+@import "_featured_media";
 
 article {
   border-bottom: 1px solid $rudy-primary-color-dark;
@@ -82,7 +41,6 @@ article {
   font-family: $font-family-serif;
 }
 
-.jumbotron { background-color: inherit; }
 .index.jumbotron h1 img {
   width: 1em;
   height: 1em;
@@ -110,4 +68,4 @@ time {
   font-weight: 100;
 }
 
-@import "./_screen";
+@import "./_faux_terminal";

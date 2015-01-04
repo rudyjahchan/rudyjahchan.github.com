@@ -28,7 +28,7 @@
   }
 }
 
-.rudy-screen {
+#faux-terminal {
   @mixin terminal-navbar-size {
     top: 0;
     left: 0;
@@ -73,7 +73,7 @@
     opacity : .1;
   }
 
-  .rudy-layer {
+  .layer {
     @include terminal-navbar-absolute;
     z-index : 4001;
     box-shadow : inset 0px 0px 1px 1px rgba(64, 64, 64, .1);
@@ -90,7 +90,7 @@
     }
   }
 
-  .rudy-overlay {
+  .overlay {
     @include terminal-navbar-fixed;
     z-index: 4100;
 
@@ -145,4 +145,3 @@
   from { width: 100%; }
   to { width: 0; }
 }
-
