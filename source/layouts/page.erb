@@ -1,0 +1,34 @@
+<% wrap_layout :layout do %>
+  <article<%= ' class="jumbotron"' if current_page.data.jumbo %>>
+    <% if current_page.data.video %>
+      <div class="featured-video">
+        <div class="container">
+          <div class="embed-responsive embed-responsive-16by9">
+          <%= current_page.data.video %>
+          </div>
+        </div>
+      </div>
+      <%= partial 'header' %>
+    <% elsif current_page.data.featured_image %>
+      <% case current_page.data.featured_image.type
+         when "header" %>
+        <div class="featured-image" style="background-image: url(<%= current_page.data.featured_image.url %>);">
+          <div class="overlay">
+            <%= partial 'header' %>
+          </div>
+        </div>
+      <% when "inline" %>
+        <div class="container img-inline">
+          <img src="<%= current_page.data.featured_image.url%>" alt="<%= current_page.data.featured_image.alt %>">
+          <div class="caption"><%= current_page.data.featured_image.caption %></div>
+        </div>
+        <%= partial 'header' %>
+      <% end %>
+    <% else %>
+      <%= partial 'header' %>
+    <% end %>
+    <div class="container">
+        <%= yield %>
+    </div>
+  </article>
+<% end %>

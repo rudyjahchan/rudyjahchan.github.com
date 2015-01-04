@@ -1,0 +1,8 @@
+<header>
+  <div class="container">
+    <h1><%= link_to current_page.data.title, current_page %></h1>
+    <% if current_page.respond_to? :date %>
+      <time datetime="<%= current_page.date.strftime('%F %H:%M') %>">Published on <%= current_page.date.strftime('%b %e, %Y') %></time>
+    <% end %>
+  </div>
+<header>
