@@ -1,0 +1,22 @@
+<meta name="og:type" content="article">
+<meta name="og:url" content="http://rudyjahchan.com<%= current_page.url %>">
+<% if current_page.data.featured_image %>
+  <% case current_page.data.featured_image.type
+     when "header" %>
+    <meta name="twitter:card" content="summary_large_image">
+  <% when "inline" %>
+    <meta name="twitter:card" content="summary" />
+  <% end %>
+<% else %>
+    <meta name="twitter:card" content="summary" />
+<% end %>
+<meta name="twitter:title" content="<%= current_page.data.title %>">
+<meta name="og:title" content="<%= current_page.data.title %>">
+<meta name="twitter:site" content="@rudy">
+<meta name="twitter:creator" content="@rudy">
+<meta name="twitter:description" content="<%= description(current_page) %>">
+<meta name="og:description" content="<%= description(current_page) %>">
+<% if current_page.data.featured_image %>
+  <meta name="twitter:image:src" content="<%= current_page.data.featured_image.url%>" />
+  <meta name="og:image" content="<%= current_page.data.featured_image.url%>" />
+<% end %>

@@ -82,6 +82,17 @@ helpers do
     elements << article.body
     elements.join ' '
   end
+
+  def description(article)
+    description = if current_page.respond_to?(:summary)
+                    current_page.summary(200)
+                  elsif current_page.respond_to?(:body)
+                    current_page.body
+                  else
+                    'Thoughts on coding and being a geek by Rudy Jahchan.'
+                  end
+    escape_html strip_tags description
+  end
 end
 
 set :css_dir, 'stylesheets'

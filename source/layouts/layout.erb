@@ -1,11 +1,12 @@
 <!doctype html>
 <html>
-  <head>
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <meta charset="utf-8" />
     <meta name="keywords" content="Rudy Jahchan" />
     <meta name="author" content="Rudy Jahchan" />
     <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= partial 'meta' %>
     <title><%= current_article.title + ' - ' unless current_article.nil? %>Rudy Jahchan</title>
     <link href="http://feeds.feedburner.com/rudyjahchan" rel="alternate" title="Rudy Jahchan" type="application/rss+xml" />
     <%= stylesheet_link_tag 'all' %>
