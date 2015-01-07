@@ -19,9 +19,7 @@ They promptly told me to shutup and provided the obvious answer. Just
 style my header! Which is exactly what I did if you cast your eyes to
 the top of my site. Or see the demo below (for my dear feed readers):
 
-<iframe width="100%" height="300"
-src="http://jsfiddle.net/rudyjahchan/qmjg92gq/embedded/"
-allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<iframe width="100%" height="100" src="http://jsfiddle.net/rudyjahchan/qmjg92gq/embedded/result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 Technical details on how I accomplished it can be found in [this post I
 did on the Carbon Five blog]. I do want to say I sit on the shoulders of
