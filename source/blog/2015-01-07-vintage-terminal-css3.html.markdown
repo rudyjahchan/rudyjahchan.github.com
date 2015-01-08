@@ -22,7 +22,7 @@ the top of my site. Or see the demo below (for my dear feed readers):
 <iframe width="100%" height="100" src="http://jsfiddle.net/rudyjahchan/qmjg92gq/embedded/result" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 Technical details on how I accomplished it can be found in [this post I
-did on the Carbon Five blog]. I do want to say I sit on the shoulders of
+did on the Carbon Five blog][c5-blog-post]. I do want to say I sit on the shoulders of
 giants, in this case Anders Evernud and [Lea Verou][verou]. And once
 more thanks for the inspiration Paul and Casey!
 
@@ -34,3 +34,4 @@ more thanks for the inspiration Paul and Casey!
   [verou]: http://lea.verou.me
   [Middleman]: http://middlemanapp.com
   [Bootstrap]: http://getbootstrap.com
+  [c5-blog-post]: http://blog.carbonfive.com/2015/01/07/vintage-terminal-effect-in-css3/
