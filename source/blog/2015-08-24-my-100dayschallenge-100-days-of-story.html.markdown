@@ -2,7 +2,12 @@
 title: My 100 Days Challenge; 100 Days of Story
 date: 2015-08-24 05:57 UTC
 tags:
+featured_image:
+  type: inline
+  url: /images/writingtools.jpg
+  alt: 100 Days of Story
 ---
+
 "I'm working on a novel."
 
 That's become my quick response when people ask me what I've been working on, given my aspirations to be a writer.
