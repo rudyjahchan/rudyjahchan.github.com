@@ -8,13 +8,13 @@
           </div>
         </div>
       </div>
-      <%= partial 'header' %>
+      <%= partial 'partials/header' %>
     <% elsif current_page.data.featured_image %>
       <% case current_page.data.featured_image.type
          when "header" %>
         <div class="featured-image" style="background-image: url(<%= current_page.data.featured_image.url %>);">
           <div class="overlay">
-            <%= partial 'header' %>
+            <%= partial 'partials/header' %>
           </div>
         </div>
       <% when "inline" %>
@@ -22,10 +22,10 @@
           <img src="<%= current_page.data.featured_image.url%>" alt="<%= current_page.data.featured_image.alt %>">
           <div class="caption"><%= current_page.data.featured_image.caption %></div>
         </div>
-        <%= partial 'header' %>
+        <%= partial 'partials/header' %>
       <% end %>
     <% else %>
-      <%= partial 'header' %>
+      <%= partial 'partials/header' %>
     <% end %>
     <div class="container">
         <%= yield %>
