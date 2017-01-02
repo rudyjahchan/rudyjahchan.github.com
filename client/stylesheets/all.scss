@@ -1,0 +1,77 @@
+/*@import "_bootstrap-sprockets";*/
+/*@import "_fonts";*/
+
+@import "~normalize.css/normalize.css";
+
+html {
+  background: red;
+}
+
+/*$rudy-primary-color: #212121;*/
+/*$rudy-primary-color-light: #9E9E9E;*/
+/*$rudy-primary-color-dark: #616161;*/
+
+/*$rudy-accent-color: #00C853;*/
+/*$rudy-accent-color-fallback-1: #00E676;*/
+/*$rudy-accent-color-fallback-2: #69F0AE;*/
+
+/*@import "_bootstrap_variables";*/
+
+/*@import "_bootstrap";*/
+/*@import "font-awesome";*/
+
+/*body {*/
+  /*padding-top: $navbar-height;*/
+  /*padding-bottom: $navbar-height;*/
+/*}*/
+
+/*@import "_featured_media";*/
+
+/*article {*/
+  /*border-bottom: 1px solid $rudy-primary-color-dark;*/
+  /*padding-bottom: 1em;*/
+  /*font-weight: 200;*/
+
+  /*h1 a {*/
+    /*&:hover {*/
+      /*color: $rudy-accent-color;*/
+      /*text-decoration: none;*/
+    /*}*/
+  /*}*/
+/*}*/
+
+/*.paging {*/
+  /*text-align: center;*/
+  /*font-size: $font-size-small;*/
+  /*font-style: italic;*/
+  /*font-family: $font-family-serif;*/
+/*}*/
+
+/*.index.jumbotron h1 img {*/
+  /*width: 1em;*/
+  /*height: 1em;*/
+  /*max-width: 100%;*/
+/*}*/
+
+/*.img-inline {*/
+  /*margin-top: 1em;*/
+  /*text-align: center;*/
+  /*img { max-width: 100%; }*/
+  /*.caption {*/
+    /*font-size: $font-size-small;*/
+    /*font-style: italic;*/
+    /*font-family: $font-family-serif;*/
+  /*}*/
+/*}*/
+
+/*time {*/
+  /*position: relative;*/
+  /*top: -1em;*/
+
+  /*font-size: $font-size-small;*/
+  /*font-style: italic;*/
+  /*font-family: $font-family-serif;*/
+  /*font-weight: 100;*/
+/*}*/
+
+/*@import "./_faux_terminal";*/

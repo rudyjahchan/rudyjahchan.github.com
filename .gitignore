@@ -20,3 +20,6 @@
 # Ignore generated asset directories
 /source/javascripts
 /source/stylesheets
+
+# Ignore node modules
+/node_modules
