@@ -7,7 +7,6 @@ var cssPlugin = new ExtractTextPlugin("stylesheets/[name].css", { allChunks: tru
 module.exports = {
 	entry: {
 		all: [ './client/javascripts/all.js', './client/stylesheets/all.scss',],
-		wufoo: './client/javascripts/wufoo.js',
 	},
 
 	resolve: {
@@ -32,8 +31,8 @@ module.exports = {
   },
 
   plugins: [
-    //new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.DedupePlugin(),
     cssPlugin,
-    //new webpack.optimize.UglifyJsPlugin({minimize: true}),
+    new webpack.optimize.UglifyJsPlugin({minimize: true}),
   ],
 };

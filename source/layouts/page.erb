@@ -1,12 +1,10 @@
 <% wrap_layout :layout do %>
-  <article<%= ' class="jumbotron"' if current_page.data.jumbo %>>
+  <article<%= ' class="jumbo"' if current_page.data.jumbo %>>
     <% if current_page.data.video %>
       <div class="featured-video">
-        <div class="container">
-          <div class="embed-responsive embed-responsive-16by9">
-          <%= current_page.data.video %>
-          </div>
-        </div>
+				<div class="responsive-video">
+					<%= current_page.data.video %>
+				</div>
       </div>
       <%= partial 'partials/header' %>
     <% elsif current_page.data.featured_image %>
@@ -18,7 +16,7 @@
           </div>
         </div>
       <% when "inline" %>
-        <div class="container img-inline">
+        <div class="img-inline">
           <img src="<%= current_page.data.featured_image.url%>" alt="<%= current_page.data.featured_image.alt %>">
           <div class="caption"><%= current_page.data.featured_image.caption %></div>
         </div>
@@ -27,8 +25,6 @@
     <% else %>
       <%= partial 'partials/header' %>
     <% end %>
-    <div class="container">
-        <%= yield %>
-    </div>
+    <div class="article-content"><%= yield %></div>
   </article>
 <% end %>

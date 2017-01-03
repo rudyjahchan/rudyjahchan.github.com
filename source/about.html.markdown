@@ -12,3 +12,8 @@ That happy accident led him to graduate from McGill University in Computer Scien
 At the same time, Rudy has worked on many side-projects. He is best known as co-creator of the web series [Galacticast](http://galacticast.com) and [A Comicbook Orange](http://acomicbookorange.com) and the mobile app [Craft Check](http://craftcheckapp.com). Between them, they have garnered millions of downloads, the attention of mainstream media, awards and fans.
 
 He continues to hack together his passions of story-telling and coding into wonderful worlds for people to play in.
+
+<a name="contact" />
+To work with Rudy or other great developers, contact <a href="http://www.carbonfive.com">Carbon Five</a>.
+
+I'm always reachable via <a href="http://twitter.com/rudy">@rudy</a> on <a href="http://twitter.com">Twitter</a>.

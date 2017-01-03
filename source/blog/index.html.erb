@@ -1,11 +1,10 @@
 ---
 pageable: true
-per_page: 10
 ---
-<div class="container">
+<div class="article-content">
   <h1>Blog</h1>
 
-  <% page_articles.each_with_index do |article, i| %>
+  <% blog.articles.each_with_index do |article, i| %>
     <article>
       <h2><%= link_to article.title, article %></h2>
       <!-- use article.summary(250) if you have Nokogiri available to show just
@@ -13,21 +12,5 @@ per_page: 10
       <%= article.summary %>
       <time datetime="<%= article.date.strftime('%F %H:%M') %>"><%= article.date.strftime('%b %e, %Y') %></time>
     </article>
-  <% end %>
-
-  <% if paginate %>
-    <nav>
-      <ul class="pager">
-        <% if prev_page %>
-          <li class="previous"><%= link_to '&laquo; Newer', prev_page %></li>
-        <% end %>
-        <% if paginate && num_pages > 1 %>
-          <li class="paging">Page <%= page_number %> of <%= num_pages %></li>
-        <% end %>
-        <% if next_page %>
-          <li class="next"><%= link_to 'Older &raquo;', next_page %></li>
-        <% end %>
-      </ul>
-    </nav>
   <% end %>
 </div>
