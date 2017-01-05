@@ -93,7 +93,7 @@ Cheers!
 [media-queries]: https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries
 [flexbox]: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 [jquery-toggle-class]:http://api.jquery.com/toggleclass/
-[site-code]: https://github.com/rudyjahchan/rudyjahchan.github.com
+[site-code]: https://github.com/rudyjahchan/rudyjahchan.github.com/tree/source
 [class-list]: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
 [circle-images]: https://www.abeautifulsite.net/how-to-make-rounded-images-with-css
 [responsive-embeds]: https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php
