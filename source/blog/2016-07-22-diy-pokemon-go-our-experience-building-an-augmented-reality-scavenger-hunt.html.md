@@ -1,0 +1,95 @@
+---
+layout: post
+title: "DIY Pokemon Go: Our Experience Building an Augmented Reality Scavenger Hunt"
+tags:
+- Code
+status: publish
+type: post
+published: true
+
+---
+_Originally posted on [Carbon Five's Blog](http://blog.carbonfive.com/2016/07/22/diy-pokemon-go-our-experience-building-an-augmented-reality-scavenger-hunt/)._
+
+Thanks to [PokemonGO](http://www.pokemongo.com/), the streets are filled with people racing around cities, stopping to interact with virtual characters they could see through their phone camera. The experience is familiar to us at Carbon Five; 6 months ago we were doing the same thing on the streets of San Francisco playing our own augmented reality game. A game our tiny, three person team conceived, built and delivered in <em>under a month</em>, in and around our regular client workload!
+
+This was no simple feat. In addition to the tight timeline, most of our day to day work focuses on mobile and web applications. Working in 3D was something only some of us have tried, with little practical experience.
+
+So how did we do it?
+
+## Augmented Reality
+
+The term "augmented reality" has become mainstream over the past few years. It commonly means an application that injects new elements anchored to and interacting with the real, physical world. This can be as simple as data overlays to something as complex as adorable critters you have to collect, and is usually achieved with one or both of two techniques.
+
+One is *computer vision*, having the application analyze an image feed hunting for known features and using their position to do anything from manipulating the image or adding new elements like 3D models to what the user is seeing. Snapchat's face swap and other portrait manipulations are the best most recent example of this. Their application identifies common points on our faces, then based on their locations transforms them by adding entertaining graphics.
+
+<img class="aligncenter size-full wp-image-12588" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/snapchat.gif" alt="snapchat" width="189" height="336" />
+
+The other technique is to use geopositioning, like Pokemon Go. These days you'll be hard pressed to find a mobile device without GPS and a gyroscope. By merging data from these two sources we can determine where a user is and which way their camera is looking, rendering new entities into the world with the correct placement and distance.
+
+<img class="aligncenter size-medium wp-image-12594" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/pokemongo-470x418.jpg" alt="pokemongo" width="470" height="418" />
+
+Both techniques have their weaknesses however. Computer vision has come a long way, especially with machine learning, but a lot of time and effort will be spent on training the system to recognize specific features or markers your application is interested in tracking under all kinds of conditions. On the other hand, while geolocation and device orientation is very easy to get, in practice they are very noisy and fuzzy, especially in-doors or within dense urban environments.
+
+So of course we decided to use both!
+
+## Designing the Experience First
+
+All kidding aside, deciding to use both computer vision and geo-positioning was not done simply for the technical challenge. It was ultimately driven by the experience we wanted to deliver. As we will show, it's actually easy to build an augmented reality experience. You could very quickly assemble a game where you see and tap basic 3D shapes floating around you that give points. But where is the joy in that? The real challenge is building a compelling experience.
+
+We've had non-AR scavenger hunts before at Carbon Five and, like everything we do, we love collecting feedback. What most people enjoyed apart from a chance to get outside and companionship were three elements: the theme of the hunt, puzzles to solve, and a chance to learn something about the area the hunt was held.
+
+So we started with a theme of San Francisco circa the Gold Rush. The SOMA area of SF didn't exist back then; Market street was actually the coastline! Overloaded ships were arriving in droves, many of them being run aground and converted into buildings.
+
+(Ironically one of those ships was the Niantic whose name was adopted by the company that developed Pokemon Go!)
+
+All kinds of interesting characters walked the streets back then. Wouldn't it be interesting to bring one of them back to life to haunt the streets again? They could guide players from one location to another, providing the educational element along the way.
+
+That's where the puzzles would come in. The ghost at each location would not provide the next location directly but instead pose a riddle. Players would have to solve it to find the next location, arriving there to search for the ghost in AR. The ghost would give them a virtual item for the hunt before repeating the process again until all items were collected.
+
+That ghost? One Emperor Norton.
+
+<img class="aligncenter size-full wp-image-12591" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/Norton.jpeg" alt="Norton" width="286" height="433" />
+
+We could take up the whole post describing the life of Emperor Norton but [we'll leave that for you to joyfully discover](https://en.wikipedia.org/wiki/Emperor_Norton). Just know he was quite the celebrity at the time, a common sight on the streets. Wouldn't it be fun to have players summon his ghost in AR to kick-off the game?
+
+And that's how we settled on the overall game. Players would be broken up into teams, each of which would receive puzzles that would guide them to download the AR app and summon Norton's ghost who would start them on the chase.
+
+The summoning would be done with computer-vision, placing Norton's ghost on a summoning circle...
+
+<img class="aligncenter size-full" src="https://s3.amazonaws.com/Carbonfive/compvision.gif" alt="The Summoning" height="320" />
+
+... while his street level presence would be accomplished through geo-positioning.
+
+<img class="aligncenter size-full wp-image-12610" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/CV-1.jpg" alt="CV" width="2484" height="1242" />
+
+## Being Practical and Productive
+
+We had our user experience mapped out. But could we do it? And what if we couldn't?
+
+As mentioned [here before](http://blog.carbonfive.com/2016/04/19/elixir-and-phoenix-the-future-of-web-apis-and-apps/), we're focused on being practical and productive so as to rapidly develop the right product and gather feedback to course correct. It's about getting something working as soon as possible, and given our tight timeline this was more true than ever.
+
+We considered building our own native app. While writing a 3D engine from scratch was out the question, there are plenty of off-the-shelf engines with plugins for AR. We've had some experience building both VR and AR demos with Unity and worked with AR pioneering company [Daqri](http://daqri.com).
+
+<img class="aligncenter size-medium wp-image-12589" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/AR-scaled-270x480.png" alt="AR-scaled" width="270" height="480" />
+
+Ultimately our own app was ruled out by a simple fact; by the time we decided WHAT we were building, we only had 3 weeks before it was used. Work experience had taught us getting a new app into the iOS store could take 2 weeks. Going Android-only could leave teams without a device between them. As well, while we've used those aforementioned tools, it was mostly as quick experiments or building out side, non-3D functionality that fit into more traditional development. And don't forget, we had to do this while delivering our regular client work! We had no time for learning let alone iteration.
+
+Which is why ultimately we went with [Layar](http://layar.com).
+
+Layar is one of many companies working to ease AR development. They have an app, available in both the iOS and Android stores, where users can load AR experiences, or "layers" as they call them. You as a layer creator provide a web endpoint that Layar hits when the user sees an image you've defined or with geolocation information. Your endpoint then responds with the entities to display to the user relative to the marker or the user's location.
+
+<img class="aligncenter size-medium wp-image-12608" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/Layar_Architecture-470x222.jpg" alt="Layar_Architecture" width="470" height="222" />
+
+It effectively turns AR into a web application request-response model, but instead of returning HTML to render a webpage, we return JSON data describing objects in 3D space! Even better, their app had a development mode allowing you to mock your locations and requests and was well documented.
+
+We now had a way to confidently and rapidly develop our AR game. We started our JSON endpoint as an Express NodeJS app, a technology we're intimately familiar with. A development layer was created and was pointed to our local workstations using [ngrok](https://ngrok.com/) so we could build and test changes in application. The work began in earnest.
+
+## Next
+
+We'll get into the technical details of implementing the game next time, discussing how we created the AR ghost summoning experience and how we placed Norton on the streets after that. Finally, we'll examine lessons learned while running the experience.
+
+Of course if you can't wait, you're welcome to skip ahead and check out [our game's code](https://github.com/carbonfive/nortonquest).
+
+Until next time.
+
+_Rudy Jahchan will be speaking on "Getting Started in VR" at the [Scenic City Summit](http://www.sceniccitysummit.com/) in Chattanooga, TN on August 12th._
