@@ -1,0 +1,2093 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Rudy Jahchan</title>
+  <subtitle>Being the thoughts and news of Rudy</subtitle>
+  <id>http://rudyjahchan.com/</id>
+  <link href="http://rudyjahchan.com/"/>
+  <link href="http://rudyjahchan.com/feed.xml" rel="self"/>
+  <updated>2017-01-03T14:08:00-08:00</updated>
+  <author>
+    <name>Rudy Jahchan</name>
+  </author>
+  <entry>
+    <title>Tweaking this Site</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2017/01/03/tweaking-site/"/>
+    <id>http://rudyjahchan.com/2017/01/03/tweaking-site/</id>
+    <published>2017-01-03T14:08:00-08:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;As my &lt;a href="http://caseymckinnon.com"&gt;beloved wife pointed out&lt;/a&gt;, a New Year
+makes me return to this site to restructure it.  Funny thing was this
+year I had no interest in a redesign.  The old one still suited me and I
+really need to focus on WHY I have a site; not to maintain one but to
+WRITE.  I had to break the cycle of not achieving the latter goal due to
+being distracted by the former.  Plus I love my &lt;a href="http://blog.carbonfive.com/2015/01/07/vintage-terminal-effect-in-css3/"&gt;faux terminal
+header&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;BUT…&lt;/p&gt;
+
+&lt;p&gt;In returning to this site I discovered that &lt;a href="https://middlemanapp.com/"&gt;Middleman&lt;/a&gt;, the
+generator I use, had long &lt;a href="https://middlemanapp.com/basics/upgrade-v4/"&gt;upgraded&lt;/a&gt;.  A lot of my
+site no longer worked.  Additionally, while I was using
+&lt;a href="http://getbootstrap.com/"&gt;Bootstrap&lt;/a&gt; and &lt;a href="https://jquery.com/"&gt;jQuery&lt;/a&gt;, both still great
+frameworks, professionally I have tried to stop using them.  I decided
+it was time to kill two birds with one stone.&lt;/p&gt;
+
+&lt;p&gt;Here then is how I changed the site.&lt;/p&gt;
+
+&lt;h2 id="moved-to-a-webpack-asset-pipeline"&gt;Moved to a Webpack Asset Pipeline&lt;/h2&gt;
+
+&lt;p&gt;This was by far the most difficult change, driven by the Middleman
+team's decision to &lt;a href="https://middlemanapp.com/advanced/asset_pipeline/"&gt;abandon a Rails like
+pipeline&lt;/a&gt;.  This was fine by me.  In my work
+with &lt;a href="https://www.carbonfive.com"&gt;Carbon Five&lt;/a&gt; I usually advocate using
+&lt;a href="https://webpack.github.io/"&gt;Webpack&lt;/a&gt; to generate front-end assets.  Luckily &lt;a href="https://twitter.com/rossta"&gt;Ross
+Kaffenberger&lt;/a&gt; had a great guide to using &lt;a href="https://rossta.net/blog/using-webpack-with-middleman.html"&gt;Webpack
+with Middleman&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The only problem I ran into was that running the Middleman local server
+(&lt;code&gt;middleman server&lt;/code&gt;) did not use the Webpack content!  I had initially
+had Webpack deliver the content to a &lt;code&gt;build&lt;/code&gt; directory, but the local
+server never made use of that!  In the end (and what I think Ross and
+the Middleman team intended) I had Webpack build into the Middleman
+source directory, letting Middleman take care of copying the output to
+the final distribution folder.&lt;/p&gt;
+
+&lt;h2 id="leaving-bootstrap-and-jquery"&gt;Leaving Bootstrap and jQuery&lt;/h2&gt;
+
+&lt;p&gt;As mentioned, I also wanted to move off of Bootstrap and jQuery.  Again
+there is nothing wrong with both of those frameworks.  It's just that I
+have become conciously aware of the bloat we introduce to our usually
+simple sites when we add these really powerful tools, especially when we
+only use a tiny bit of their functionality.&lt;/p&gt;
+
+&lt;p&gt;In my case, Bootstrap and jQuery was primarily being used for the basic navigation
+bar and menu functionality.  At the time they were introduced this made
+complete sense.  Getting consistent behavior of those features across
+web browsers was a difficult task and these libraries had done all the
+work for me.&lt;/p&gt;
+
+&lt;p&gt;However, both CSS and JavaScript have come a long way.  With
+the introduction of &lt;a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/"&gt;flexbox&lt;/a&gt; and the long available
+&lt;a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Media_Queries/Using_media_queries"&gt;media-queries&lt;/a&gt; to change styling and layout based on screen size I
+was able to rapidly recreate the navigation bar.
+In the past I would have used jQuery's
+&lt;a href="http://api.jquery.com/toggleclass/"&gt;&lt;code&gt;toggleClass&lt;/code&gt;&lt;/a&gt; functionality to make the menu
+appear and disappear.  Except the ability to easily toggle classes is
+baked into the HTML DOM API; we simply find our element, ask for it's
+&lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/Element/classList"&gt;&lt;code&gt;classList&lt;/code&gt;&lt;/a&gt; and call the &lt;code&gt;toggle&lt;/code&gt; function with
+the class in question. Quick searches on the net got me simple code to
+recreate the other small Bootstrap styles I was using namely &lt;a href="https://www.abeautifulsite.net/how-to-make-rounded-images-with-css"&gt;circle
+cropped images&lt;/a&gt; and &lt;a href="https://css-tricks.com/NetMag/FluidWidthVideo/Article-FluidWidthVideo.php"&gt;responsive
+embeds&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id="conclusion"&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;You can see all of this functionality and more by reading the code of
+this &lt;a href="https://github.com/rudyjahchan/rudyjahchan.github.com/tree/source"&gt;on Github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There you have it.  A day's worth of research and work, and my site's on
+the latest (for now) stack.  And with it I get out my first blog post in
+a while.  Here's to another New Year and to again getting into a writing
+groove.&lt;/p&gt;
+
+&lt;p&gt;Cheers!&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>C5 Labs VRogger</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2016/07/26/c5-labs-vrogger/"/>
+    <id>http://rudyjahchan.com/2016/07/26/c5-labs-vrogger/</id>
+    <published>2016-07-25T17:00:00-07:00</published>
+    <updated>2017-06-28T13:53:21-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/VTc_MkwUap4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+ &lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2016/07/26/c5-labs-vrogger/"&gt;Carbon Five's
+Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;For the last two weeks a few of us here at Carbon Five Santa Monica explored our latest love, Virtual Reality, by creating a game from scratch. We had a hard time limit of two weeks and our team was small. Just &lt;a href="http://bhavnadevani.com"&gt;Bhavna&lt;/a&gt;, &lt;a href="http://sidke.com/"&gt;Sidney&lt;/a&gt;, &lt;a href="https://twitter.com/nikkithayer"&gt;Nicole&lt;/a&gt;, and &lt;a href="https://twitter.com/rudy"&gt;Rudy&lt;/a&gt; working on a full game experience, with levels, sound and design.&lt;/p&gt;
+
+&lt;p&gt;This was completely an exercise in prioritization and exploration of a platform that only half the team had any experience with.&lt;/p&gt;
+
+&lt;p&gt;So, after just 10 working days, we present a variation of an 80's classic and favorite: &lt;a href="http://carbonfive.github.io/vrogger"&gt;VRogger!&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Tired of the hard-knock life of Frog City, you want to head off to the hills. Your only obstacle? The busy, deadly freeway in-between!&lt;/p&gt;
+
+&lt;p&gt;Built on &lt;a href="http://aframe.io"&gt;A-Frame&lt;/a&gt;, Vrogger is playable in browser, with VR support for &lt;a href="https://vr.google.com/cardboard/"&gt;Cardboard&lt;/a&gt; with your Android and iOS browsers and Oculus through &lt;a href="https://webvr.info/"&gt;WebVR&lt;/a&gt; enabled browsers; just click the VR button in lower-right corner. Game-play is easy; tap the action button (lever on the side of a Cardboard or the spacebar on your keyboard) to jump straight up. Tap and hold to jump further. Lean forward, back, side-to-side to control the direction of your jump.&lt;/p&gt;
+
+&lt;p&gt;We'll be writing more about our experience building Vrogger in the weeks to come, from why we went with A-Frame, how we applied our agile practices in its tight development, and other fun lessons learned along the way. In the meantime, check out &lt;a href="http://github.com/carbonfive/vrogger"&gt;the codebase&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Tell us what you think and &lt;a href="http://www.carbonfive.com"&gt;get in touch&lt;/a&gt; to learn more about our approach to development.&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>DIY Pokemon Go: Our Experience Building an Augmented Reality Scavenger Hunt</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2016/07/22/diy-pokemon-go-our-experience-building-an-augmented-reality-scavenger-hunt/"/>
+    <id>http://rudyjahchan.com/2016/07/22/diy-pokemon-go-our-experience-building-an-augmented-reality-scavenger-hunt/</id>
+    <published>2016-07-21T17:00:00-07:00</published>
+    <updated>2017-06-28T13:30:45-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2016/07/22/diy-pokemon-go-our-experience-building-an-augmented-reality-scavenger-hunt/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Thanks to &lt;a href="http://www.pokemongo.com/"&gt;PokemonGO&lt;/a&gt;, the streets are filled with people racing around cities, stopping to interact with virtual characters they could see through their phone camera. The experience is familiar to us at Carbon Five; 6 months ago we were doing the same thing on the streets of San Francisco playing our own augmented reality game. A game our tiny, three person team conceived, built and delivered in &lt;em&gt;under a month&lt;/em&gt;, in and around our regular client workload!&lt;/p&gt;
+
+&lt;p&gt;This was no simple feat. In addition to the tight timeline, most of our day to day work focuses on mobile and web applications. Working in 3D was something only some of us have tried, with little practical experience.&lt;/p&gt;
+
+&lt;p&gt;So how did we do it?&lt;/p&gt;
+
+&lt;h2 id="augmented-reality"&gt;Augmented Reality&lt;/h2&gt;
+
+&lt;p&gt;The term "augmented reality" has become mainstream over the past few years. It commonly means an application that injects new elements anchored to and interacting with the real, physical world. This can be as simple as data overlays to something as complex as adorable critters you have to collect, and is usually achieved with one or both of two techniques.&lt;/p&gt;
+
+&lt;p&gt;One is &lt;em&gt;computer vision&lt;/em&gt;, having the application analyze an image feed hunting for known features and using their position to do anything from manipulating the image or adding new elements like 3D models to what the user is seeing. Snapchat's face swap and other portrait manipulations are the best most recent example of this. Their application identifies common points on our faces, then based on their locations transforms them by adding entertaining graphics.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="aligncenter size-full wp-image-12588" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/snapchat.gif" alt="snapchat" width="189" height="336" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The other technique is to use geopositioning, like Pokemon Go. These days you'll be hard pressed to find a mobile device without GPS and a gyroscope. By merging data from these two sources we can determine where a user is and which way their camera is looking, rendering new entities into the world with the correct placement and distance.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="aligncenter size-medium wp-image-12594" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/pokemongo-470x418.jpg" alt="pokemongo" width="470" height="418" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Both techniques have their weaknesses however. Computer vision has come a long way, especially with machine learning, but a lot of time and effort will be spent on training the system to recognize specific features or markers your application is interested in tracking under all kinds of conditions. On the other hand, while geolocation and device orientation is very easy to get, in practice they are very noisy and fuzzy, especially in-doors or within dense urban environments.&lt;/p&gt;
+
+&lt;p&gt;So of course we decided to use both!&lt;/p&gt;
+
+&lt;h2 id="designing-the-experience-first"&gt;Designing the Experience First&lt;/h2&gt;
+
+&lt;p&gt;All kidding aside, deciding to use both computer vision and geo-positioning was not done simply for the technical challenge. It was ultimately driven by the experience we wanted to deliver. As we will show, it's actually easy to build an augmented reality experience. You could very quickly assemble a game where you see and tap basic 3D shapes floating around you that give points. But where is the joy in that? The real challenge is building a compelling experience.&lt;/p&gt;
+
+&lt;p&gt;We've had non-AR scavenger hunts before at Carbon Five and, like everything we do, we love collecting feedback. What most people enjoyed apart from a chance to get outside and companionship were three elements: the theme of the hunt, puzzles to solve, and a chance to learn something about the area the hunt was held.&lt;/p&gt;
+
+&lt;p&gt;So we started with a theme of San Francisco circa the Gold Rush. The SOMA area of SF didn't exist back then; Market street was actually the coastline! Overloaded ships were arriving in droves, many of them being run aground and converted into buildings.&lt;/p&gt;
+
+&lt;p&gt;(Ironically one of those ships was the Niantic whose name was adopted by the company that developed Pokemon Go!)&lt;/p&gt;
+
+&lt;p&gt;All kinds of interesting characters walked the streets back then. Wouldn't it be interesting to bring one of them back to life to haunt the streets again? They could guide players from one location to another, providing the educational element along the way.&lt;/p&gt;
+
+&lt;p&gt;That's where the puzzles would come in. The ghost at each location would not provide the next location directly but instead pose a riddle. Players would have to solve it to find the next location, arriving there to search for the ghost in AR. The ghost would give them a virtual item for the hunt before repeating the process again until all items were collected.&lt;/p&gt;
+
+&lt;p&gt;That ghost? One Emperor Norton.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="aligncenter size-full wp-image-12591" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/Norton.jpeg" alt="Norton" width="286" height="433" /&gt;&lt;/p&gt;
+
+&lt;p&gt;We could take up the whole post describing the life of Emperor Norton but &lt;a href="https://en.wikipedia.org/wiki/Emperor_Norton"&gt;we'll leave that for you to joyfully discover&lt;/a&gt;. Just know he was quite the celebrity at the time, a common sight on the streets. Wouldn't it be fun to have players summon his ghost in AR to kick-off the game?&lt;/p&gt;
+
+&lt;p&gt;And that's how we settled on the overall game. Players would be broken up into teams, each of which would receive puzzles that would guide them to download the AR app and summon Norton's ghost who would start them on the chase.&lt;/p&gt;
+
+&lt;p&gt;The summoning would be done with computer-vision, placing Norton's ghost on a summoning circle…&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="aligncenter size-full" src="https://s3.amazonaws.com/Carbonfive/compvision.gif" alt="The Summoning" height="320" /&gt;&lt;/p&gt;
+
+&lt;p&gt;… while his street level presence would be accomplished through geo-positioning.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="aligncenter size-full wp-image-12610" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/CV-1.jpg" alt="CV" width="2484" height="1242" /&gt;&lt;/p&gt;
+
+&lt;h2 id="being-practical-and-productive"&gt;Being Practical and Productive&lt;/h2&gt;
+
+&lt;p&gt;We had our user experience mapped out. But could we do it? And what if we couldn't?&lt;/p&gt;
+
+&lt;p&gt;As mentioned &lt;a href="http://blog.carbonfive.com/2016/04/19/elixir-and-phoenix-the-future-of-web-apis-and-apps/"&gt;here before&lt;/a&gt;, we're focused on being practical and productive so as to rapidly develop the right product and gather feedback to course correct. It's about getting something working as soon as possible, and given our tight timeline this was more true than ever.&lt;/p&gt;
+
+&lt;p&gt;We considered building our own native app. While writing a 3D engine from scratch was out the question, there are plenty of off-the-shelf engines with plugins for AR. We've had some experience building both VR and AR demos with Unity and worked with AR pioneering company &lt;a href="http://daqri.com"&gt;Daqri&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="aligncenter size-medium wp-image-12589" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/AR-scaled-270x480.png" alt="AR-scaled" width="270" height="480" /&gt;&lt;/p&gt;
+
+&lt;p&gt;Ultimately our own app was ruled out by a simple fact; by the time we decided WHAT we were building, we only had 3 weeks before it was used. Work experience had taught us getting a new app into the iOS store could take 2 weeks. Going Android-only could leave teams without a device between them. As well, while we've used those aforementioned tools, it was mostly as quick experiments or building out side, non-3D functionality that fit into more traditional development. And don't forget, we had to do this while delivering our regular client work! We had no time for learning let alone iteration.&lt;/p&gt;
+
+&lt;p&gt;Which is why ultimately we went with &lt;a href="http://layar.com"&gt;Layar&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Layar is one of many companies working to ease AR development. They have an app, available in both the iOS and Android stores, where users can load AR experiences, or "layers" as they call them. You as a layer creator provide a web endpoint that Layar hits when the user sees an image you've defined or with geolocation information. Your endpoint then responds with the entities to display to the user relative to the marker or the user's location.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="aligncenter size-medium wp-image-12608" src="http://blog.carbonfive.com/wp-content/uploads/2016/07/Layar_Architecture-470x222.jpg" alt="Layar_Architecture" width="470" height="222" /&gt;&lt;/p&gt;
+
+&lt;p&gt;It effectively turns AR into a web application request-response model, but instead of returning HTML to render a webpage, we return JSON data describing objects in 3D space! Even better, their app had a development mode allowing you to mock your locations and requests and was well documented.&lt;/p&gt;
+
+&lt;p&gt;We now had a way to confidently and rapidly develop our AR game. We started our JSON endpoint as an Express NodeJS app, a technology we're intimately familiar with. A development layer was created and was pointed to our local workstations using &lt;a href="https://ngrok.com/"&gt;ngrok&lt;/a&gt; so we could build and test changes in application. The work began in earnest.&lt;/p&gt;
+
+&lt;h2 id="next"&gt;Next&lt;/h2&gt;
+
+&lt;p&gt;We'll get into the technical details of implementing the game next time, discussing how we created the AR ghost summoning experience and how we placed Norton on the streets after that. Finally, we'll examine lessons learned while running the experience.&lt;/p&gt;
+
+&lt;p&gt;Of course if you can't wait, you're welcome to skip ahead and check out &lt;a href="https://github.com/carbonfive/nortonquest"&gt;our game's code&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Until next time.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Rudy Jahchan will be speaking on "Getting Started in VR" at the &lt;a href="http://www.sceniccitysummit.com/"&gt;Scenic City Summit&lt;/a&gt; in Chattanooga, TN on August 12th.&lt;/em&gt;&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>My 100 Days Challenge; 100 Days of Story</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2015/08/24/my-100dayschallenge-100-days-of-story/"/>
+    <id>http://rudyjahchan.com/2015/08/24/my-100dayschallenge-100-days-of-story/</id>
+    <published>2015-08-23T22:57:00-07:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;"I'm working on a novel."&lt;/p&gt;
+
+&lt;p&gt;That's become my quick response when people ask me what I've been working on, given my aspirations to be a writer.&lt;/p&gt;
+
+&lt;p&gt;And I have been.&lt;/p&gt;
+
+&lt;p&gt;On several of them.&lt;/p&gt;
+
+&lt;p&gt;When I'm not plopped in from of the teevees, tired from a day of work.&lt;/p&gt;
+
+&lt;p&gt;Which has all been part of the same problem.  I suffer from that particular form of writer's block where I never make the time to write, never focus on what it is I need to do, leave it to when I am too tired to do it and, saddest of all, never get anything out there.&lt;/p&gt;
+
+&lt;p&gt;This has been the state of affairs for the past couple of years, with nothing new creatively coming from me since I wrote and produced a short film a couple of years ago.  Time for change.&lt;/p&gt;
+
+&lt;p&gt;Inspired by friends &lt;a href="https://instagram.com/nicollerich"&gt;Nicolle Richard&lt;/a&gt; and &lt;a href="https://twitter.com/bomatson"&gt;Bobby Matson&lt;/a&gt; and their own 100 days of creative work, I decided to start my own. Every day, for a 100 days, I'll write a short story.&lt;/p&gt;
+
+&lt;p&gt;Every day, I'll roll my sets of &lt;a href="http://www.amazon.com/gp/product/B006HVMK8Q/ref=as_li_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=B006HVMK8Q&amp;amp;linkCode=as2&amp;amp;tag=rudyjahchanco-20&amp;amp;linkId=7G6WUAPIDPTLWO77"&gt;Story Cubes&lt;/a&gt;&lt;img src="http://ir-na.amazon-adsystem.com/e/ir?t=rudyjahchanco-20&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=B006HVMK8Q" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /&gt;, gifts from &lt;a href="http://caseymckinnon.com"&gt;my lovely wife&lt;/a&gt;. I'll write a story incorporating the images that have come up, posting the story and a photo of the dice faces to &lt;a href="https://medium.com/100-days-of-story"&gt;100 Days of Story&lt;/a&gt; a Medium publication I started for the project. You can follow my progress there or on &lt;a href="https://instagram.com/rudyjahchan/"&gt;Instagram&lt;/a&gt; and my other social links, tagged with #The100DaysProject, #100DaysChallenge, and #100DaysOfStory.&lt;/p&gt;
+
+&lt;p&gt;I make no promises on length or quality of the work. Just that I'll get something out.&lt;/p&gt;
+
+&lt;p&gt;Wish me luck and pleast to enjoy!&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Getting Started in VR with Javascript</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2015/05/13/getting-started-in-vr-with-javascript/"/>
+    <id>http://rudyjahchan.com/2015/05/13/getting-started-in-vr-with-javascript/</id>
+    <published>2015-05-13T11:14:00-07:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/oroAoCuCc74" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt; &lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2015/05/13/getting-started-in-virtual-reality-with-javascript-video-announcing-android-workshop/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Virtual Reality is something we at &lt;a href="http://carbonfive.com"&gt;Carbon Five&lt;/a&gt; have been playing around with the past few months, learning not only how to get started but how we can use our current toolset to work within the growing field. That's why I was excited two weeks ago to give a talk on getting started in virtual reality through JavaScript and &lt;a href="http://mozvr.com"&gt;WebVR&lt;/a&gt; at &lt;a href="http://empirejs.org/"&gt;EmpireJS&lt;/a&gt; in New York. We all had a fun time while I (wearing a TRON hoodie and Snow Crash referencing tee) walked through what we've learned while cracking jokes about Lawnmower Man and the 90s obsession with VR.&lt;/p&gt;
+
+&lt;p&gt;The video of the talk is available above (thanks to the EmpireJS crew for it and being incredible hosts) and the slide deck is available below. Try out demos on our VR demo site &lt;a href="http://c5vr.com"&gt;c5vr.com&lt;/a&gt; with all the code being available through the &lt;a href="https://github.com/carbonfive/c5vr"&gt;site's repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style="margin-bottom: 2em;text-align:center;"&gt;&lt;iframe src="//www.slideshare.net/slideshow/embed_code/key/ihtCXHPIKV7yCm" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen=""&gt; &lt;/iframe&gt; &lt;div style="margin-bottom:5px"&gt; &lt;strong&gt; &lt;a href="//www.slideshare.net/rudyjahchan/getting-started-in-vr-with-js" title="Getting Started in VR with JS" target="_blank"&gt;Getting Started in VR with JS&lt;/a&gt; &lt;/strong&gt; from &lt;strong&gt;&lt;a href="//www.slideshare.net/rudyjahchan" target="_blank"&gt;Rudy Jahchan&lt;/a&gt;&lt;/strong&gt; &lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, we're holding &lt;a href="https://www.eventbrite.com/e/getting-started-in-vr-tickets-16969341758"&gt;a workshop in our Santa Monica office&lt;/a&gt; walking through the same concepts for the Android platform, using Google Cardboard and Unity on Wednesday May 20th at 7:00pm PDT. For $15 you get one of the limited spots and your own take-home headset so if you're interested, &lt;a href="https://www.eventbrite.com/e/getting-started-in-vr-tickets-16969341758"&gt;please register here&lt;/a&gt;!&lt;/p&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Vintage Terminal Effect in CSS3</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2015/01/07/vintage-terminal-css3/"/>
+    <id>http://rudyjahchan.com/2015/01/07/vintage-terminal-css3/</id>
+    <published>2015-01-07T10:28:00-08:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;In addition to moving from Jekyll to &lt;a href="http://middlemanapp.com"&gt;Middleman&lt;/a&gt; for this
+site, I also wanted to do something special. Something that represented
+my quirky, geeky, 80s loving, hacker side instead of yet another
+&lt;a href="http://getbootstrap.com"&gt;Bootstrap&lt;/a&gt; styled blogging site. I debated between swiping
+&lt;a href="http://oranlooney.com"&gt;Oran Looney's&lt;/a&gt; &lt;a href="http://oranlooney.com/sassy-tron/"&gt;Tron&lt;/a&gt; theme and one point
+considered making my entire site act like a &lt;a href="http://andersevenrud.github.io/shell/"&gt;console&lt;/a&gt;
+like &lt;a href="https://anderse.wordpress.com"&gt;Anders Evenrud's&lt;/a&gt; demo. However, this could be a
+huge drain on the resources of any reader's browsers, especially those
+on mobile devices.&lt;/p&gt;
+
+&lt;p&gt;These issues were being bemoaned to my love &lt;a href="http://caseymckinnon.com"&gt;Casey McKinnon&lt;/a&gt; and
+my bud Paul right before a screening of Blade Runner: Director's Cut.
+They promptly told me to shutup and provided the obvious answer. Just
+style my header! Which is exactly what I did if you cast your eyes to
+the top of my site. Or see the demo below (for my dear feed readers):&lt;/p&gt;
+
+&lt;iframe width="100%" height="100" src="http://jsfiddle.net/rudyjahchan/qmjg92gq/embedded/result" allowfullscreen="allowfullscreen" frameborder="0"&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Technical details on how I accomplished it can be found in &lt;a href="http://blog.carbonfive.com/2015/01/07/vintage-terminal-effect-in-css3/"&gt;this post I
+did on the Carbon Five blog&lt;/a&gt;. I do want to say I sit on the shoulders of
+giants, in this case Anders Evernud and &lt;a href="http://lea.verou.me"&gt;Lea Verou&lt;/a&gt;. And once
+more thanks for the inspiration Paul and Casey!&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>New Year, New Site</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2015/01/05/new-year-new-site/"/>
+    <id>http://rudyjahchan.com/2015/01/05/new-year-new-site/</id>
+    <published>2015-01-04T18:16:00-08:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;Hello, 2015! I love this time of year as another chance to kick-off new
+endeavors. For me, it means refreshing my website and get back into
+writing.&lt;/p&gt;
+
+&lt;p&gt;Many times in the best year, I've thought "I really should write a blog
+post about that" … and never did. There are the occasional
+code-centric posts I've written for &lt;a href="http://carbonfive.com"&gt;Carbon Five&lt;/a&gt; but
+at heart I am still a writer. Writers gotta write though, so this is my
+go at it.&lt;/p&gt;
+
+&lt;p&gt;Going forward then, I'll be posting my thoughts under two categories:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://rudyjahchan.com/tags/code/"&gt;Code&lt;/a&gt; - tricks I've picked up and ideas I'm investigating in my
+work with C5, &lt;a href="http://craftcheckapp.com"&gt;Craft Check&lt;/a&gt;, and even this site.&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://rudyjahchan.com/tags/geek/"&gt;Geek&lt;/a&gt; - reviews and reflections on comics, flicks, games, and more.
+With original work thrown in now and then.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So please stick around by following me on &lt;a href="http://twitter.com/rudy"&gt;twitter&lt;/a&gt;, subscribing to my
+&lt;a href="http://feeds.feedburner.com/rudyjahchan"&gt;RSS feed&lt;/a&gt;, or simply checking in on me now and then. And I always
+love to hear back from you whether through comments or other means.&lt;/p&gt;
+
+&lt;p&gt;Let's make 2015 a great one! [Insert obligatory Back to the Future II
+joke here].&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Taking Advantage of Multi-Processor Environments in Node.js</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2014/02/28/taking-advantage-of-multi-processor-environments-in-node-js/"/>
+    <id>http://rudyjahchan.com/2014/02/28/taking-advantage-of-multi-processor-environments-in-node-js/</id>
+    <published>2014-02-27T16:00:00-08:00</published>
+    <updated>2017-06-28T13:31:42-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2014/02/28/taking-advantage-of-multi-processor-environments-in-node-js/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://nodejs.org"&gt;Node.js&lt;/a&gt; has more than proven itself capable of handling
+multiple events concurrently such as server connections, and all without
+exposing us to the complexities of threading. Still, this locks
+our apps down to a single process with a single thread of execution
+consuming a single event queue. On a machine with a single processor, this
+is no big loss; there is only one active process in any case.&lt;/p&gt;
+
+&lt;p&gt;But we live in a multi-core world now and out of the box Node does not take advantage of this,
+though it certainly has the ability to. &lt;a href="#tldr"&gt;tldr »&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="the-problem"&gt;The "Problem"&lt;/h2&gt;
+
+&lt;p&gt;To illustrate why this may be a problem for some applications, let's
+turn to a multi-player game system we recently released.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://carbonfive.github.io/vimtronner"&gt;vimtronner&lt;/a&gt; is a vim trainer built atop Node.js and
+&lt;a href="http://socket.io"&gt;Socket.io&lt;/a&gt; that allows multiple players
+to remotely connect to a server and compete against each other. More
+importantly, it can host many games at the same time. Each game uses
+&lt;code&gt;setInterval&lt;/code&gt; to update its state inform all its players of
+changes every 100ms.&lt;/p&gt;
+
+&lt;p&gt;Except that is not entirely true.&lt;/p&gt;
+
+&lt;p&gt;As my colleague &lt;a href="https://github.com/laser"&gt;Erin&lt;/a&gt; explained
+in his post on the &lt;a href="http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained/"&gt;JavaScript Event Loop&lt;/a&gt;
+there is only a SINGLE queue of events that our single-threaded process
+works its way through. The &lt;code&gt;setTimeout&lt;/code&gt; and &lt;code&gt;setInterval&lt;/code&gt; function don't actually
+RUN their callbacks at the specified time intervals. They simply ENQUEUE them
+at that time, an important distinction.&lt;/p&gt;
+
+&lt;p&gt;When there are no events in the queue ahead of it, the callback is executed
+more or less immediately, so there does not seem to be a problem. This
+is effectively the situation when only a single game is running on a server.&lt;/p&gt;
+
+&lt;p&gt;But imagine if each game of vimtronner takes 10ms to update and broadcast its state
+(which would be generous). When two games are running, it will take 20ms to process
+through both games, leaving 80ms before the next updates are re-queued. At three games
+this becomes 30ms, at four 40, and so on.&lt;/p&gt;
+
+&lt;p&gt;At 10 games we hit our problem point. The time taken to update all
+the games matches the time interval before new update callbacks are
+events. If just one more game is started, the time before each game next gets updated
+will be DELAYED by 10ms from the expected 100ms. This worsens as more games
+are added so a server running 20 games will take 200ms to update all the games before
+it is even able to process the next set of update events. ALL games are slowed down by half!&lt;/p&gt;
+
+&lt;p&gt;This also does not even take into account the other events that are queued in the
+system from players joining and leaving games, asking for game lists, or
+even responding to simple controls from socket events.&lt;/p&gt;
+
+&lt;p&gt;Games don't actually interact with one another so it makes no sense
+at all that they should block each other. Ideally each game should
+have its own event loop and queue.  Additionally, we want to
+minimize the impact taken handling socket events. And on a multi-core
+box dedicated to running just the server, we are wasting the processing
+power that will allow us to fulfill those needs.&lt;/p&gt;
+
+&lt;p&gt;So how can we maximize multi-processor environments to
+parallelize tasks? Node's &lt;a href="http://nodejs.org/about/"&gt;about page&lt;/a&gt; directly supplies
+the answer:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;You can start new processes via &lt;a href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options"&gt;&lt;code&gt;child_process.fork()&lt;/code&gt;&lt;/a&gt; these other
+processes will be scheduled in parallel. For load balancing incoming
+connections across multiple processes use the &lt;a href="http://nodejs.org/api/cluster.html#cluster_cluster_fork_env"&gt;&lt;code&gt;cluster&lt;/code&gt;&lt;/a&gt; module.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Let's take a look at how and when to use these two modules.&lt;/p&gt;
+
+&lt;h2 id="cluster-to-parallelize-the-same-flow-of-execution"&gt;Cluster to parallelize the SAME Flow of Execution&lt;/h2&gt;
+
+&lt;p&gt;We'll begin with the &lt;a href="http://nodejs.org/api/cluster.html"&gt;&lt;code&gt;cluster&lt;/code&gt;&lt;/a&gt; module. Introduced around version 0.8,
+its stated purpose is to handle heavy workload by launching a cluster of
+Node processes. Additionally, these processes can share the same server
+ports, making it ideal for web applications.&lt;/p&gt;
+
+&lt;p&gt;The use of this module is very easy, revolving around determining if the
+current Node process is the "master" who can launch "workers" with a
+call to &lt;a href="http://nodejs.org/api/cluster.html#cluster_cluster_fork_env"&gt;&lt;code&gt;cluster.fork()&lt;/code&gt;&lt;/a&gt;, or one of many "workers" who are all expected to carry
+out the same work. This is illustrated in the code below.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9275029.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Let's write a program that calls the above named
+&lt;code&gt;cluster_example.coffee&lt;/code&gt;:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9275043.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;I can then run it on my quad-core MacBook Pro and get the following output:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9276567.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Reading through the lines we can see 8 workers were launched. But more
+importantly notice the repeated output surrounding the master and worker
+declaration lines. The "Before the fork" and "After the fork" came from
+the launch code itself, but more interesting is the repeated "Launching
+cluster". This was from the MAIN example code not the launcher. It tells us that
+when we fork a cluster, we are running through the SAME program from the
+BEGINNING.&lt;/p&gt;
+
+&lt;p&gt;This is what makes the &lt;code&gt;cluster&lt;/code&gt; module ideal for parallelization of the
+SAME work across many Node processes. The code will go through the same initialization.
+You could introduce variation aside from the
+differing "master" vs "worker" behavior into the mix if you felt like it, but this
+would go against its intended purpose.&lt;/p&gt;
+
+&lt;p&gt;You can see this in the common example of load balancing connections on a
+Node server instance:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9276981.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Each worker process will start up a server and listen to the same port,
+a further feature of the &lt;code&gt;cluster&lt;/code&gt; module.&lt;/p&gt;
+
+&lt;h2 id="child-process-a-different-flow-of-execution"&gt;Child Process a DIFFERENT Flow of Execution&lt;/h2&gt;
+
+&lt;p&gt;Reading &lt;a href="http://nodejs.org/about/"&gt;how &lt;code&gt;cluster&lt;/code&gt; works&lt;/a&gt;, you will discover it
+sits atop the other module we are interested in:
+&lt;a href="http://nodejs.org/api/child_process.html"&gt;&lt;code&gt;child_process&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The module supplies a number of methods to coordinate the launching of processes
+and communication between them. While the &lt;a href="http://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback"&gt;&lt;code&gt;exec&lt;/code&gt;&lt;/a&gt; and 
+&lt;a href="http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options"&gt;&lt;code&gt;spawn&lt;/code&gt;&lt;/a&gt; methods
+allow calling external commands, of interest to us is again the 
+&lt;a href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options"&gt;&lt;code&gt;fork&lt;/code&gt;&lt;/a&gt;
+function. When we call it, we pass the full path to a Node module we wish to run,
+as seen in this code below:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9276642.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;As before let's write some example program that calls this &lt;code&gt;launch&lt;/code&gt; code:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9276661.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Running this results in the following output:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9276683.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Unlike the &lt;code&gt;cluster&lt;/code&gt; example, we DON'T see the repetition of the "Launching"
+message, or the "Before" and "After" messages surrounding the fork.
+Child processes launched this way BEGIN with the referenced module itself. We
+don't go through any of the same code as the parent process, unless
+explicitly required by the called module. Basically it's the way to go when we want to run
+processes independently with different initialization and concerns.&lt;/p&gt;
+
+&lt;p&gt;This does not mean there is no way for the parent and child processes to
+coordinate with each other. There are standard mechanisms like piped
+streams or external messaging queues. But forked Node processes have an
+additional avenue; a built in Inter-Process Communication channel.
+Simple values and objects can be passed through this channel via the &lt;code&gt;send&lt;/code&gt; functions
+on either the &lt;a href="http://nodejs.org/api/child_process.html#child_process_child_send_message_sendhandle"&gt;&lt;code&gt;child_process&lt;/code&gt;&lt;/a&gt; instance or the 
+&lt;a href="http://nodejs.org/api/process.html"&gt;&lt;code&gt;process&lt;/code&gt; module&lt;/a&gt; for either the parent or child process respectively.
+These objects arrive as &lt;code&gt;'message'&lt;/code&gt; events on the other side.&lt;/p&gt;
+
+&lt;p&gt;This is illustrated in the "processified" version of the
+&lt;a href="http://carbonfive.github.io/vimtronner"&gt;vimtronner&lt;/a&gt; game we released a month ago. Instead of the
+server managing games directly like it use to, it forks a child process
+for each game, sends configuration into it and waits for messages back.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9276835.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Likewise, a new 'game_process' module now wraps a game instance,
+responding to events from players sent from the server process and
+sending back game events.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/9276808.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;A final note. In addition to sending an object, the &lt;code&gt;send&lt;/code&gt; allows the
+transmission of handles like TCP servers and sockets between process. It
+is through this mechanism that the &lt;code&gt;cluster&lt;/code&gt; functionality was created.&lt;/p&gt;
+
+&lt;h2 id="the-downside"&gt;The Downside&lt;/h2&gt;
+
+&lt;p&gt;There are some issues to keep in mind when taking advantage of the
+forking functionality. While Node processes are considered "lightweight"
+they do &lt;a href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options"&gt;consume resources when starting up&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;These child Nodes are still whole new instances of V8. Assume at least
+30ms startup and 10mb memory for each new Node. That is, you cannot
+create many thousands of them.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Likewise, we while we can certainly run more things in parallel we are
+still ultimately CPU bound. A multi-core processor can only run as many
+processes as threads of execution it can throw at.&lt;/p&gt;
+
+&lt;p&gt;Finally, when clustering servers, we
+must be aware that though the cluster can handle connections to the same
+endpoint, each worker is only aware of the connection it handles. So if
+two connections come in that are suppose to interact with other but are
+handled by different workers, the interaction can never take place
+without the support of other systems like Redis message queues or shared
+storage.&lt;/p&gt;
+
+&lt;h2 id="tldr"&gt;tl;dr&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use either the &lt;a href="http://nodejs.org/api/child_process.html"&gt;&lt;code&gt;child_process&lt;/code&gt;&lt;/a&gt; or the &lt;a href="http://nodejs.org/api/cluster.html"&gt;&lt;code&gt;cluster&lt;/code&gt;&lt;/a&gt; modules to take
+advantage of multi-processer environments.&lt;/li&gt;
+  &lt;li&gt;Use &lt;code&gt;cluster&lt;/code&gt; when you want to parallelize the &lt;em&gt;SAME&lt;/em&gt; flow of execution
+and server listening.&lt;/li&gt;
+  &lt;li&gt;Use &lt;code&gt;child_process&lt;/code&gt; when you want &lt;em&gt;DIFFERENT&lt;/em&gt; flows of execution
+working together.&lt;/li&gt;
+  &lt;li&gt;Take advantage of built in &lt;a href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options"&gt;Inter-Process Communication&lt;/a&gt; to pass
+objects between the processes.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>BDD Composition over Inheritance with RSpec Shared Examples</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2013/08/07/bdd-composition-over-inheritence-with-rspec-shared-examples/"/>
+    <id>http://rudyjahchan.com/2013/08/07/bdd-composition-over-inheritence-with-rspec-shared-examples/</id>
+    <published>2013-08-06T17:00:00-07:00</published>
+    <updated>2017-06-28T12:55:01-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2013/08/07/bdd-composition-over-inheritance-with-rspec-shared-examples/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The technique of &lt;a href="http://en.wikipedia.org/wiki/Composition_over_inheritance" title="Composition over inheritence"&gt;composition over inheritience&lt;/a&gt; is more than simply encapsulating objects into larger entities; its really about defining models as being made up of &lt;em&gt;resuable behaviors&lt;/em&gt;. It makes sense then in &lt;em&gt;Behavaior&lt;/em&gt; Driven Design we apply the technique not just when writing the implementations of our models but also when creating the specifications themselves. Instead of many files repeating the same functionality in large blocks of spec code, we end up with specs that look like:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=01_image_spec.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;This is pleasantly tighter, DRYer, and tighter code. So how did we "compose" this spec and behaviors? &lt;!--more--&gt; &lt;a href="#tldr"&gt;&lt;strong&gt;TL;DR »&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="sample-domain"&gt;Sample Domain&lt;/h2&gt;
+
+&lt;p&gt;Imagine we are developing a media management application. Within this system, an &lt;strong&gt;assignment&lt;/strong&gt; can be created for an &lt;strong&gt;image&lt;/strong&gt; into multiple &lt;strong&gt;galleries&lt;/strong&gt;. This is simple enough to model.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=02_simple_models.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;Additionally, each of these models can be marked with &lt;em&gt;metadata&lt;/em&gt;, which comes in three flavors:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;references&lt;/strong&gt; to one or more &lt;strong&gt;creators&lt;/strong&gt; and &lt;strong&gt;places&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;tags&lt;/strong&gt;, the traditional list of strings, stored in a &lt;a href="http://reefpoints.dockyard.com/ruby/2012/06/18/postgres_ext-adding-postgres-data-types-to-active-record.html"&gt;Postgres array&lt;/a&gt; and can be searched on.&lt;/li&gt;
+  &lt;li&gt;a &lt;strong&gt;hash-bag&lt;/strong&gt; of simple string key-value pairs stored as a &lt;a href="https://github.com/engageis/activerecord-postgres-hstore"&gt;Postgres &lt;code&gt;hstore&lt;/code&gt;&lt;/a&gt; and are also searchable.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There is one additonal important detail; not all types of metadata would be available on every type of model:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Images can have all types of metadata; references, tags, and the hash-bag.&lt;/li&gt;
+  &lt;li&gt;Galleries can only have tags and the hash-bag.&lt;/li&gt;
+  &lt;li&gt;Assignments can only have the hash-bag.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="implementing-images"&gt;Implementing Images&lt;/h2&gt;
+
+&lt;p&gt;Given the above requirements, it is apparent that at some point composing with modules will come into play and we could leap to that point. But in practice, we would be following our story-based agile process, and so may end up fully developing the &lt;code&gt;Image&lt;/code&gt; model first.&lt;/p&gt;
+
+&lt;p&gt;We start by writing out a spec, using &lt;a href="https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md"&gt;Factory-Girl&lt;/a&gt; to handle instance generation.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=03_image_w_everything_spec.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;And then implement the model to pass the spec. Note the custom code below to handle the Postgres array and hstore based tags and hashbag:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=04_image_w_everything.rb"&gt;&lt;/script&gt;
+
+&lt;h2 id="refactor-into-shared-examples"&gt;Refactor into Shared Examples&lt;/h2&gt;
+
+&lt;p&gt;With working specs and implementation in hand for all of our metadata, we can move on to adding the same but different functionality to the remaining models. And as good devs, we HAVE to start with specs that define the behavior. We could simply use the ugly technique of "copy-paste" the spec code of &lt;code&gt;Image&lt;/code&gt; into the specs of the &lt;code&gt;Assignment&lt;/code&gt; and &lt;code&gt;Gallery&lt;/code&gt;. But this begs the wrath of The Maintenance Gods and their acolytes, your fellow devs!&lt;/p&gt;
+
+&lt;p&gt;So we won't, as we additionally follow the principle of DRY; &lt;a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself"&gt;Don't Repeat Yourself&lt;/a&gt;. This is where &lt;a href="https://www.relishapp.com/rspec/rspec-core/v/2-14/docs/example-groups/shared-examples"&gt;RSpec shared examples&lt;/a&gt; come into play. A shared example is a collection of context and examples you can declare with a name:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=05_shared_example_example.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;The shared example can then be invoked within the context of your specs with &lt;code&gt;include_examples&lt;/code&gt; or (my preference) &lt;code&gt;it_behaves_like&lt;/code&gt;:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=06_shared_example_use_example.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;You can even pass in parameters into a shared example:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=07_shared_example_parameters_example.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;Using this feature we can refactor the behavior of each of the three different types of metadata into their own shared examples. Looking at the code in the original specs, we need to change two things to better support testing against any model; not calling the methods on the &lt;code&gt;Image&lt;/code&gt; class and using the appropriate factory when instantiating instances to test against. We do this by passing the model we are testing and the factory to use as parameters:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=08_meta_data_examples.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;Now we can rewrite the spec for &lt;code&gt;Image&lt;/code&gt; to use these shared examples:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=09_image_spec_w_examples.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;Even better we can now easily write the specs of the other two models:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=10_other_model_specs_with_examples.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;We have effectively "composed" our specs from a set of behaviors! We also have not said anything about HOW this functionality will be achieved, maintaining the BDD mantra of testing &lt;em&gt;behavior&lt;/em&gt; NOT &lt;em&gt;implementation&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id="compose-with-modules-where-inheritence-will-fail-us"&gt;Compose with Modules (where Inheritence will fail us)&lt;/h2&gt;
+
+&lt;p&gt;Now how to get these new specs to pass? Again the most ugly way would be to simply copy and paste but remember; those gods and devs sure are wrathful!&lt;/p&gt;
+
+&lt;p&gt;In all seriousness, this is where code reuse becomes important and also illustrates where composition will trump inheritence. Yes, the desired functionality can be achieved with inheritence. We could introduce a parent &lt;code&gt;MetadataBase&lt;/code&gt; class that all our models inherit from. Or decide that &lt;code&gt;Image&lt;/code&gt; descends from &lt;code&gt;Gallery&lt;/code&gt; which descends from &lt;code&gt;Assignment&lt;/code&gt; with each level adding the additional metadata implementation needed their parent does not provide. But neither correctly represents our domain; the first example exposes functionality on &lt;code&gt;Assignment&lt;/code&gt; and &lt;code&gt;Gallery&lt;/code&gt; that really shouldn't be there while adding class bloat, and the other solution is just plain wrong!&lt;/p&gt;
+
+&lt;p&gt;The better solution is to encapsulate the behavior of each specific kind of metadata into seperate modules:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=11_metadata_in_modules.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;We can then compose our models by including the modules of behavior they actually have.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=12_models_w_modules.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;This is extremely elegant on so many levels. It adheres to the &lt;a href="http://en.wikipedia.org/wiki/Single_responsibility_principle"&gt;single responsibility principle&lt;/a&gt; with each module solely focused around the logic of the metadata it represents. It DRYs up the implementation. And the resulting code practically reads like the domain model we outlined at the top of this post:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;An image includes references, tags, and a hash bag.&lt;/li&gt;
+  &lt;li&gt;A gallery includes tags and a hash bag.&lt;/li&gt;
+  &lt;li&gt;An assignment include just a hash bag.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="getting-cleaner"&gt;Getting Cleaner&lt;/h2&gt;
+
+&lt;p&gt;Our specs could stand to be DRYed up even further. The repetitive passing in of the class we are testing and its factory now standout like a sore thumb after all our efforts. What to do?&lt;/p&gt;
+
+&lt;p&gt;By default the &lt;code&gt;subject&lt;/code&gt; of a spec of a class is an instance of that class created via a call to &lt;code&gt;new&lt;/code&gt;. Given that, we create a shared context that derives the model and factory from the current subject.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=13_subject_class.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;We can then include the shared context within each shared example and drop the need to have them passed in.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=14_final_meta_data_examples.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;Finally, our specs drop repeatedly passing the same set of arguments to the shared examples, reading cleaner than ever:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/5923483.js?file=15_final_model_specs.rb"&gt;&lt;/script&gt;
+
+&lt;h2 id="final-thoughts"&gt;Final Thoughts&lt;/h2&gt;
+
+&lt;p&gt;There are further "optimizations" we could do to the code above. For example, we could also write specs for each module itself, testing all paths within it, and only compose the model specs from "coarser" variations that just verify the general functionality; this approach would speed up running the entire test suite. But these and other exercises are left for the reader to pursue.&lt;/p&gt;
+
+&lt;p&gt;Most important is to realize that composition over inheritence can be elegantly implemented in our codebase from the very start, resulting in well-designed and easily maintainable domain, specs and implementation.&lt;/p&gt;
+
+&lt;h2 id="a-nametldra-tldr"&gt;&lt;a name="tldr"&gt;&lt;/a&gt; tl;dr&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use composition over inheritance when the latter does not correctly reflect the domain model.&lt;/li&gt;
+  &lt;li&gt;Use RSpec's &lt;code&gt;shared_example&lt;/code&gt; to define the behaviors that are shared between objects.&lt;/li&gt;
+  &lt;li&gt;Compose your specs from those shared examples by invoking &lt;code&gt;it_behaves_like&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Implement the behaviors as &lt;code&gt;Module&lt;/code&gt;s that you will &lt;code&gt;include&lt;/code&gt; in your implementation.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Monkey-Patching iOS with Objective-C Categories Part III: Swizzling</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2013/02/20/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/"/>
+    <id>http://rudyjahchan.com/2013/02/20/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/</id>
+    <published>2013-02-19T16:00:00-08:00</published>
+    <updated>2017-06-28T12:50:43-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2013/02/20/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Have you ever wanted to introduce new functionality to base classes in the iOS SDK?
+Or just make them work a &lt;strong&gt;little&lt;/strong&gt; differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.&lt;/p&gt;
+
+&lt;p&gt;In this series of posts, we'll show how to monkey-patch in Objective-C through &lt;a href="http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/objectivec/chapters/occategories.html"&gt;categories&lt;/a&gt; to &lt;a href="http://blog.carbonfive.com/2012/01/23/monkey-patching-ios-with-objective-c-categories-part-1-simple-extensions-and-overrides/"&gt;add and change methods&lt;/a&gt;, to add new instance variables and properties, and introduce swizzling, a technique that allows us to extend and preserve existing functionality. &lt;a href="#tldr"&gt;&lt;strong&gt;TL;DR »&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In the &lt;a href="http://blog.carbonfive.com/2012/01/23/monkey-patching-ios-with-objective-c-categories-part-1-simple-extensions-and-overrides/"&gt;first post&lt;/a&gt; we showed how you can add or override methods with extensions. The &lt;a href="http://blog.carbonfive.com/2012/11/27/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/"&gt;second post&lt;/a&gt; focused on getting around restrictions on creating instance variables when adding properties to the classes being modified. This third and final post covers the technique of swizzling to override existing methods while preserving their behaviour.&lt;/p&gt;
+
+&lt;h2 id="the-problem-with-simply-overriding"&gt;The Problem with Simply Overriding&lt;/h2&gt;
+
+&lt;p&gt;Back in the original post of this series we discussed that while categories certainly allowed us to bluntly override existing methods of any class in the iOS SDK this was &lt;em&gt;strongly&lt;/em&gt; discouraged for two reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Other frameworks, both in the SDK or third-party, rely on the expected behavior of the original method. We would either have to re-implement that behavior in addition to the new functionality we wanted to introduce, or suffer side effects or more major errors due to its abscence.&lt;/li&gt;
+  &lt;li&gt;If multiple categories override the same method only the last one loaded wins out as load order is non-deterministic; its possible even the original method will remain unaffected.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Ideally we need a way to have the new method handle calls to the original mathod, but preserve the original method so as to be able to invoke it when needed, much like the Ruby on Rails' &lt;a href="http://api.rubyonrails.org/classes/Module.html#method-i-alias_method_chain"&gt;&lt;code&gt;alias_method_chain&lt;/code&gt;&lt;/a&gt;. Which is exactly what the &lt;strong&gt;swizzling&lt;/strong&gt; technique provides.&lt;/p&gt;
+
+&lt;h2 id="the-solution-swizzling"&gt;The Solution: Swizzling&lt;/h2&gt;
+
+&lt;p&gt;So far I've been incorrectly referring to the "methods" of a class. But in Objective-C, when you write the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[self presentViewController:mailController animated:YES completion:nil];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;you are not actually invoking the &lt;code&gt;presentViewController:animated:completion:&lt;/code&gt; &lt;em&gt;method&lt;/em&gt; but are instead &lt;em&gt;sending&lt;/em&gt; a &lt;code&gt;presentViewController:animated:completion:&lt;/code&gt; &lt;em&gt;message&lt;/em&gt;! How an object handles that message is determined at run-time by looking for a method under the message identifier or as it is commonly known as the selector. Normally this is the signature the method was declared under but it &lt;em&gt;can&lt;/em&gt; be changed at run-time!&lt;/p&gt;
+
+&lt;p&gt;Swizzling is simply exchanging the implementation of two of a class' methods so that when a message is sent using the original selector of one it actually goes to the other. In general, whether for monkey-patching or other scenarios, this is accomplished by using a number of Objective-C Runtime functions:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191796.js?file=SwizzleExample.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Walking through the above code:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;First we build selectors (the &lt;code&gt;SEL&lt;/code&gt; variables) to identify the methods we are swizzling; in this case &lt;code&gt;firstMethod&lt;/code&gt; and &lt;code&gt;secondMethod&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;References to the methods the selectors point to (represented by the &lt;code&gt;Method&lt;/code&gt; data type) are then retrieved.&lt;/li&gt;
+  &lt;li&gt;We first attempt to add the implementation of the second method under the selector of the first method. We do this in case the first method doesn't truly exist, which is sometimes a possibility.&lt;/li&gt;
+  &lt;li&gt;If the method was added successfully we need SOMETHING under the selector of the second method, so we simply replace it with the first method's (empty) implementation.&lt;/li&gt;
+  &lt;li&gt;If we failed to add the method, the first method already exists, so we can simply exchange their implementations.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now, for the purposes of "monkey-patching", we rarely want to exchange two &lt;em&gt;existing&lt;/em&gt; methods. Instead we introduce a new method and then swizzle it with the original. Any calls to the original method will now be directed to the new implementation while the original implementation can be invoked under the name of the new method!&lt;/p&gt;
+
+&lt;p&gt;Let's look at…&lt;/p&gt;
+
+&lt;h2 id="an-example"&gt;An Example&lt;/h2&gt;
+
+&lt;p&gt;Going back to the last post's scenario of extending &lt;code&gt;UIViewController&lt;/code&gt; with tour-guide functionality, suppose we want the tour guide information is to appear the first time a view is displayed to a user. The ideal place to have this happen is as part of the &lt;code&gt;viewWillAppear:&lt;/code&gt; call all controllers receive. Remember, we &lt;em&gt;could&lt;/em&gt; spend time adding a sub-class for every controller variation we will use, but that could lead to unnecessary code bloat. But since &lt;code&gt;viewWillAppear:&lt;/code&gt; is critical to the UI life-cycle, we can't simply replace it. Hence, we need to swizzle it!&lt;/p&gt;
+
+&lt;p&gt;As a best practice when we swizzle a method, it's with a method with the &lt;em&gt;same signature&lt;/em&gt; and a &lt;em&gt;similar but unique&lt;/em&gt; name. In our case, we'll be creating &lt;code&gt;tourGuideWillAppear&lt;/code&gt;:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191796.js?file=UIViewController_TourGuide_Override.m"&gt;
+&lt;/script&gt;
+
+&lt;p&gt;Note the call to &lt;code&gt;tourGuideWillAppear&lt;/code&gt; within its own implementation. You may be asking yourself "Isn't that going to result in an infinite recursive loop?"&lt;/p&gt;
+
+&lt;p&gt;But at what you have to remember is that at the point the method is invoked the swizzling will have already taken place. That seemingly recursive call will actually go to the original &lt;code&gt;viewWillAppear:&lt;/code&gt;. So remember, &lt;em&gt;to invoke the original method implmentation, call it with the new method's name&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h2 id="swizzle-on-load"&gt;Swizzle on Load&lt;/h2&gt;
+
+&lt;p&gt;Of course, we still have to at some point perform the swizzle. The first instinct would be to toss it into the &lt;code&gt;init&lt;/code&gt; method of a class, but this is incorrect because:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;We are not creating a class, but a category that will be mixed into a class whose &lt;code&gt;init&lt;/code&gt; you probably don't want to override and&lt;/li&gt;
+  &lt;li&gt;Even if that was possible, it's something you only want to do &lt;em&gt;once&lt;/em&gt; per &lt;em&gt;class&lt;/em&gt;, and not in the per &lt;em&gt;instance&lt;/em&gt; constructor!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Luckily, when the Objective-C Runtime loads a category, it invokes a class-level &lt;code&gt;load&lt;/code&gt; method. This is the perfect opportunity to perform the swizzle. We also wrap it with a &lt;code&gt;dispatch_once&lt;/code&gt; block call to ensure it only happens the one time:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191796.js?file=SwizzleUIVIewController.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;And with that our swizzle is complete; when the framework calls &lt;code&gt;viewWillAppear:&lt;/code&gt; on any controller it will pass through our &lt;code&gt;tourGuideWillAppear:&lt;/code&gt;, triggering our custom tour-guide functionality. We can apply this same technique to extend any class method whether called by the framework or us directly, injecting new behavior while preserving any critical functionality.&lt;/p&gt;
+
+&lt;p&gt;We have achieved true monkey-patching!&lt;/p&gt;
+
+&lt;h2 id="drying-it-up"&gt;DRYing it Up&lt;/h2&gt;
+
+&lt;p&gt;Our example has us replacing one method in one class but already it makes for a lot of code. Imagine having to repeat that multiple times across many categories. Let us DRY it up by introducing, in an elegantly meta way, a swizzling &lt;em&gt;category&lt;/em&gt; on the base &lt;code&gt;NSObject&lt;/code&gt;:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191796.js?file=NSObject_Swizzle.h"&gt;&lt;/script&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191796.js?file=NSObject_Swizzle.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Now in the &lt;code&gt;+load&lt;/code&gt; of any category we simply call &lt;code&gt;swizzleInstanceSelector&lt;/code&gt; on the category it&lt;code&gt;self&lt;/code&gt; with the selectors of the methods we are swizzling. Here's the final &lt;code&gt;UIViewController+TourGuide&lt;/code&gt; category implementation to illustrate that and all the other monkey-patching techniques we have learned in this series:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191796.js?file=UIViewController_TourGuide.m"&gt;&lt;/script&gt;
+
+&lt;h2 id="a-nametldra-tldr"&gt;&lt;a name="tldr"&gt;&lt;/a&gt; TL;DR&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use swizzling to preserve the original method behavior instead of simply overriding to avoid side-effects.&lt;/li&gt;
+  &lt;li&gt;Swizzling is simply the exchange of the identifiers of two methods so they point to each other's implementations.&lt;/li&gt;
+  &lt;li&gt;After swizzling you invoke the original method's implementation but calling the new implementations identifier.&lt;/li&gt;
+  &lt;li&gt;Swizzle in the &lt;code&gt;+load&lt;/code&gt; method of your category.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Sweeter Javascript: Defining Properties to Add Syntactic Sugar</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2013/02/12/sweeter-javascript-define-properties-to-add-syntactic-sugar/"/>
+    <id>http://rudyjahchan.com/2013/02/12/sweeter-javascript-define-properties-to-add-syntactic-sugar/</id>
+    <published>2013-02-11T16:00:00-08:00</published>
+    <updated>2017-06-28T12:33:10-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2013/02/12/sweeter-javascript-defining-properties-to-add-syntactic-sugar/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Syntatic sugar makes for more human-readable code and, if done
+correctly, provides for more flexibility. In the world of &lt;a href="http://nodejs.org"&gt;Node&lt;/a&gt;
+many turn to &lt;a href="http://coffeescript.org/"&gt;Coffeescript&lt;/a&gt; to add that "sweetness",
+but you can also achieve it with plain old Javascript. &lt;a href="#tldr"&gt;&lt;strong&gt;TL;DR »&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="codeobjectdefinepropertycode"&gt;&lt;code&gt;Object.defineProperty&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;It all comes down to using &lt;a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperty"&gt;&lt;code&gt;defineProperty&lt;/code&gt;&lt;/a&gt; of the
+&lt;code&gt;Object&lt;/code&gt; class. Introduced as part of ECMAScript 5 and
+implemented in Javascript 1.8.5 - which is supported by Node and most
+major browsers - it allows you to add or modify
+a property on an object by not just determining its value but its
+entire behaviour.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Object.defineProperty(obj, prop, descriptor)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The magic comes in the &lt;code&gt;descriptor&lt;/code&gt; parameter. You can
+directly set an initial &lt;code&gt;value&lt;/code&gt; that will always be returned
+by anyone using the property.  You can use other attributes in the
+descriptor to make the property
+&lt;code&gt;writable&lt;/code&gt; (allowing new values assigned),
+&lt;code&gt;configurable&lt;/code&gt; (permit further changes), and
+&lt;code&gt;enumerable&lt;/code&gt; (returned during property enumeration).&lt;/p&gt;
+
+&lt;p&gt;But you can go beyond the simple retrieval and assignment of value to
+properties by passing &lt;em&gt;functions&lt;/em&gt; as the &lt;code&gt;get&lt;/code&gt; and/or &lt;code&gt;set&lt;/code&gt;
+attributes in the descriptor.&lt;/p&gt;
+
+&lt;p&gt;Let's see how we can use it to add our sugar.&lt;/p&gt;
+
+&lt;h2 id="an-example-read-only-attributes"&gt;An Example: Read-only Attributes&lt;/h2&gt;
+
+&lt;p&gt;Recently I published &lt;a href="https://github.com/carbonfive/nock-vcr"&gt;nock-vcr&lt;/a&gt;, a node module to deliver
+the same functionaly of the Ruby gem &lt;a href="https://github.com/vcr/vcr"&gt;VCR&lt;/a&gt; but built atop the HTTP 
+mocking framework &lt;a href="https://github.com/flatiron/nock"&gt;nock&lt;/a&gt;. VCR use the metaphor of "cassettes"
+to record the HTTP interactions, with the interactions being written
+out to a file named after the name given to the cassette. If a
+cassette doesn't exist at the time of recording, it will be created.&lt;/p&gt;
+
+&lt;p&gt;For various reasons, we don't want to give users of the module
+the ability to change the &lt;code&gt;name&lt;/code&gt; of a &lt;code&gt;Cassette&lt;/code&gt;
+once an instance is created. This is accomplished by using
+&lt;code&gt;Object.defineProperty&lt;/code&gt; to explicity set the
+&lt;code&gt;value&lt;/code&gt;:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Now when we instantiate an instance of &lt;code&gt;Cassette&lt;/code&gt;, the string
+passed in the construtor is returned by the &lt;code&gt;name&lt;/code&gt; property.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette.sh"&gt;&lt;/script&gt;
+
+&lt;p&gt;More importantly, because we never set the &lt;code&gt;writable&lt;/code&gt;
+attribute in the descriptor to &lt;code&gt;true&lt;/code&gt;, no one can assign 
+a new value to the property:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette-read-only.sh"&gt;&lt;/script&gt;
+
+&lt;h2 id="now-add-the-syntactic-sugar"&gt;Now Add the Syntactic Sugar&lt;/h2&gt;
+
+&lt;p&gt;At this point, we haven't done anything to "sweeten" the syntax. An
+opportunity arises in implementing &lt;code&gt;exists&lt;/code&gt;. If implemented
+as a function, it would be used as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if(cassette.exists())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But wouldn't it be sweeter to do the following?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if(cassette.exists)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case, we pass in a &lt;code&gt;get&lt;/code&gt; function when defining
+'exists' as a property. This function will be run every time the property is
+referenced, ensuring it represents the current state of the cassette, but without
+need of keeping tract with another attribute.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette-exists.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;Now we can call &lt;code&gt;exists&lt;/code&gt; without need of the parenthesis:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette-exists.sh"&gt;&lt;/script&gt;
+
+&lt;p&gt;A small, "sweet" victory.&lt;/p&gt;
+
+&lt;h2 id="another-example-sweeter-tests"&gt;Another Example: Sweeter Tests&lt;/h2&gt;
+
+&lt;p&gt;The previous example did not really gain us much; what are a couple of
+parenthesis in the larger scheme of things? A more useful example of this
+technique and the benefits of syntactic sugar comes in writing out a 
+&lt;a href="http://chaijs.com/"&gt;chai&lt;/a&gt;-like test framework called &lt;code&gt;rooibos&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let's begin by creating an &lt;code&gt;Assertion&lt;/code&gt; "class", that accepts a
+value we will be running our assertions against. We will also create and
+export &lt;code&gt;expect&lt;/code&gt; function as the only interface into our framework and
+creating these assertions.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;We can add two basic assertions; &lt;code&gt;truthy&lt;/code&gt; which will
+assert if the value is non-falsy and &lt;code&gt;empty&lt;/code&gt;, which asserts
+the value is has no characters if a string, no elements if an array, and
+is non-null or undefined in all other cases.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos-truthy-empty.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;At this point, we can use the framework as follows:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos-demo.sh"&gt;&lt;/script&gt;
+
+&lt;p&gt;We can sweeten this further with &lt;code&gt;to&lt;/code&gt; and &lt;code&gt;be&lt;/code&gt; properties that pass through the &lt;code&gt;Assertion&lt;/code&gt; instance, doing nothing but enhancing readability.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos-passthroughs.js"&gt;&lt;/script&gt;
+
+&lt;p&gt;So finally we can write our tests with the sweetest syntax of all:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos-passthroughs.sh"&gt;&lt;/script&gt;
+
+&lt;h2 id="a-nametldra-tldr"&gt;&lt;a name="tldr"&gt;&lt;/a&gt; tl;dr&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperty"&gt;&lt;code&gt;Object.defineProperty&lt;/code&gt;&lt;/a&gt; allows you add more behavior when a
+property is assigned or referenced.&lt;/li&gt;
+  &lt;li&gt;By assigning a value with &lt;code&gt;Object.defineProperty&lt;/code&gt; you make
+it read-only.&lt;/li&gt;
+  &lt;li&gt;Assign a &lt;code&gt;get&lt;/code&gt; function to a property to introduce
+syntactic sugar like pass-throughs and queries for readability.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Bonsai-ing my Social Trees</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2013/01/10/bonsaing-my-social-tree/"/>
+    <id>http://rudyjahchan.com/2013/01/10/bonsaing-my-social-tree/</id>
+    <published>2013-01-09T16:00:00-08:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;One of my &lt;a href="http://rudyjahchan.com/2013/01/01/hello-new-year/"&gt;New Year's resolutions&lt;/a&gt; was to "bonsai" my social
+tree. This goes beyond cutting swathes of people, friends, fans, or
+what-have-yous from my social networks, which is why I didn't call this
+post "Pruning my Social Trees". For while I do agree with the 
+&lt;a href="http://en.wikipedia.org/wiki/Dunbar's_number"&gt;Dunbar Number&lt;/a&gt;, the needs of a content creator requires 
+us to find a balance between staying connecting with initimates and
+being able to reach an audience.&lt;/p&gt;
+
+&lt;p&gt;Why bother to do this at all, though? To belabor the "tree" metaphor, 
+without proper maintenance your social tree will wither. My own situation 
+demonstrates this. In the madgrab of "building an audience" I've added too many
+branches to the point that I no longer see the roots of the whole thing. Automatic
+reposting has resulted in the same item being listed multiple
+times on the same network. And more importantly I am doing a terrible
+job of feeding content into the tree, whether creating my own or sharing
+from my friends.&lt;/p&gt;
+
+&lt;p&gt;So I decided to take action.&lt;/p&gt;
+
+&lt;p&gt;First, I am going do a better job of creating more content,
+whether its code, stories, or posts. More importantly, I will more
+actively support the works of my friends and peers.&lt;/p&gt;
+
+&lt;p&gt;Second, I decided the "role" each network plays; what
+content I expect to see and post there and how it interacts with other
+networks. Decisions were also made on who to follow and cuts made
+without any malicious intent; I am not adverse to anyone requesting to
+join my network, just as long as they do so on the right one. For my
+part, when I have no expectations when I make a request and don't
+campaign for a connection; I expect most peope are the same.&lt;/p&gt;
+
+&lt;p&gt;Some networks are "roots", the primary point for each piece
+of work:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://path.com"&gt;Path&lt;/a&gt; is going to be my &lt;em&gt;private&lt;/em&gt; life. I'm only &lt;em&gt;try&lt;/em&gt; 
+to follow my closest friends and family there, and am honored when 
+they let me. In exchange, I will never campaign about
+my projects here except to celebrate or vent any related emotions. It
+will never repost to another network.&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://instagram.com/rudyjahchan"&gt;Instagram&lt;/a&gt;, despite the privacy and rights brou-ha-ha a
+few weeks ago, is still my main real-time, in-the-moment chronicle of my
+&lt;em&gt;public&lt;/em&gt; life and the behind the scenes of whatever I am working on.
+It will post to most of the other networks, and I'll
+be following mainly people I know whose
+adventures I find entertaining.&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://github.com/rudyjahchan"&gt;Github&lt;/a&gt; and &lt;a href="https://gist.github.com/rudyjahchan"&gt;Gist&lt;/a&gt; is where my code monkey activities
+resides, with anything notable being highlighed as a post on the
+&lt;a href="http://blog.carbonfive.com"&gt;Carbon Emmiter&lt;/a&gt;. I will be promoting these on other
+networks as well.&lt;/li&gt;
+  &lt;li&gt;Like Charlie Brown trying to kick that damn football, I keep trying to
+get into shape, and I've found the best network to track that has been
+&lt;a href="http://nikeplus.nike.com/plus/profile/rudyjahchan/"&gt;Nike+&lt;/a&gt;. It's been set to automatically post achievements
+to other networks.&lt;/li&gt;
+  &lt;li&gt;And of course, there is this &lt;a href="http://rudyjahchan.com/blog/"&gt;blog&lt;/a&gt;,
+&lt;a href="http://timeywimey.tv"&gt;Timey Wimey TV&lt;/a&gt; and my other creative works that you
+can specifically follow if you are interested, though you can expect to
+see them mentioned alot elsewhere.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The roots feed into "trunks", the popular mainstays we are all
+familar with. I expect to see people sharing here, campaigning for their
+own works, and generally making a spectacle of their lives; I know
+I will!&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://www.linkedin.com/in/rudyjahchan/"&gt;LinkedIn&lt;/a&gt; is promoted to my preferred "networking"
+network. If we've chatted at a meetup or you want to pitch a project to
+me, this is how to reach me. I will respond, I promise. It may not be
+affirmative to going forward at this time, but I &lt;em&gt;WILL&lt;/em&gt; respond.&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://twitter.com/rudy"&gt;Twitter&lt;/a&gt; is probably my favorite network, and could be a
+"root" in its own right as I post statuses and observations there. I
+follow people who continually delight and entertain me as real friends
+or thought leaders. It's the zeitgeist of my world.&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://facebook.com/rudyjahchan"&gt;Facebook&lt;/a&gt; will see the most change as I move a lot of
+people into subscribers and track friends and families there from all
+walks of life. My posts will be public, however, open to commentary though
+messaging is reserved for people I actually know and have met.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Others networks I consider "leafs", usually an endpoint of themselves
+that can occassionaly give back to the whole tree.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="http://pinterest.com/rudyjahchan/"&gt;Pinterest&lt;/a&gt; has surprised even me in how much I use it.
+It's my moodboard that I mostly do for myself, and where I snapshot
+things I want to keep long term to reference and inspire me. I've been
+posting back to other networks as well, but trust me when I say I try to
+be judicious of when I do so.&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://www.flickr.com/photos/coderonin/"&gt;Flickr&lt;/a&gt; came roaring back this year at an opportune time and
+I played around with the iOS app for a week as an Instagram replacement.
+And while it was very shiny, its lack of automatic updating keeps it as
+an archive of my photos, though I will be interacting more there in the
+future.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And then there are the "buds", networks I am still trying to decide what I
+am doing with:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href="https://plus.google.com/102403331307606219198/posts"&gt;Google Plus&lt;/a&gt; shows a lot of promise, and I've been
+trying to form circles around areas of interest. It may take the role of
+a Facebook equivalent with more public interaction but I want to get
+into the habit of regularly posting there first.&lt;/li&gt;
+  &lt;li&gt;To be honest, &lt;a href="http://rudy.tumblr.com/"&gt;Tumblr&lt;/a&gt; is something I am still trying to
+"get". There is clearly a language of memes that is used to communicate
+there that I need to learn.&lt;/li&gt;
+  &lt;li&gt;Hearing that all the kids are hopping on [snapchat][snapchat], this
+old man hopped on to figure out a way to use it … and is waiting for
+someone he knows to show up!&lt;/li&gt;
+  &lt;li&gt;And I've also been making a daily post to &lt;a href="http://www.chee.rs/"&gt;Chee.rs&lt;/a&gt;, a
+place to share appreciation of people, places and things some friends of
+mine have launched.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Finally, as this is about "social" platforms, you play a part in this
+process. I encourage you to connect to me on the networks you prefer
+and, more importantly, &lt;em&gt;disconnect&lt;/em&gt; from those where it will be
+redundent or irrelevant, even if that means all of them. No ill will be
+taken or given as it is all about building real healthy relationships.
+And this process should de done continually, as like a living tree, our
+networks are continually growing and changing.&lt;/p&gt;
+
+&lt;p&gt;So what are your thoughts on this matter? I would love to hear them
+below, or on any of the networks listed above!&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Hello, New Year!</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2013/01/01/hello-new-year/"/>
+    <id>http://rudyjahchan.com/2013/01/01/hello-new-year/</id>
+    <published>2012-12-31T16:00:00-08:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;Happy New Year, all.&lt;/p&gt;
+
+&lt;p&gt;Last year was a good one for our household. I won the &lt;a href="http://youtu.be/NxvOVZvsrA0?t=58m"&gt;IAWTV Awards for Non-Fiction Writing&lt;/a&gt;.
+Made a short film - &lt;a href="https://www.facebook.com/DNEDoNotErase"&gt;D.N.E&lt;/a&gt; - which won best sci-fi short at
+&lt;a href="http://dailydragon.dragoncon.org/contests-awards/film-festival-award-winners/"&gt;Dragon*Con&lt;/a&gt;. Was granted a green card, sponsored by my
+wonderful workplace &lt;a href="http://carbonfive.com"&gt;Carbon Five&lt;/a&gt;. And best of all, I
+&lt;a href="http://youtu.be/-m2Yt1DcJi0"&gt;proposed&lt;/a&gt; and got &lt;a href="http://www.flickr.com/photos/caseymckinnon/sets/72157632044476389/"&gt;married&lt;/a&gt; to the love of my life
+&lt;a href="http://caseymckinnon.com"&gt;Casey McKinnon&lt;/a&gt;. Not too shabby.&lt;/p&gt;
+
+&lt;p&gt;So what to do this year? Well, let's start some resolutions.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Write a Novel&lt;/strong&gt; There is a tale that has been brewing in me for
+a couple of year's now, that in my more innocent years (2010?) I
+thought could be a web series. But with the inspiration of my friend
+&lt;a href="http://lizlet.tumblr.com/"&gt;Liz Shannon Miller&lt;/a&gt; publishing her own &lt;a href="http://liztellsfrank.com/book/"&gt;book&lt;/a&gt;,
+Casey putting out &lt;a href="http://santaisanatheist.caseymckinnon.com/"&gt;Santa is an Atheist&lt;/a&gt;, I am going
+to get it down and publish it.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Publish an App&lt;/strong&gt; I am actually already working on a couple of
+things with the genius known as &lt;a href="http://barrettgarese.com"&gt;Barrett Garese&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Run a Marathon&lt;/strong&gt; I love running, when I do. It's just a matter of
+finding time. And with a year of experimentation, the best time
+seems to be early in the morning, on the way to work. It's not the best
+for getting some sun, but it is the best for getting it done.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Learn to Fight&lt;/strong&gt; Tied with running is learning new skills. And
+this year it's going to be fighting. I'm going to stop wasting a
+Krav Maga membership. And I'm going to learn to sword-fight, if
+only to be better prepared for &lt;a href="http://www.kickstarter.com/projects/260688528/clang"&gt;CLANG!&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Contribute Code&lt;/strong&gt; As passionately as I love writing, I love coding,
+and I am lucky enough to get paid for it. And yet I've been very shy
+about showing my code. Mostly because I KNOW it's not the best. But I am
+beginning to believe it's good enough. So I'll be maintaining a couple
+of repos as well as helping making pull requests on &lt;a href="http://github.com/rudyjahchan"&gt;Github&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Bonsai my Social Network&lt;/strong&gt; Finally, I count among the blessings I have
+in my life the many, many friends I have made and all the
+ways I can reach out to them. But I have to do a better job of
+maintaining that tree, not only in ensuring it brings good things to me,
+but more importantnly that it brings good things to my friends.
+Tomorrow, I am setting some ground rules for myself to make that happen.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So there you have it. Six "simple" resolutions to abide by. What are
+yours?&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Writing Wedding Favors</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2012/12/04/writing-wedding-favors/"/>
+    <id>http://rudyjahchan.com/2012/12/04/writing-wedding-favors/</id>
+    <published>2012-12-03T16:00:00-08:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;Much of the magic of our &lt;a href="http://www.flickr.com/photos/caseymckinnon/sets/72157632044476389/"&gt;wedding&lt;/a&gt; was due to the massive
+pre-preparation of my brilliant and beautiful bride &lt;a href="http://caseymckinnon.com"&gt;Casey McKinnon&lt;/a&gt;;
+I just stayed out of the way and lent a hand when asked. One of the many
+great ideas she had was to have &lt;a href="http://www.jonessoda.com/custom-labels"&gt;Jones Soda with custom labels&lt;/a&gt;
+as our wedding favors. It would be something different and hence
+memorable.&lt;/p&gt;
+
+&lt;p&gt;We selected our flavors and found three pictures we felt
+represented the depth and range of our relationship. Then came the fun
+bit for me, the resident family writer: coming up with the label text.
+On normal Jones bottles the label speaks of the quality ingredients that go
+into the soda and blah blah blah whatever. I just relished the challenge
+of coming up with fun little tales about the photo in 300 characters!&lt;/p&gt;
+
+&lt;p&gt;So for those who were unable to attend, here are the photos we used, the
+labels I came up with, and the backstory behind each of them. Hope you
+enjoy them.&lt;/p&gt;
+
+&lt;h2 id="sugar-cane-cola"&gt;Sugar Cane Cola&lt;/h2&gt;
+
+&lt;div class="img-inline"&gt;&lt;img src="http://s3.amazonaws.com/rudyjahchan/mexican-cola.jpeg" alt="Sugar Cane Cola" /&gt;&lt;div class="caption"&gt;Photo by &lt;a href="http://jpd.me/"&gt;Jason DeFillippo&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;It was a battle for the ages. Mexico's two greatest superheroes - El Luchadore and The Killer Bee - fought for days on end with a passion. A passion which turned to love for each other … and the refreshing taste of pure cane cola with no high-fructose corn syrup!&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The above photo was taken at the wedding-reception/Halloween-party of
+our friends &lt;a href="http://seanbonner.com"&gt;Sean Bonner&lt;/a&gt; and &lt;a href="http://taratigerbrown.com/"&gt;Tara "Tiger" Brown&lt;/a&gt;. Casey and I went
+with a "Mexican" theme; I was a luchadore and she was a "Killer Bee"
+from the &lt;a href="http://www.hulu.com/watch/1476"&gt;classic Saturday Night Live sketch&lt;/a&gt;. We actually have this photo
+framed in our home.&lt;/p&gt;
+
+&lt;h2 id="root-beer"&gt;Root Beer&lt;/h2&gt;
+
+&lt;div class="img-inline"&gt;&lt;img src="http://s3.amazonaws.com/rudyjahchan/root-beer.jpeg" alt="Root Beer" /&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Look at the lovely couple. Don't they look wonderful? She's so pretty. And he … well, he's there. But behind those smiles lies a dirty secret. They were already married. Terrible, right? Leaves a bad taste in your mouth. Which can be washed away with the medicinal sweetness of root beer.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It's true! Before our big wedding ceremony we actually had a quickie
+earlier that year, mere weeks after &lt;a href="http://youtu.be/-m2Yt1DcJi0"&gt;I proposed&lt;/a&gt;. We kept it
+quiet so as not to remove any "specialness" of the day we were sharing
+with our family and friends.&lt;/p&gt;
+
+&lt;h2 id="berry-lemonade"&gt;Berry Lemonade&lt;/h2&gt;
+
+&lt;div class="img-inline"&gt;&lt;img src="http://s3.amazonaws.com/rudyjahchan/berry-lemonade.jpeg" alt="Berry Lemonade" /&gt;&lt;div class="caption"&gt;Photo by &lt;a href="http://www.burmeisterphotography.com/"&gt;Mark Burmeister&lt;/a&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;That's not an "engagement photo" on this bottle. It's from our honeymoon. 
+Our future selves accelerated it to 88mph and &lt;strong&gt;BLAM&lt;/strong&gt; its back from our future.
+Except we don't know where we're going; they cropped the photo too tight and blurred the background.
+Jerks. At least berry lemonade is tasty.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This photo actually was from our engagement photos … but though it was
+technically BEFORE our wedding it 
+was taken AFTER our first marriage ceremony as mentioned above!
+The "timey-wimey" nature of all this (a subject &lt;a href="http://timeywimey.tv"&gt;very dear to my heart&lt;/a&gt;)
+and the bright, almost radioactive blue shade of the drink
+inspired the sci-fi tale in the label. Plus, hey, anyway to mention one of &lt;a href="http://www.amazon.com/gp/product/B0054OGQOQ/ref=as_li_ss_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=B0054OGQOQ&amp;amp;linkCode=as2&amp;amp;tag=rudyjahchanco-20"&gt;the greatest movies
+ever made&lt;/a&gt;!&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Monkey-Patching iOS with Objective-C Categories Part II: Adding Instance Properties</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2012/11/27/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/"/>
+    <id>http://rudyjahchan.com/2012/11/27/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/</id>
+    <published>2012-11-26T16:00:00-08:00</published>
+    <updated>2017-06-28T12:33:30-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2012/11/27/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Have you ever wanted to introduce new functionality to base classes in the iOS SDK? 
+Or just make them work a &lt;strong&gt;little&lt;/strong&gt; differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.&lt;/p&gt;
+
+&lt;p&gt;In this series of posts, we'll show how to monkey-patch in Objective-C through &lt;a href="http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/objectivec/chapters/occategories.html"&gt;categories&lt;/a&gt; to &lt;a href="http://blog.carbonfive.com/2012/01/23/monkey-patching-ios-with-objective-c-categories-part-1-simple-extensions-and-overrides/"&gt;add and change methods&lt;/a&gt;, to add new instance variables and properties, and introduce swizzling, a technique that allows us to extend and preserve existing functionality. &lt;a href="#tldr"&gt;&lt;strong&gt;TL;DR »&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In the &lt;a href="http://blog.carbonfive.com/2012/01/23/monkey-patching-ios-with-objective-c-categories-part-1-simple-extensions-and-overrides/"&gt;first post&lt;/a&gt; we showed how you can add or override methods with extensions. In this post we'll cover how to add new properties to instances.&lt;/p&gt;
+
+&lt;h2 id="the-scenario--adding-a-new-feature"&gt;The Scenario : Adding a New Feature&lt;/h2&gt;
+
+&lt;p&gt;Why would we want want to patch in a new property to our class hierarchy instead of using subclassing?&lt;/p&gt;
+
+&lt;p&gt;Let's imagine we are creating an app with multiple controllers and wish to add a "touring" feature; the first time a user arrives on a screen, popup tips appear to guide them through its functionality. It would make sense to add a &lt;code&gt;tourSteps&lt;/code&gt; property to our controllers, which they each set with their own unique tour.&lt;/p&gt;
+
+&lt;p&gt;We could add this property through subclassing &lt;code&gt;UIViewController&lt;/code&gt;; introducing a &lt;code&gt;TouringViewController&lt;/code&gt; for example that our controllers would then extend. But what if want the functionality of other core iOS controllers like &lt;code&gt;UINavigationController&lt;/code&gt; or &lt;code&gt;UITableViewController&lt;/code&gt;? You would either have to create custom subclasses for each of them (&lt;code&gt;TouringNavigationController&lt;/code&gt;, &lt;code&gt;TouringTableViewController&lt;/code&gt;, etc.) which your own controllers would then extend, or abandon using them and reimplement their functionality. Neither solution is appealing.&lt;/p&gt;
+
+&lt;p&gt;Instead, use categories to inject the new property into &lt;code&gt;UIViewController&lt;/code&gt; and have it available to all descendents, whether our own or
+the iOS framework. As when defining properties for regular classes, the &lt;code&gt;@property&lt;/code&gt; declarative is used as shorthand to define the getters and setters of a property in the category header file.&lt;/p&gt;
+
+&lt;h3 id="uiviewcontrollertourguideh"&gt;UIViewController+TourGuide.h&lt;/h3&gt;
+&lt;script src="https://gist.github.com/rudyjahchan/2191625.js?file=UIViewController_TourGuide.h"&gt;&lt;/script&gt;
+
+&lt;p&gt;The usual "next step" after defining a property is to use a &lt;code&gt;@syntesize&lt;/code&gt; declarative in the implementation to create the expected getter and setter methods and back them with an appropriate instance variable. We would expect the same to work when adding a property via a category:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191625.js?file=UIViewController_TourGuide_BadImplementation.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;However, the above code will fail. Why?&lt;/p&gt;
+
+&lt;h2 id="the-problem-no-instance-variables"&gt;The Problem: No Instance Variables&lt;/h2&gt;
+
+&lt;p&gt;From the &lt;a href="http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/objectivec/chapters/occategories.html"&gt;Objective-C Programming Language Guide - Categories and Extensions&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note that a category canâ€™t declare additional instance variables for the class; it includes only methods.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So the &lt;code&gt;@syntesize&lt;/code&gt; cannot create a &lt;code&gt;\_tourSteps&lt;/code&gt; instance variable to back the generated getter and setter. Likewise defining the instance variable in the category header file as follows would still not work:&lt;/p&gt;
+
+&lt;h3 id="non-legal-declaration-of-instance-variables-in-category"&gt;Non-legal Declaration of Instance Variables in Category&lt;/h3&gt;
+&lt;script src="https://gist.github.com/rudyjahchan/2191625.js?file=UIViewController_TourGuide_BadImplementation2.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;What are our options? We clearly have to implement the getter method &lt;code&gt;-tourSteps&lt;/code&gt; and setter method &lt;code&gt;-setTourSteps:&lt;/code&gt; ourselves, but where will we store the actual values if not an instance variable? A &lt;code&gt;static&lt;/code&gt; variable? Doing so at the class-level makes no sense as each instance needs its &lt;em&gt;own&lt;/em&gt; value, and we face memory retention headaches if we create them at the method level.&lt;/p&gt;
+
+&lt;p&gt;We could maintain a global mapping of objects to their per-instance property values but it would be difficult to correctly manage memory for that collection and properly clean up variables when their associated instance is dealocated.&lt;/p&gt;
+
+&lt;p&gt;Luckily the Objective-C runtime already provides such a global mapping for us, handling the memory management issues as long as we use it properly.&lt;/p&gt;
+
+&lt;h2 id="the-solution-associated-references"&gt;The Solution: Associated References&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="associated-references"&gt;Associated Reference&lt;/a&gt; are provided through a collection of Objective-C runtime functions to simulate the behavior of instance variables. Through them you can create and set associations between your class instance and objects that represent their property values. More importantly, those associations are released automatically when your objects are released.&lt;/p&gt;
+
+&lt;p&gt;Using associated references, our implementation of &lt;code&gt;-tourSteps&lt;/code&gt; and &lt;code&gt;-setTourSteps:&lt;/code&gt; is as follows:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191625.js?file=UIViewController_TourGuide.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Let's walk through what is happening here.&lt;/p&gt;
+
+&lt;h2 id="the-key-to-creating-associations"&gt;The "Key" to Creating Associations&lt;/h2&gt;
+
+&lt;p&gt;The functions for getting and setting associations refer to an &lt;code&gt;object&lt;/code&gt; and a &lt;code&gt;key&lt;/code&gt;. The &lt;code&gt;object&lt;/code&gt; value is the instance that owns the property. In our case, it is &lt;code&gt;self&lt;/code&gt;. We then identify the property we will try to retrieve with the &lt;code&gt;key&lt;/code&gt;. But what is the key?&lt;/p&gt;
+
+&lt;p&gt;Unlike most mapping systems, it is NOT a string; it's a fixed address in memory, hence the pointer in the method signature. It needs to be fixed to ensure we are always using the same key value when retrieving a specific property. A &lt;code&gt;static&lt;/code&gt; variable fits this criteria perfectly. And since the address is all we care about (retrieved with the address (&lt;code&gt;&amp;amp;&lt;/code&gt;) operator), what is in that memory address doesn't matter at all. We make it a &lt;code&gt;char&lt;/code&gt; to minimize its footprint. So we define the key OUTSIDE the class as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;static char tourStepsKey;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And later use &lt;code&gt;&amp;amp;tourStepsKeys&lt;/code&gt; when we set or get the value.&lt;/p&gt;
+
+&lt;h2 id="respecting-property-attributes-when-setting-values"&gt;Respecting Property Attributes When Setting Values&lt;/h2&gt;
+
+&lt;p&gt;The methods we create an association with is the &lt;code&gt;objc_setAssociatedObject&lt;/code&gt; runtime function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;void objc_setAssociatedObject(id object, void *key, id value, objc_AssociationPolicy policy)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We make use of it in our property setter implementation, passing in &lt;code&gt;self&lt;/code&gt; and the address of &lt;code&gt;tourStepsKey&lt;/code&gt; as previously discussed. The third parameter is literally the &lt;code&gt;value&lt;/code&gt; we are setting the property to. Note that it is a &lt;code&gt;id&lt;/code&gt; reference, meaning we cannot pass primitive values (like &lt;code&gt;NSInteger&lt;/code&gt;) but only objects (like &lt;code&gt;NSNumber&lt;/code&gt;). Keep this in mind when defining and implementing your own properties.&lt;/p&gt;
+
+&lt;p&gt;The final parameter to &lt;code&gt;objc_setAssociatedObject&lt;/code&gt; is the &lt;code&gt;policy&lt;/code&gt;. It clues the runtime on what to do with the values when their associated object is removed from memory, corresponding to the property attributes &lt;strong&gt;strong&lt;/strong&gt;, &lt;strong&gt;weak&lt;/strong&gt;, &lt;strong&gt;copy&lt;/strong&gt;, and so on. When implementing instance properties, simply pass in the appropriate policy:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;(weak) / (assign)  &lt;code&gt;OBJC_ASSOCIATION_ASSIGN&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;(strong) / (retain)  &lt;code&gt;OBJC_ASSOCIATION_RETAIN&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;(copy) &lt;code&gt;OBJC_ASSOCIATION_COPY&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;(nonatomic,strong) &lt;code&gt;OBJC_ASSOCIATION_RETAIN_NONATOMIC&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;(nonatomic,copy) &lt;code&gt;OBJC_ASSOCIATION_COPY_NONATOMIC&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can also remove an association using &lt;code&gt;objc_setAssociatedObject&lt;/code&gt; by passing &lt;code&gt;nil&lt;/code&gt; as the &lt;code&gt;value&lt;/code&gt;. This works perfectly for our purposes of implementing the behavior of properties.&lt;/p&gt;
+
+&lt;h2 id="getting-the-associated-values"&gt;Getting the Associated Values&lt;/h2&gt;
+
+&lt;p&gt;Retrieving our property is even easier with the &lt;code&gt;objc_getAssociatedObject&lt;/code&gt; runtime method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;id objc_getAssociatedObject(id object, void *key)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Like when the value was set, we pass in &lt;code&gt;self&lt;/code&gt; and the address of our property identifying key variable to the method. Note we return the value right away instead of casting it; again, as it is an &lt;code&gt;id&lt;/code&gt; reference, no type will be enforced by the compiler.&lt;/p&gt;
+
+&lt;h2 id="next"&gt;Next&lt;/h2&gt;
+
+&lt;p&gt;So there you have it; while you can't technically have instance variables backing category defined properties, through the use of Associated References you can implement their functionality rather easily.&lt;/p&gt;
+
+&lt;p&gt;In the next and final post in the series, we will see how to use the technique of swizzling to accomplish something we were warned off last time; truly overriding and extending existing methods, even those core to the operation of iOS.&lt;/p&gt;
+
+&lt;h2 id="a-nametldra-tldr"&gt;&lt;a name="tldr"&gt;&lt;/a&gt; TL;DR&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;You can add &lt;em&gt;properties&lt;/em&gt; through &lt;a href="http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/objectivec/chapters/occategories.html"&gt;categories&lt;/a&gt; but &lt;strong&gt;NOT&lt;/strong&gt; instance variables; &lt;code&gt;@syntesize&lt;/code&gt; will fail.&lt;/li&gt;
+  &lt;li&gt;Use &lt;a href="http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/objectivec/chapters/ocAssociativeReferences.html"&gt;Associated References&lt;/a&gt; to replicate the behavior of instance variables.&lt;/li&gt;
+  &lt;li&gt;The property is identified using a fixed memory address; define a &lt;code&gt;static char&lt;/code&gt; variable whose address is the identifier.&lt;/li&gt;
+  &lt;li&gt;Use the &lt;code&gt;objc_setAssociatedObject&lt;/code&gt; to implement the setter, passing in &lt;code&gt;self&lt;/code&gt; as the object, the address of your key variable, the value of the property and the appropriate policy.&lt;/li&gt;
+  &lt;li&gt;Use &lt;code&gt;objc_getAssociatedObject&lt;/code&gt; to implement the getter.&lt;/li&gt;
+  &lt;li&gt;Check out a related bonus trick below!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="bonus-the-exception-to-the-rule"&gt;BONUS: The Exception to the Rule&lt;/h2&gt;
+
+&lt;p&gt;There is ONE exception to the rule of categories being unable to define instance variables using &lt;code&gt;@synthesize&lt;/code&gt; for properties defined in the category; when it's a [class extension][categores]. For example, the code below defines a property &lt;code&gt;foo&lt;/code&gt; in an extension, which appears as an "anonymous" category with empty () paratheses:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/rudyjahchan/2191625.js?file=MyClassWithFakePrivateProperties.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;But why is this useful? Well when the extension is declared not in an header file but with immediately with the implementation it effectively provides for "private" properties. The property will not be available to other components that reference the header, but you can within the implementation and without the hassle of using associated references! We can also use this technique to have a property defined with one set of attributes in its header file (for example &lt;code&gt;readonly&lt;/code&gt;) and then redefine it with a different set of attributes in extension only available to the implementation!&lt;/p&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Moved from Wordpress to Jekyll Part 2</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2012/11/24/moved-from-wordpress-to-jekyll-part-2/"/>
+    <id>http://rudyjahchan.com/2012/11/24/moved-from-wordpress-to-jekyll-part-2/</id>
+    <published>2012-11-23T16:00:00-08:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;Well so much for &lt;a href="http://jekyllrb.com"&gt;Jekyll&lt;/a&gt; encouraging me to &lt;a href="/2012/08/14/moved-from-wordpress-to-jekyll-part-1/"&gt;blog
+more&lt;/a&gt;! But it has
+been a busy year since I got my site redesign up. Namely, my short film
+&lt;a href="http://www.facebook.com/DNEDoNotErase"&gt;D.N.E.&lt;/a&gt; won &lt;a href="http://dailydragon.dragoncon.org/contests-awards/film-festival-award-winners/"&gt;BEST SCI-FI
+SHORT&lt;/a&gt;
+ at &lt;a href="http://dragoncon.org/"&gt;Dragon*Con&lt;/a&gt;, I got my
+U.S. Permanent residency, and, oh yeah, &lt;a href="http://www.flickr.com/photos/caseymckinnon/sets/72157632044476389/"&gt;I got
+married&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;But excuses aside! Let us delve into the technical details of my moving
+to Jekyll. Or if you want, &lt;a href="#tldr"&gt;skip ahead&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h2 id="migrating-my-old-posts"&gt;Migrating my old Posts&lt;/h2&gt;
+
+&lt;p&gt;Jekyll's documentation provides &lt;a href="https://github.com/mojombo/jekyll/wiki/blog-migrations"&gt;two ways to migrate posts from
+Wordpress&lt;/a&gt;.
+The first method was unfortunately a non-starter; the blog was
+being hosted on a shared server instance, which severely restricted my
+ability to install gems.&lt;/p&gt;
+
+&lt;p&gt;Instead, I went with generating an export file, functionality available
+in any Wordpress install, and running the "wordpressdotcom" migrator. This
+worked for the most part … Except for a bunch of bad character
+encodings in the posts!&lt;/p&gt;
+
+&lt;p&gt;Particularly line breaks, quotations, and other
+common characters were coming out all wrong. So wrong
+that Jekyll could not even start up properly! Using various
+&lt;a href="http://ubuntuforums.org/showthread.php?t=1486493"&gt;sed&lt;/a&gt;
+and
+&lt;a href="http://hints.macworld.com/article.php?story=20001206164827794"&gt;PERL&lt;/a&gt;
+commands I managed to clean up most files.&lt;/p&gt;
+
+&lt;p&gt;Finally, as Google had already indexed my site, in order to ensure that
+search results did not lead to dead-links, I needed to maintain the paths
+of posts. This was done simply enough in the &lt;code&gt;config.yml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/4142545.js?file=config.yml"&gt;
+&lt;/script&gt;
+
+&lt;h2 id="stylishly-bootstrapping"&gt;Stylishly Bootstrapping&lt;/h2&gt;
+
+&lt;p&gt;Next up was laying out the site both structurally and design-wise. After
+many years of playing the CSS reset, redefine, and tweaking game, I was
+getting frustrated with having to establish on all the basic styles of
+a site over and over again, none of which turned out particularly well;
+you just have to take a look at &lt;a href="http://galacticast.com"&gt;Galacticast's&lt;/a&gt;
+for proof.&lt;/p&gt;
+
+&lt;p&gt;Which is why
+&lt;a href="http://twitter.github.com/bootstrap/"&gt;Bootstrap&lt;/a&gt; to developers like me.
+Yes, there have been many styling frameworks that provide grid layouts
+and other components. But Bootstrap goes beyond by establishing a
+decent, pleasant style.&lt;/p&gt;
+
+&lt;p&gt;Now keep in mind, I didn't avoid all the hard work. I still had to go
+through the "tweak" step, adding site specific styling behavior.
+Sometimes this was simply a matter of using the "appropriate" class to
+get the behavior I wanted, like declaring the &lt;code&gt;&amp;lt;section /&amp;gt;&lt;/code&gt;
+containing the content of posts a &lt;code&gt;hero-unit&lt;/code&gt; to get the
+larger, readable font. Hackish I know, but it works.&lt;/p&gt;
+
+&lt;p&gt;But some behavior required a lot of labour. Particularly, while Bootstrap provides
+&lt;a href="http://twitter.github.com/bootstrap/scaffolding.html#responsive"&gt;responsive
+functionality&lt;/a&gt;, 
+I spent a lot of time recreating the 
+transforming navigation bar I had seen on other sites. Still, I can
+definitively say this would have been much harder without Bootstrap.&lt;/p&gt;
+
+&lt;h2 id="responsive-video"&gt;Responsive Video&lt;/h2&gt;
+
+&lt;p&gt;Another responsive effect I wanted was to scale video to fill the width
+of the main column across any device. As many of you
+know, video has been a big part of my web-life, so showcasing on any
+platform was very important. Luckily, better people than me have &lt;a href="http://webdesignerwall.com/tutorials/css-elastic-videos"&gt;already
+solved this
+problem&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I added the following to my site CSS:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/4142545.js?file=responsive-video.css"&gt; &lt;/script&gt;
+
+&lt;p&gt;Then all I have to do for any video embed is ensure it's placed within a
+&lt;code&gt;div&lt;/code&gt; tag with a &lt;code&gt;video&lt;/code&gt; style class. Loverly.&lt;/p&gt;
+
+&lt;h2 id="flying-without-plugins-and-databases"&gt;Flying without Plugins and Databases&lt;/h2&gt;
+
+&lt;p&gt;A big part of Wordpress' appeal was the built-in commenting and the
+ability to extend functionality with plugins like
+&lt;a href="http://wordpress.org/extend/plugins/jetpack/"&gt;Jetpack&lt;/a&gt;. The
+flat-files Jekyll generates can't actually DO anything on the server
+side; can't store anything, can't process form responses, etc.
+Commenting is easily provided with &lt;a href="http://disqus.com"&gt;Disqus&lt;/a&gt; or &lt;a href="http://developers.facebook.com/docs/reference/plugins/comments/"&gt;Facebook&lt;/a&gt;; I chose
+the former as I didn't want to favor any particular social network.&lt;/p&gt;
+
+&lt;p&gt;For my contact form I went with &lt;a href="http://getsimpleform.com"&gt;Simpleform&lt;/a&gt;
+which delivers exactly what its name promises. You signup with the email
+you want form data to be sent to, and you will receive  a token which 
+you then pass back in the &lt;code&gt;action&lt;/code&gt; path you submit the form to.
+And that's it! Any fields you place in your HTML form are captured with
+no further configuration. For example, here is my form:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/4142545.js?file=contact_form.html"&gt; &lt;/script&gt;
+
+&lt;p&gt;As for other functionality like sharing plugins, and auto-formatting?
+Well, the other benefit of moving to Jekyll hosted on &lt;a href="http://github.com"&gt;Github&lt;/a&gt; was that
+alot of that stuff became difficult, if not impossible. Which made me
+realize that I really didn't need it in the first place. The goal,
+after all, was simplification.&lt;/p&gt;
+
+&lt;h2 id="feeding-the-feeds"&gt;Feeding the Feeds&lt;/h2&gt;
+
+&lt;p&gt;Finally, as feeds are not automatically provided by Jekyll, I had to
+generate my own. Plenty of examples exist in the repos of other Jekyll
+based sites, including the
+&lt;a href="https://github.com/mojombo/mojombo.github.com"&gt;original&lt;/a&gt;. Here is mine for RSS:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/4142545.js?file=rss.xml"&gt; &lt;/script&gt;
+
+&lt;p&gt;For Atom:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/4142545.js?file=atom.xml"&gt; &lt;/script&gt;
+
+&lt;p&gt;Additionally the site map for search engines:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/4142545.js?file=sitemap.xml"&gt; &lt;/script&gt;
+
+&lt;p&gt;Note in all cases the need to set &lt;code&gt;layout: nil&lt;/code&gt; in the YAML
+front-matter. Otherwise, it would be wrapping them in the default layout
+of the site, which would produce invalid XML.&lt;/p&gt;
+
+&lt;h2 id="next"&gt;Next?&lt;/h2&gt;
+
+&lt;p&gt;Well there you have it, some of the small tips and tricks I used in
+moving to Jekyll from my Wordpress install. What will I do next? I may
+try to re-introduce tags or categories to my posts. But in the meantime
+I am happy with what I have and look forward to get into the blogging
+groove.&lt;/p&gt;
+
+&lt;h2 id="a-nametldr-atldr"&gt;&lt;a name="tldr"&gt; &lt;/a&gt;TL;DR&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;There are many options to &lt;a href="https://github.com/mojombo/jekyll/wiki/blog-migrations"&gt;migrate Wordpress data&lt;/a&gt;
+but be prepared to fix the data.&lt;/li&gt;
+  &lt;li&gt;&lt;a href="http://twitter.github.com/bootstrap/"&gt;Bootstrap&lt;/a&gt; provides a great foundation for responsive site design.&lt;/li&gt;
+  &lt;li&gt;Use &lt;a href="http://disqus.com"&gt;Disqus&lt;/a&gt; for commenting and &lt;a href="http://getsimpleform.com"&gt;simpleform&lt;/a&gt; for contact forms.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Remember to generate your own feeds; sample templates can be found in
+multiple repos or &lt;a href="https://gist.github.com/4142545"&gt;here&lt;/a&gt;&lt;/p&gt;
+
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Cross-Domain Browser Window Messaging with HTML5 and Javascript</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2012/08/17/cross-domain-browser-window-messaging-with-html5-and-javascript/"/>
+    <id>http://rudyjahchan.com/2012/08/17/cross-domain-browser-window-messaging-with-html5-and-javascript/</id>
+    <published>2012-08-16T17:00:00-07:00</published>
+    <updated>2017-06-28T11:47:57-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2012/08/17/cross-domain-browser-window-messaging-with-html5-and-javascript/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We've previously covered how &lt;a href="http://blog.carbonfive.com/2012/02/27/supporting-cross-domain-ajax-in-rails-using-jsonp-and-cors/"&gt;JSONP and CORS&lt;/a&gt; allow thick-client web applications to circumvent the same origin policy preventing requests to servers in different domains. However, cross-domain interaction is also blocked on the client-side; browser windows loaded with different sites have limited access to each other in order to prevent security breaches. Sadly, this also prevents any communication between thick-clients of web applications that do know of and trust each other … unless they use the &lt;a href="http://www.w3.org/TR/html5/comms.html#dom-window-postmessage-2"&gt;&lt;code&gt;Window#postMessage&lt;/code&gt;&lt;/a&gt; method introduced in HTML5. &lt;a href="#tldr"&gt;&lt;strong&gt;TL;DR »&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="a-problem"&gt;A Problem&lt;/h2&gt;
+
+&lt;p&gt;I recently faced the following dilemma on a project. We were working on two applications with feature-rich thick clients that were on different domains. It was required that navigating to a path on one application would automatically launch a child window opened to a page in the other application, or reuse the same child window if it already existed. This functionality could easily be fulfilled by calling the &lt;code&gt;window.open&lt;/code&gt; method with a targeted window name, except for an additional criteria; if the child window was already open we did &lt;em&gt;NOT&lt;/em&gt; want it to reload the page as this would trigger other events on our server!&lt;/p&gt;
+
+&lt;p&gt;Why was this a problem? Because calling &lt;a href="http://www.w3.org/TR/html5/comms.html#dom-window-postmessage-2"&gt;&lt;code&gt;Window#postMessage&lt;/code&gt;&lt;/a&gt; with a URL &lt;em&gt;WILL&lt;/em&gt; load it, even if the child window exists and is already displaying that URL. You can prevent this by passing &lt;code&gt;null&lt;/code&gt; as the URL parameter. But now if the child window did not exist it will be created with no content!&lt;/p&gt;
+
+&lt;p&gt;"No problem," I thought. "I'll just detect that situation by checking the child window &lt;code&gt;location&lt;/code&gt; property or its &lt;code&gt;document.URL&lt;/code&gt;; if they were undefined, I could call &lt;code&gt;window.open&lt;/code&gt; again, but this time pass in the real URL to load."&lt;/p&gt;
+
+&lt;p&gt;Unfortunately this was where I ran into the cross-domain access issue. Accessing those properties would always log errors and return &lt;code&gt;undefined&lt;/code&gt; regardless of if the child window was properly loaded or empty because the second application was on separate domain. Likewise, the child window could not talk back to the parent window through the &lt;code&gt;window.opener&lt;/code&gt; property.&lt;/p&gt;
+
+&lt;p&gt;How could I query the other window to see if it was already loaded? I found the answer in &lt;code&gt;Window#postMessage&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id="sending-data-through-codepostmessagecode"&gt;Sending data through &lt;code&gt;postMessage()&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Introduced a few years ago in Firefox and now supported by all major browsers, &lt;code&gt;postMessage&lt;/code&gt; allows documents to communicate with each other through their containing &lt;code&gt;window&lt;/code&gt; instances. While it doesn't provide full access to another window's model, it gives us a &lt;em&gt;framework&lt;/em&gt; to establish communication.&lt;/p&gt;
+
+&lt;p&gt;The window sending the event obviously need a reference to the receiving window. We have a variety of ways to do this:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=01.getting.windows.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;The last example is what I will be using in my solution; more on that later.&lt;/p&gt;
+
+&lt;p&gt;With the reference, the sending window can now call &lt;code&gt;postMessage&lt;/code&gt; on the receiver, passing the data they want to send and the domain that is permitted to receive it.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=02.postMessage.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;You can specify the wild-card &lt;code&gt;'*'&lt;/code&gt; character as the second parameter to mean any domain, but this is frowned upon as an opening for security breaches.&lt;/p&gt;
+
+&lt;h2 id="handling-codemessagecode-events"&gt;Handling &lt;code&gt;'message'&lt;/code&gt; Events&lt;/h2&gt;
+
+&lt;p&gt;In order to receive the events, the code in the other window must register a handler for &lt;code&gt;'message'&lt;/code&gt; events on its &lt;code&gt;window&lt;/code&gt;:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=03.listening.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;While not strictly enforced, the first thing a handler should do to lessen potential security issues is verify the domain of the message sender with the &lt;code&gt;Event#origin&lt;/code&gt; property:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=04.check.origin.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;The handler is then able to access the sent data through the &lt;code&gt;Event#data&lt;/code&gt; property.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=05.accessing.data.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;It also receives a reference to the sending window in the &lt;code&gt;Event#source&lt;/code&gt; property. It can use this to post messages back:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=06.posting.back.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;Of course, the original sender must be listening for its own &lt;code&gt;'message'&lt;/code&gt; events in order to receive them!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://davidwalsh.name/"&gt;David Walsh&lt;/a&gt; provides an &lt;a href="http://davidwalsh.name/window-postmessage"&gt;excellent basic example&lt;/a&gt; illustrating all of this. I highly recommend you check it out.&lt;/p&gt;
+
+&lt;h2 id="a-solution"&gt;A Solution&lt;/h2&gt;
+
+&lt;p&gt;Back to my original problem of only loading a child window if it was newly created, but preventing a reload otherwise. I decided to use &lt;code&gt;window#postMessage&lt;/code&gt; as the basis of a "keep-alive" system, pinging the child and reloading only if no response was received.&lt;/p&gt;
+
+&lt;p&gt;You can see the implementation below of the opening code that would be run in the parent window:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=07.parent.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;As before, I would call &lt;code&gt;window.open&lt;/code&gt; with a &lt;code&gt;null&lt;/code&gt; URL which will either return an existing window without reloading its contents or create an empty one. I then use &lt;code&gt;postMessage&lt;/code&gt; to ping the child window in the other domain and wait a second for a response.&lt;/p&gt;
+
+&lt;p&gt;In the client-side code of the second application, I would setup a listener for &lt;code&gt;'message'&lt;/code&gt; events on the window.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=08.child.js"&gt; &lt;/script&gt;
+
+&lt;p&gt;If the child window is already loaded with the second application, the listener will handle any pings from the parent window and send the correct response; the parent window would then take no further action. But in the case of a new, empty child window the listener would not even exist; the correct response would never be sent back and so the parent window would eventually call &lt;code&gt;window.open&lt;/code&gt; again, this time passing in the full URL. Thus we got the desired behavior!&lt;/p&gt;
+
+&lt;p&gt;I could also clean up code by using a library like jQuery to normalize listening for the message event across browsers:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/3376283.js?file=09.jQuery.window.event.listening.js"&gt; &lt;/script&gt;
+
+&lt;h2 id="conclusion"&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;HTML5's &lt;a href="http://www.w3.org/TR/html5/comms.html#dom-window-postmessage-2"&gt;&lt;code&gt;Window#postMessage&lt;/code&gt;&lt;/a&gt; provides a simple framework for thick-clients of different domains to communicate on the client-side with each other, without having to round-trip through the servers. As long as we verify messages are sent to and originate from trusted domains we can safely exchange data and trigger functionality. In fact, you could open your thick clients to new interactions that goes beyond the traditional browser functionality by establishing a protocol with other applications.&lt;/p&gt;
+
+&lt;h2 id="a-nametldra-tldr"&gt;&lt;a name="tldr"&gt;&lt;/a&gt; tl;dr&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Send messages to other windows &lt;a href="http://www.w3.org/TR/html5/comms.html#dom-window-postmessage-2"&gt;&lt;code&gt;Window#postMessage&lt;/code&gt;&lt;/a&gt;; be sure to specify the domain&lt;/li&gt;
+  &lt;li&gt;Receive messages by listening for &lt;code&gt;'message'&lt;/code&gt; events on the &lt;code&gt;window&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Verify the sender of the message by checking the domain in the &lt;code&gt;Event#origin&lt;/code&gt; property.&lt;/li&gt;
+  &lt;li&gt;Read the message sent in the &lt;code&gt;Event#data&lt;/code&gt; property.&lt;/li&gt;
+  &lt;li&gt;A reference to the window that sent the message is found in the &lt;code&gt;Event#source&lt;/code&gt; property.&lt;/li&gt;
+&lt;/ul&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Moved from Wordpress to Jekyll Part 1</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2012/08/14/moved-from-wordpress-to-jekyll-part-1/"/>
+    <id>http://rudyjahchan.com/2012/08/14/moved-from-wordpress-to-jekyll-part-1/</id>
+    <published>2012-08-13T17:00:00-07:00</published>
+    <updated>2017-06-28T09:17:44-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;Welcome to my redesigned website!&lt;/p&gt;
+
+&lt;p&gt;Many changes are abounding, not the
+least of which is that I have moved off of using a self-hosted
+&lt;a href="http://wordpress.org"&gt;Wordpress&lt;/a&gt; to having the site generated by 
+&lt;a href="http://jekyllrb.com"&gt;Jekyll&lt;/a&gt;  on &lt;a href="http://github.com"&gt;Github&lt;/a&gt;. 
+It seems something of a tradition that the first post on a Jekyll
+based site after such a move is to cover the whys and whatfors, so here
+is my take on it!&lt;/p&gt;
+
+&lt;h2 id="whats-wrong-with-wordpress"&gt;What's Wrong with Wordpress?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Nothing. Everything.&lt;/p&gt;
+&lt;small&gt;
+  Saladin,
+  &lt;a href="http://www.amazon.com/gp/product/B000EHSVQ4/ref=as_li_ss_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=B000EHSVQ4&amp;amp;linkCode=as2&amp;amp;tag=rudyjahchanco-20"&gt; Kingdom of Heaven: Director's Cut &lt;/a&gt;
+&lt;img src="http://www.assoc-amazon.com/e/ir?t=rudyjahchanco-20&amp;amp;l=as2&amp;amp;o=1&amp;amp;a=B000EHSVQ4" width="1" height="1" border="0" alt="" style="border:none !important;
+  margin:0px !important; width: 1px !important; height: 1px !important;" /&gt;, 2005
+&lt;/small&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;In the nearly 8 years(!!!) I have been using &lt;a href="http://wordpress.org"&gt;Wordpress&lt;/a&gt;, it has grown in leaps
+and bounds from a simple blogging platform into a fully extensible CMS.
+It was/is my go-to platform for getting a site up for my creative
+projects and for my friends and &lt;a href="http://caseymckinnon.com"&gt;loved ones&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;But, personally, with that growth came a lot of headaches. Nearly every
+time I created a site I would be writing my own themes, plugins and 
+&lt;a href="http://www.galacticast.com/2006/07/23/galacticast-secrets-multiple-video-formats-support-in-wordpress/"&gt;hacks&lt;/a&gt;
+to provide some extra desired bit of functionality. These would
+become a hassle to maintain with each new version of Wordpress, as
+functions I relied on would change. This problem also plagued plugins that I was using written by 
+&lt;em&gt;others&lt;/em&gt; and so would trigger even more cycles of work.&lt;/p&gt;
+
+&lt;p&gt;And here is the rub of it; &lt;em&gt;IT WAS ALL MY FAULT!!!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Given this great, flexible platform I went crazy, putting a lot of time
+into building a site with a lot of features that were meant to save time 
+- automatic video player generation, RSS media enclosures, etc - only to
+spend a lot of more time keeping it working. Add to that ongoing issues with spam and security, 
+warnings about resource usage, a distaste of PHP, and a growing need to go minimal in my life …
+ and suddenly blogging became an unpleasent, cluttered experience.&lt;/p&gt;
+
+&lt;p&gt;It was time to move on.&lt;/p&gt;
+
+&lt;h2 id="why-jekyll"&gt;Why Jekyll?&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href="http://jekyllrb.com"&gt;Jekyll&lt;/a&gt; was first introduced to me by my &lt;a href="http://carbonfive.com"&gt;Carbon
+Five&lt;/a&gt; colleague [Rit
+Li][] when he heard me complaining about how long it took to simply save 
+and preview a post&lt;sup&gt;1&lt;/sup&gt;. Furthermore, I did not appreciate the cold,
+brusque responses my host gave when I reached out to them for help 
+resolving these problems. Rit suggested switching to Jekyll and having my site &lt;a href="https://help.github.com/articles/user-organization-and-project-pages"&gt;hosted on
+Github for
+&lt;em&gt;FREE&lt;/em&gt;&lt;/a&gt;.
+That piqued my interest and I read into it.&lt;/p&gt;
+
+&lt;p&gt;In &lt;a href="http://jekyllrb.com"&gt;Jekyll&lt;/a&gt;, you write your posts and pages as simple &lt;a href="http://daringfireball.net/projects/markdown/"&gt;Markdown&lt;/a&gt; or HTML files, which are
+then transformed using templates in those same formats, a process you
+trigger from the command-line.&lt;/p&gt;
+
+&lt;p&gt;There is no database; the final result is simply dumped to your filesystem for you to do whatever you
+wish whether browse it locally or upload to a server.&lt;/p&gt;
+
+&lt;p&gt;There is no theme sytem; you use straight CSS with some logic control through &lt;a href="http://liquidmarkup.org/"&gt;Liquid&lt;/a&gt; tags.&lt;/p&gt;
+
+&lt;p&gt;There are plugins but that doesn't matter because &lt;a href="http://github.com"&gt;Github&lt;/a&gt;, where I planned to host the
+site, doesn't allow them anyway.&lt;/p&gt;
+
+&lt;p&gt;In brief; it's simple, fast, and limited.&lt;/p&gt;
+
+&lt;p&gt;Why is that a good thing?&lt;/p&gt;
+
+&lt;p&gt;Because it addressed my fundamental problem; given a wealth of options I
+got distracted by using them. Here was a system restricted to very
+simple functionality that required little to no resources except the developer
+skills I was already familiar with.&lt;/p&gt;
+
+&lt;p&gt;I was sold. But there was a lot of work ahead of me.&lt;/p&gt;
+
+&lt;h2 id="do-as-i-say-not-as-i-do"&gt;Do As I Say, Not as I Do&lt;/h2&gt;
+
+&lt;p&gt;Which brings me to one last thought…&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://jekyllrb.com"&gt;Jekyll&lt;/a&gt; is not for everyone and it doesn't answer every need. I wouldn't
+recommend it for anyone unfamiliar with &lt;a href="http://git-scm.com/"&gt;git&lt;/a&gt; and basic command-line
+usage. If my non-codemonkey friends ask me what should they run their
+own sites on, I quickly say &lt;a href="http://wordpress.org"&gt;Wordpress&lt;/a&gt; or, if they have a
+bit of money, &lt;a href="http://squarespace.com"&gt;Squarespace&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;But for me and my issues, it fits the bill. The fact that this site and
+others have laid stagnant for a couple of years are a result of my laziness.
+But when I did build up the willpower and login, suddenly noticing a bunch
+of fixes and tweaks that needed attention did not help!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://jekyllrb.com"&gt;Jekyll&lt;/a&gt; is easy to maintain and
+helps me focus on what it most important; &lt;em&gt;working my site's content
+instead of its infrastructure!&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;My next post will cover some of the technical tips, tricks, and traps I
+learned moving my site into &lt;a href="http://jekyllrb.com"&gt;Jekyll&lt;/a&gt;. I would love to hear your thoughts
+or questions; post them here, message me on &lt;a href="http://twitter.com/rudy"&gt;Twitter&lt;/a&gt; or feel free to
+send an email; I am sure you can guess the address.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h5 id="footnotes"&gt;Footnotes&lt;/h5&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;I am aware of the various caching solutions
+available as plugins to Wordpress. But again, these plugins
+themselves require maintenance!&lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+  </entry>
+  <entry>
+    <title>Monkey-Patching iOS with Objective-C Categories Part I: Simple Extensions and Overrides</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2012/01/23/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/"/>
+    <id>http://rudyjahchan.com/2012/01/23/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/</id>
+    <published>2012-01-22T16:00:00-08:00</published>
+    <updated>2017-06-28T12:34:00-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2012/01/23/monkey-patching-ios-with-objective-c-categories-part-1-simple-extensions-and-overrides/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a &lt;strong&gt;little bit&lt;/strong&gt; differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.&lt;/p&gt;
+
+&lt;p&gt;Monkey-patching is extending or modifying the behavior of code at runtime &lt;strong&gt;without&lt;/strong&gt; changing its original source code. You can monkey-patch any code, it doesn't matter whether it's your own code or not. This is distinctly different than traditional sub-classing because you are not creating a new class, instead, you are reopening an existing class and changing its behavior.&lt;/p&gt;
+
+&lt;p&gt;Monkey-patching is possible in Objective-C by using &lt;a href="http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/objectivec/chapters/occategories.html"&gt;categories&lt;/a&gt;. In fact, the definition of a category practically matches that of monkey-patching:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;"A category allows you to add methods to an existing classâ€”even to one for which you do not have the source."&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;In this series of posts, we'll use categories to add and change methods, to add new instance variables and properties, and introduce swizzling, a technique that allows us to extend and preserve existing functionality.&lt;a href="#tldr"&gt;&lt;strong&gt;TL;DR »&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id="category-basics"&gt;Category Basics&lt;/h2&gt;
+
+&lt;p&gt;To modify an existing class specify the category in both its interface and implementation definitions:&lt;/p&gt;
+
+&lt;h4 id="interface-definition"&gt;Interface Definition&lt;/h4&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=AClassACategoryImplementation.h"&gt;&lt;/script&gt;
+
+&lt;h4 id="implementation"&gt;Implementation&lt;/h4&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=AClassACategoryImplementation.m"&gt;&lt;/script&gt;
+
+&lt;h2 id="adding-simple-methods"&gt;Adding Simple Methods&lt;/h2&gt;
+
+&lt;p&gt;The most basic usage of categories is to add a new method to an existing class.&lt;/p&gt;
+
+&lt;p&gt;Suppose in our application we want to output dates relative to the current time, e.g., "13 minutes ago", "4 hours ago", "just now", etc. Traditional object-oriented solutions would have us introducing a new class that either extends &lt;code&gt;NSDate&lt;/code&gt; (e.g., creating a &lt;code&gt;RelativeDescriptionDate&lt;/code&gt; subclass with a &lt;code&gt;timeAgoInWords&lt;/code&gt; instance method) or is a standalone helper/utility class (e.g., &lt;code&gt;[NSDateHelper timeAgoInWordsFromDate:myDate]&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;But with categories, we can reopen the &lt;code&gt;NSDate&lt;/code&gt; class and simply add a new instance method:&lt;/p&gt;
+
+&lt;h4 id="nsdateformattingh"&gt;NSDate+Formatting.h&lt;/h4&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=NSDateFormatting.h"&gt;&lt;/script&gt;
+
+&lt;h4 id="nsdateformattingm"&gt;NSDate+Formatting.m&lt;/h4&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=NSDateFormatting.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Now &lt;strong&gt;every&lt;/strong&gt; &lt;code&gt;NSDate&lt;/code&gt; object will have the new method available to it. The following code:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=UsingNSDateFormatting.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Will print out the following on the console:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=gistfile1.sh"&gt;&lt;/script&gt;
+
+&lt;h2 id="the-dangers-of-simply-overriding-methods"&gt;The Dangers of Simply Overriding Methods&lt;/h2&gt;
+
+&lt;p&gt;We can take this a step further and instead of adding new behavior we'll override existing behavior. Continuing with our example, what if we wanted the default description of a &lt;code&gt;NSDate&lt;/code&gt; object to include the time ago in words? We could simply do the following:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=NSDateFormatting2.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;However, this is &lt;strong&gt;strongly discouraged&lt;/strong&gt; for two reasons.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Other frameworks may rely on the expected behavior of the original method. We now have to go through the trouble of re-implementing that behavior, in addition to the new functionality we wanted to introduce, or risk strange side effects and possibly even crashing out.&lt;/li&gt;
+  &lt;li&gt;If multiple categories implement the same method, the last one loaded wins! The load order is consistent within an application, but it's arbitrary, out of our hands, and fragile. For all we know, our implementation could itself be overwritten by an internal framework category!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Because of these reasons, this blunt approach to overriding methods should only be used for the simplest of cases. Later in this series, we'll explore how swizzling allows us to override a method while preserving all implementations.&lt;/p&gt;
+
+&lt;h2 id="including-your-monkey-patches"&gt;Including Your Monkey-Patches&lt;/h2&gt;
+
+&lt;p&gt;Categories are not automatically "picked up" in a project. Any code that relies on the behavior will need to &lt;code&gt;#import&lt;/code&gt; the necessary header files:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=EntryCell.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;However, including the same set of headers over and over again is redundant. We should first create a single header file that imports all of our most frequently used categories:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=Extensions.h"&gt;&lt;/script&gt;
+
+&lt;p&gt;We can then import this single header file into a prefix header that is added to all source files. XCode projects often have a &lt;code&gt;.pch&lt;/code&gt; file in the Supporting Files group for this very purpose.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1660134.js?file=pc.h"&gt;&lt;/script&gt;
+
+&lt;h2 id="next-up"&gt;Next Up&lt;/h2&gt;
+
+&lt;p&gt;While adding and overriding classes is straightforward, there is one very big caveat when using Categories; you &lt;strong&gt;cannot add new instance variables&lt;/strong&gt; to a class. We'll take a look at working around this limitation in the next post.&lt;/p&gt;
+
+&lt;h2 id="a-nametldra-tldr"&gt;&lt;a name="tldr"&gt;&lt;/a&gt; tl;dr&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use Objective-C categories to add functionality to existing classes without subclassing.&lt;/li&gt;
+  &lt;li&gt;Avoid simple overrides with categories as it can cause problems with other frameworks.&lt;/li&gt;
+  &lt;li&gt;Use prefix headers to easily import your extensions.&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Getting "Test"-y in iOS Apps: Test-Driven Development and Automated Deployment</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2011/07/19/getting-test-y-in-ios-apps/"/>
+    <id>http://rudyjahchan.com/2011/07/19/getting-test-y-in-ios-apps/</id>
+    <published>2011-07-18T17:00:00-07:00</published>
+    <updated>2017-06-28T09:42:43-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2011/07/19/ios-apps-test-driven-development-and-automated-deployment/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Recently, Jonah and I have been exploring test-driven development and automated deployment on the iOS platform. As we were both attending &lt;a href="http://www.iphonedevcamp.org/"&gt;iOSDevCamp 2011&lt;/a&gt;, we decided to give a lightning talk summarizing our discoveries and to generate excitement within others in the community to start their project on the right foot by testing right from the start. While it wasn't recorded, here is some of the ground we covered in the brief time we had.&lt;/p&gt;
+
+&lt;div style="width:595px" id="__ss_8615702"&gt;&lt;iframe src="http://www.slideshare.net/slideshow/embed_code/8615702" width="595" height="497" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"&gt;&lt;/iframe&gt; &lt;div style="padding:5px 0 12px"&gt; View more &lt;a href="http://www.slideshare.net/" target="_blank"&gt;presentations&lt;/a&gt; from &lt;a href="http://www.slideshare.net/rudyjahchan" target="_blank"&gt;rudyjahchan&lt;/a&gt; &lt;/div&gt; &lt;/div&gt;
+
+&lt;p&gt;&lt;a href="#tldr"&gt;tl;dr - Too Long; Didn't Read »&lt;/a&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Download:&lt;/strong&gt; &lt;a href="http://blog.carbonfive.com/2011/07/19/ios-apps-test-driven-development-and-automated-deployment/iosdevcamp2011-testdrivendev-2/" rel="attachment wp-att-4421"&gt;.ppt&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href="http://blog.carbonfive.com/2011/07/19/ios-apps-test-driven-development-and-automated-deployment/iosdevcamp2011-testdrivendev/" rel="attachment wp-att-4420"&gt;.pdf&lt;/a&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2&gt;Unit Testing&lt;/h2&gt;
+
+&lt;p&gt;After briefly reviewing why we test first (you are doing that, aren't you?) we started with how to unit-test the behavior of classes in Objective-C. To Apple's credit, they've bundled a unit-testing framework and the tools to use it in XCode; SenTestingKit. It follows the xUnit style of writing a series of tests with assertions, with an optional setup and teardown that can be executed before and after each test.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=MyCounterTest.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;SenTestingKit works but is by no means our favorite, having issues with readability, mocking, and running from the command-line. Luckily, there are already a number of great tools to address these issues.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="http://code.google.com/p/hamcrest/wiki/TutorialObjectiveC"&gt;OCHamcrest&lt;/a&gt; is the Objective-C port of the popular matching library &lt;a href="http://code.google.com/p/hamcrest/"&gt;Hamcrest&lt;/a&gt;. Simply including the framework in your project gives you many useful matchers to allow you to write with more readability:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=MyCounterHamcrestTest.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Likewise, adding the &lt;a href="http://www.mulle-kybernetik.com/software/OCMock/"&gt;OCMock&lt;/a&gt; framework provides a wealth of mocking functionality including stubbing of methods, verifying execution of expected methods, partial mocking allowing passthrough to real instances, and even the ability to swap in new implementations for methods.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=MyCounterOCMockTest.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Finally, the &lt;a href="http://code.google.com/p/google-toolbox-for-mac/wiki/iPhoneUnitTesting"&gt;Google Toolbox for Mac&lt;/a&gt; and &lt;a href="http://gabriel.github.com/gh-unit/"&gt;GHUnit&lt;/a&gt; are excellent test runners, extending functionality including the capability to run headlessly.&lt;/p&gt;
+
+&lt;h2&gt;Behavior Driven Development&lt;/h2&gt;
+
+&lt;p&gt;For a few years now the testing community has been moving towards a more BDD or "spec" style of test-writing, allowing for better structure, more readability, and less repetition of code. The classic example of this is the Ruby based RSpec framework:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=my_counter_spec.rb"&gt;&lt;/script&gt;
+
+&lt;p&gt;For those interested more about writing tests in this style, the &lt;a href="http://pragprog.com/book/achbd/the-rspec-book"&gt;RSpec Book&lt;/a&gt; is an excellent introduction and reference. While its examples are language specific, its principles can be applied to similar frameworks.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/pivotal/cedar"&gt;Cedar&lt;/a&gt; from Pivotal Labs, takes full advantage of the new Objective-C blocks to mimic RSpec's structure:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=MyCounterSpec.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Interestingly, instead of plugging into SenTestingKit, Cedar runs the specs as an app, allowing it to be compiled for the simulator or hardware device. Additionally, Cedar has baked in support to provide colorized output when run from the command-line; look into the accompanying project Rakefile to see how it is done.&lt;/p&gt;
+
+&lt;p&gt;A more recent entry into the game is &lt;a href="http://www.kiwi-lib.info/"&gt;Kiwi&lt;/a&gt;. Kiwi is structurally similar to Cedar but provides much cleaner assertions:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=MyCounterKiwiSpec.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Using Kiwi is as simple as including its source in your project. Since it sits atop of SenTestingKit, you can include running all tests as part of your XCode build process. Our brief usage of Kiwi has shown it has some issues running UI components but it does hold promise.&lt;/p&gt;
+
+&lt;h2&gt;Integration Testing&lt;/h2&gt;
+
+&lt;p&gt;More recently our explorations have taken us into looking for an integration and acceptance testing framework to include in our process. While we could write test or specs to do end-to-end testing, it's best to separate the concerns; in fact, we should start by writing integration tests that focus on the user experience!&lt;/p&gt;
+
+&lt;p&gt;Again, using our experiences with web development in Ruby, we looked for something similar to &lt;a href="http://cukes.info/"&gt;Cucumber&lt;/a&gt;. Its use of plain text and the tools to parse it are an ideal way to specify what a system is expected to do:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=google_apps_account.feature"&gt;&lt;/script&gt;
+
+&lt;p&gt;Is there a way to write Cucumber specs for iOS? There is! In fact there are two; &lt;a href="https://github.com/unboxed/icuke"&gt;iCuke&lt;/a&gt; and &lt;a href="https://github.com/moredip/Frank"&gt;Frank&lt;/a&gt;.&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=iCuke.feature"&gt;&lt;/script&gt;
+
+&lt;script src="https://gist.github.com/1090887.js?file=Frank.feature"&gt;&lt;/script&gt;
+
+&lt;p&gt;However, there are problems with both projects. iCuke launches the application in the simulator and automatically launches an HTTP interface to interact with the screen. The project also hasn't seen a commit for over a year, though a number of forks seem to be actively developed. Frank, the other Cucumber based library, is actively maintained and follows a similar strategy of embedding an HTTP server.&lt;/p&gt;
+
+&lt;p&gt;A Frank Cucumber driver then communicates with the server to fire-off user events. Our hesitation to use it comes in the amount of setup it requires with care needed to ensure you don't include it in a release build of the application. And for both iCuke and Frank, the idea of running an entire server feels incredibly heavy for what we want to do. Is there another option?&lt;/p&gt;
+
+&lt;p&gt;Strangely enough, a possible candidate was released into the wild the day before our talk. &lt;a href="https://github.com/square/KIF"&gt;KIF&lt;/a&gt;, short for Keep It Functional, from &lt;a href="https://squareup.com/"&gt;Square&lt;/a&gt; aims to minimize the layers and load in order to test like a user. Each step in a scenario focuses on a single user action, targeting an interface component through the accessibility attributes. Well documented, and with the ability to capture screenshots (and video come the release of Lion), KIF has a lot of potential and we look forward to exploring it in the future.&lt;/p&gt;
+
+&lt;h2&gt;Continuous Integration and Automated Deployment&lt;/h2&gt;
+
+&lt;p&gt;We close the loop on the full agile process through continuous integration and automated deployment, ensuring code stability and getting it out in the hands of testers. We've previously documented how to do so in other posts, including how to build XCode projects and run tests from the command-line, as well as rolling your own Over The Air distribution. Jonah provided &lt;a href="http://blog.carbonfive.com/2011/05/04/automated-ad-hoc-builds-using-xcode-4/"&gt;a full script&lt;/a&gt; that carries out all these steps from start to finish.&lt;/p&gt;
+
+&lt;p&gt;Using Jonah's script and following the lead of Cedar, I started creating a set of &lt;a href="http://rake.rubyforge.org/"&gt;Rake&lt;/a&gt; tasks to carry out each step, from building to headlessly running specs to signing - all from the command-line (it can be found &lt;a href="https://gist.github.com/1017153"&gt;here&lt;/a&gt;). I also decided to use &lt;a href="https://testflightapp.com/"&gt;TestFlight&lt;/a&gt; to distribute and target builds; it provides a intuitive interface for our pre-release users to access the latest builds and easy to use tools for developers to manage those releases. Even better, their upload API allowed us to write a Rake task to deploy right from the command-line.&lt;/p&gt;
+
+&lt;h2&gt;What's Missing&lt;/h2&gt;
+
+&lt;p&gt;While we're excited to see all these great tools emerging for iOS development, there is still a LOT to be done to get us anywhere near the ease of writing tests that the Ruby world currently enjoys. While the nested spec-style of code alleviates duplication, you can still end up with large blocks of code that look like this:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1093622.js?file=BadCode.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;This doesn't really tell us anything about what we are trying to do! It would be far more pleasant to have a library like &lt;a href="https://github.com/thoughtbot/factory_girl"&gt;Factory Girl&lt;/a&gt; and simply write:&lt;/p&gt;
+
+&lt;script src="https://gist.github.com/1093622.js?file=GoodCode.m"&gt;&lt;/script&gt;
+
+&lt;p&gt;Similarly, while CoreData provides a way to update schemas from one release to another, there is no proper migration path that can move forward and back to ensure compatibility. Add to that time-based testing like &lt;a href="https://github.com/jtrupiano/timecop"&gt;Timecop&lt;/a&gt; or automatic testing via &lt;a href="https://github.com/guard/guard"&gt;Guard&lt;/a&gt; and you have a slew of great projects that we could work on.&lt;/p&gt;
+
+&lt;h2&gt;In Conclusion&lt;/h2&gt;
+
+&lt;p&gt;As you can see, there are a number of solid options to test and deploy your iOS projects. Personally, I'm looking forward to bringing KIF into my current stack of Cedar, OCHamcrest, and OCMock. More importantly, there is plenty of room for new tools to help these processes. I plan on releasing a gem of the Rake tasks we've whipped up, and hope to write an interpreter of gherkin (the language cucumber features are written in) to KIF. What would you like to see?&lt;/p&gt;
+
+&lt;h2&gt;&lt;a name="tldr"&gt;&lt;/a&gt;tl;dr&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test-driven principles still apply in iOS development.&lt;/li&gt;
+&lt;li&gt;While out-of-the-box unit testing in XCode comes in SenTestingKit, it is somewhat limited. Use &lt;a href="http://code.google.com/p/hamcrest/wiki/TutorialObjectiveC"&gt;OCHamcrest&lt;/a&gt;, &lt;a href="http://www.mulle-kybernetik.com/software/OCMock/"&gt;OCMock&lt;/a&gt;, &lt;a href="http://code.google.com/p/google-toolbox-for-mac/wiki/iPhoneUnitTesting"&gt;GTM&lt;/a&gt;, and &lt;a href="http://gabriel.github.com/gh-unit/"&gt;GHUnit&lt;/a&gt; to expand functionality&lt;/li&gt;
+&lt;li&gt;Alternatively, for a more BDD approach, use &lt;a href="https://github.com/pivotal/cedar"&gt;Cedar&lt;/a&gt; or the newer &lt;a href="http://www.kiwi-lib.info/"&gt;Kiwi&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Cucumber driven integration tests have been implemented with iCuke and Frank,while the recently released KIF provides for doing the same in Object-C.&lt;/li&gt;
+&lt;li&gt;Command line &lt;a href="http://blog.carbonfive.com/2011/05/04/automated-ad-hoc-builds-using-xcode-4/"&gt;builds&lt;/a&gt;, &lt;a href="http://blog.carbonfive.com/2011/04/06/running-xcode-4-unit-tests-from-the-command-line/"&gt;running tests&lt;/a&gt;, and &lt;a href="http://blog.carbonfive.com/2011/05/04/automated-ad-hoc-builds-using-xcode-4/"&gt;Over The Air distribution&lt;/a&gt; are all possible and documented. We've done it as a &lt;a href="http://blog.carbonfive.com/2011/05/04/automated-ad-hoc-builds-using-xcode-4/"&gt;bash script&lt;/a&gt;, or &lt;a href="https://gist.github.com/1017153"&gt;rake tasks&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://testflightapp.com/"&gt;TestFlight&lt;/a&gt; provides not only a great way for your pre-release users to get your builds, but an API to automate sending it to them.&lt;/li&gt;
+&lt;li&gt;There is much work to be done; factories, fixtures, time manipulation, ... why not dive in?&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+  </entry>
+  <entry>
+    <title>Integrating Topic Branches in Git</title>
+    <link rel="alternate" href="http://rudyjahchan.com/2010/11/01/integrating-topic-branches-in-git/"/>
+    <id>http://rudyjahchan.com/2010/11/01/integrating-topic-branches-in-git/</id>
+    <published>2010-10-31T17:00:00-07:00</published>
+    <updated>2017-06-28T11:09:37-07:00</updated>
+    <author>
+      <name>Rudy Jahchan</name>
+    </author>
+    <content type="html">&lt;p&gt;&lt;em&gt;Originally posted on &lt;a href="http://blog.carbonfive.com/2010/11/01/integrating-topic-branches-in-git/"&gt;Carbon Five's Blog&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;A key feature of &lt;a href="http://git-scm.com/"&gt;Git&lt;/a&gt; is how easy it is to create topic branches to separate and organize work.  This power leads to a codebase with many more branches than you would typically see in other SCMs, like SVN.  However, without an appropriate and consistent branch-and-merge strategy, your team will wind up with a confusing and unhelpful history.&lt;/p&gt;
+
+&lt;p&gt;How do we avoid this mess? And what do we actually want our history to look like?&lt;/p&gt;
+
+&lt;h2&gt;A Tale of Two Timelines&lt;/h2&gt;
+&lt;p&gt;No one sets out to create a messy history. Most of us want our main branches to be a straight line of commits.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="alignnone size-full wp-image-1378" title="fast-forward" src="http://blog.carbonfive.com/wp-content/uploads/2010/12/fast-forward14.png" alt="" width="374" height="77" /&gt;&lt;/p&gt;
+
+&lt;p&gt;This clear, linear history absent of any merge commits is highly readable.  Git's default behavior when merging a branch that has not diverged from the mergee is to perform a fast-forward, resulting in this type of history.&lt;/p&gt;
+
+&lt;p&gt;There is a major shortcoming; it doesn't reflect the use of topic branches!  You can't see the workflow that was used and you can't rollback the work from a single topic branch without a bit of investigation.&lt;/p&gt;
+
+&lt;p&gt;So lately we've been aiming to have our histories look like the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="alignnone size-full wp-image-1386" title="multiple-no-fast-forward" src="http://blog.carbonfive.com/wp-content/uploads/2010/12/multiple-no-fast-forward13.png" alt="" width="496" height="221" /&gt;&lt;/p&gt;
+
+&lt;p&gt;The main branch (master in this case) consists of nothing (besides the initial commit) but merge commits from topic branches. This is just as clear as the above linear timeline, but now:&lt;/p&gt;
+&lt;ol&gt;
+	&lt;li&gt;the history reflects the fact that we used topic branches for our work&lt;/li&gt;
+	&lt;li&gt;a naming convention for topic branches helps identify the work done&lt;/li&gt;
+	&lt;li&gt;it's easy to revert the work of a branch; just revert the single merge commit!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;So how do we achieve this model?&lt;/p&gt;
+
+&lt;h2&gt;The Workflow&lt;/h2&gt;
+
+&lt;p&gt;We follow a few key steps around branching and merging in order to create this style of history.&lt;/p&gt;
+
+&lt;h3&gt;Branch Around Stories&lt;/h3&gt;
+
+&lt;p&gt;As part of the agile process, we write stories to describe one feature, bug fix, or chore to be delivered. When we begin work on a story we create a topic branch named after it.&lt;/p&gt;
+
+&lt;p&gt;We usually use &lt;a href="http://pivotaltracker.com"&gt;Pivotal Tracker&lt;/a&gt; to manage our stories, but no matter what system we can easily apply our naming convention:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;[&lt;em&gt;feature|bug|chore&lt;/em&gt;]-[&lt;em&gt;id&lt;/em&gt;]-[&lt;em&gt;abbreviated_story_title_separated_by_underscores&lt;/em&gt;]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Here are some examples:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Story&lt;/th&gt;
+&lt;th&gt;Branch&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Feature #12345: Threaded post comments&lt;/td&gt;
+&lt;td&gt;feature-12345-threaded_post_comments&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Bug #23456: Can create 2 groups with the same name&lt;/td&gt;
+&lt;td&gt;bug-23456-prevent_duplicate_groups&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Chore #34567: Setup CI environment&lt;/td&gt;
+&lt;td&gt;chore-34567-setup_ci_environment&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Assuming you are on the master branch, creating a new branch would look like this:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+git checkout -b feature-12345-threaded_post_comments
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It also makes sense to push this topic branch to the remote repository for backup or remote access by you and others.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+git push origin feature-12345-threaded_post_comments
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3&gt;Rebase When Ready to Deliver&lt;/h3&gt;
+&lt;p&gt;When a feature is complete, we rebase our work on the latest version of our main branch (master in this case):&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+git rebase master
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This step is what gives our history model the appearance of each topic branch being created sequentially.&lt;/p&gt;
+
+&lt;p&gt;You may be concerned about rebasing when working in a team environment as your next push would have to be forced, rewriting the history. But remember, we only do this step when we've &lt;em&gt;finished&lt;/em&gt; the story i.e. we no longer plan any further changes to it.&lt;/p&gt;
+&lt;h3&gt;Merge Without Fast Forwarding&lt;/h3&gt;
+&lt;p&gt;As discussed, Git's default merge behavior (when the 2 branches have not diverged or after a rebase of one on another) is to perform a fast forward. Instead of accepting the default behavior we use merge's &lt;code&gt;--no-ff&lt;/code&gt; flag:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+git checkout master
+git merge --no-ff feature-12345-threaded_post_comments
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This prevents the default behavior and generates a merge commit, achieving the goal of our model!&lt;/p&gt;
+
+&lt;p&gt;&lt;img class="alignnone size-full wp-image-1381" title="no-fast-forward" src="http://blog.carbonfive.com/wp-content/uploads/2010/12/no-fast-forward23.png" alt="" width="435" height="86" /&gt;&lt;/p&gt;
+&lt;h3&gt;A Note on Squashing&lt;/h3&gt;
+&lt;p&gt;Some developers prefer to squash all their work in a topic branch into a single commit before they merge.  If you're doing this, then we don't see much advantage to not fast-fowarding because every topic branch in your history would be a single commit!  Instead accept the default behavior and fast foward but at least make sure the story id is in the commit message for reference.&lt;/p&gt;
+&lt;h3&gt;Be Good, Cleanup after Yourself!&lt;/h3&gt;
+&lt;p&gt;Always remember to delete local topic branches after integrating them into another branch.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+git branch -d feature-12345-threaded_post_comments
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;If you've pushed the topic branch to a remote, delete it there as well to avoid confusing other developers about its status.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+git push origin :feature-12345-threaded_post_comments
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Implementing this non-fast-forward workflow requires a bit of discipline from all of us after using the default behavior for some time. But we do enjoy the results, particularly a history that preserves the existence of topic branches.&lt;/p&gt;
+
+&lt;p&gt;We would love to hear your opinions and how you manage branching in your own work.&lt;/p&gt;
+</content>
+  </entry>
+</feed>

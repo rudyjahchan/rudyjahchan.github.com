@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+    <meta charset="utf-8" />
+    <meta name="keywords" content="Rudy Jahchan" />
+    <meta name="author" content="Rudy Jahchan" />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge;chrome=1' />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="og:type" content="article">
+<meta name="og:url" content="http://rudyjahchan.com/2012/11/24/moved-from-wordpress-to-jekyll-part-2/">
+    <meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Moved from Wordpress to Jekyll Part 2">
+<meta name="og:title" content="Moved from Wordpress to Jekyll Part 2">
+<meta name="twitter:site" content="@rudy">
+<meta name="twitter:creator" content="@rudy">
+<meta name="twitter:description" content="Well so much for Jekyll encouraging me to blog
+more! But it has
+been a busy year since I got my site redesign up. Namely, my short film
+D.N.E. won BEST SCI-FI
+SHORT
+ at Dragon*Con, I got my
+U.S. Permanent...">
+<meta name="og:description" content="Well so much for Jekyll encouraging me to blog
+more! But it has
+been a busy year since I got my site redesign up. Namely, my short film
+D.N.E. won BEST SCI-FI
+SHORT
+ at Dragon*Con, I got my
+U.S. Permanent...">
+
+    <title>Moved from Wordpress to Jekyll Part 2 - Rudy Jahchan</title>
+    <link href="http://feeds.feedburner.com/rudyjahchan" rel="alternate" title="Rudy Jahchan" type="application/rss+xml" />
+    <link href="/stylesheets/all.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/8d26a9e428.js"></script>
+  </head>
+  <body>
+    <header id="main" class="navbar">
+      <div class="navbar__brand"><a href="/">Rudy Jahchan&nbsp;<span>&nbsp;</span></a></div>
+      <nav id="main" class="site-nav">
+        <ul class="links menu-activable">
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+        <button id="menu-toggle" class="menu-activable">
+          <span class="sr-only">Toggle navigation</span>
+          <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+      </nav>
+    </header>
+    <div id="faux-terminal">
+      <div class="layer"></div>
+      <div class="overlay"></div>
+    </div>
+    <div class="content">  <article>
+      <header class="article-content">
+	<h1><a href="/2012/11/24/moved-from-wordpress-to-jekyll-part-2/">Moved from Wordpress to Jekyll Part 2</a></h1>
+		<time datetime="2012-11-24 00:00">Published on Nov 24, 2012</time>
+</header>
+
+    <div class="article-content">  <p>Well so much for <a href="http://jekyllrb.com">Jekyll</a> encouraging me to <a href="/2012/08/14/moved-from-wordpress-to-jekyll-part-1/">blog
+more</a>! But it has
+been a busy year since I got my site redesign up. Namely, my short film
+<a href="http://www.facebook.com/DNEDoNotErase">D.N.E.</a> won <a href="http://dailydragon.dragoncon.org/contests-awards/film-festival-award-winners/">BEST SCI-FI
+SHORT</a>
+ at <a href="http://dragoncon.org/">Dragon*Con</a>, I got my
+U.S. Permanent residency, and, oh yeah, <a href="http://www.flickr.com/photos/caseymckinnon/sets/72157632044476389/">I got
+married</a>.</p>
+
+<p>But excuses aside! Let us delve into the technical details of my moving
+to Jekyll. Or if you want, <a href="#tldr">skip ahead</a>!</p>
+
+<h2 id="migrating-my-old-posts">Migrating my old Posts</h2>
+
+<p>Jekyll's documentation provides <a href="https://github.com/mojombo/jekyll/wiki/blog-migrations">two ways to migrate posts from
+Wordpress</a>.
+The first method was unfortunately a non-starter; the blog was
+being hosted on a shared server instance, which severely restricted my
+ability to install gems.</p>
+
+<p>Instead, I went with generating an export file, functionality available
+in any Wordpress install, and running the "wordpressdotcom" migrator. This
+worked for the most part … Except for a bunch of bad character
+encodings in the posts!</p>
+
+<p>Particularly line breaks, quotations, and other
+common characters were coming out all wrong. So wrong
+that Jekyll could not even start up properly! Using various
+<a href="http://ubuntuforums.org/showthread.php?t=1486493">sed</a>
+and
+<a href="http://hints.macworld.com/article.php?story=20001206164827794">PERL</a>
+commands I managed to clean up most files.</p>
+
+<p>Finally, as Google had already indexed my site, in order to ensure that
+search results did not lead to dead-links, I needed to maintain the paths
+of posts. This was done simply enough in the <code>config.yml</code>:</p>
+
+<script src="https://gist.github.com/4142545.js?file=config.yml">
+</script>
+
+<h2 id="stylishly-bootstrapping">Stylishly Bootstrapping</h2>
+
+<p>Next up was laying out the site both structurally and design-wise. After
+many years of playing the CSS reset, redefine, and tweaking game, I was
+getting frustrated with having to establish on all the basic styles of
+a site over and over again, none of which turned out particularly well;
+you just have to take a look at <a href="http://galacticast.com">Galacticast's</a>
+for proof.</p>
+
+<p>Which is why
+<a href="http://twitter.github.com/bootstrap/">Bootstrap</a> to developers like me.
+Yes, there have been many styling frameworks that provide grid layouts
+and other components. But Bootstrap goes beyond by establishing a
+decent, pleasant style.</p>
+
+<p>Now keep in mind, I didn't avoid all the hard work. I still had to go
+through the "tweak" step, adding site specific styling behavior.
+Sometimes this was simply a matter of using the "appropriate" class to
+get the behavior I wanted, like declaring the <code>&lt;section /&gt;</code>
+containing the content of posts a <code>hero-unit</code> to get the
+larger, readable font. Hackish I know, but it works.</p>
+
+<p>But some behavior required a lot of labour. Particularly, while Bootstrap provides
+<a href="http://twitter.github.com/bootstrap/scaffolding.html#responsive">responsive
+functionality</a>, 
+I spent a lot of time recreating the 
+transforming navigation bar I had seen on other sites. Still, I can
+definitively say this would have been much harder without Bootstrap.</p>
+
+<h2 id="responsive-video">Responsive Video</h2>
+
+<p>Another responsive effect I wanted was to scale video to fill the width
+of the main column across any device. As many of you
+know, video has been a big part of my web-life, so showcasing on any
+platform was very important. Luckily, better people than me have <a href="http://webdesignerwall.com/tutorials/css-elastic-videos">already
+solved this
+problem</a>.</p>
+
+<p>I added the following to my site CSS:</p>
+
+<script src="https://gist.github.com/4142545.js?file=responsive-video.css"> </script>
+
+<p>Then all I have to do for any video embed is ensure it's placed within a
+<code>div</code> tag with a <code>video</code> style class. Loverly.</p>
+
+<h2 id="flying-without-plugins-and-databases">Flying without Plugins and Databases</h2>
+
+<p>A big part of Wordpress' appeal was the built-in commenting and the
+ability to extend functionality with plugins like
+<a href="http://wordpress.org/extend/plugins/jetpack/">Jetpack</a>. The
+flat-files Jekyll generates can't actually DO anything on the server
+side; can't store anything, can't process form responses, etc.
+Commenting is easily provided with <a href="http://disqus.com">Disqus</a> or <a href="http://developers.facebook.com/docs/reference/plugins/comments/">Facebook</a>; I chose
+the former as I didn't want to favor any particular social network.</p>
+
+<p>For my contact form I went with <a href="http://getsimpleform.com">Simpleform</a>
+which delivers exactly what its name promises. You signup with the email
+you want form data to be sent to, and you will receive  a token which 
+you then pass back in the <code>action</code> path you submit the form to.
+And that's it! Any fields you place in your HTML form are captured with
+no further configuration. For example, here is my form:</p>
+
+<script src="https://gist.github.com/4142545.js?file=contact_form.html"> </script>
+
+<p>As for other functionality like sharing plugins, and auto-formatting?
+Well, the other benefit of moving to Jekyll hosted on <a href="http://github.com">Github</a> was that
+alot of that stuff became difficult, if not impossible. Which made me
+realize that I really didn't need it in the first place. The goal,
+after all, was simplification.</p>
+
+<h2 id="feeding-the-feeds">Feeding the Feeds</h2>
+
+<p>Finally, as feeds are not automatically provided by Jekyll, I had to
+generate my own. Plenty of examples exist in the repos of other Jekyll
+based sites, including the
+<a href="https://github.com/mojombo/mojombo.github.com">original</a>. Here is mine for RSS:</p>
+
+<script src="https://gist.github.com/4142545.js?file=rss.xml"> </script>
+
+<p>For Atom:</p>
+
+<script src="https://gist.github.com/4142545.js?file=atom.xml"> </script>
+
+<p>Additionally the site map for search engines:</p>
+
+<script src="https://gist.github.com/4142545.js?file=sitemap.xml"> </script>
+
+<p>Note in all cases the need to set <code>layout: nil</code> in the YAML
+front-matter. Otherwise, it would be wrapping them in the default layout
+of the site, which would produce invalid XML.</p>
+
+<h2 id="next">Next?</h2>
+
+<p>Well there you have it, some of the small tips and tricks I used in
+moving to Jekyll from my Wordpress install. What will I do next? I may
+try to re-introduce tags or categories to my posts. But in the meantime
+I am happy with what I have and look forward to get into the blogging
+groove.</p>
+
+<h2 id="a-nametldr-atldr"><a name="tldr"> </a>TL;DR</h2>
+
+<ul>
+  <li>There are many options to <a href="https://github.com/mojombo/jekyll/wiki/blog-migrations">migrate Wordpress data</a>
+but be prepared to fix the data.</li>
+  <li><a href="http://twitter.github.com/bootstrap/">Bootstrap</a> provides a great foundation for responsive site design.</li>
+  <li>Use <a href="http://disqus.com">Disqus</a> for commenting and <a href="http://getsimpleform.com">simpleform</a> for contact forms.</li>
+  <li>
+    <p>Remember to generate your own feeds; sample templates can be found in
+multiple repos or <a href="https://gist.github.com/4142545">here</a></p>
+
+  </li>
+</ul>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR
+       WEBPAGE * * */
+  var disqus_shortname = 'rudyjahchan';
+  var disqus_url = 'http://rudyjahchan.com/2012/11/24/moved-from-wordpress-to-jekyll-part-2/';
+
+  /* * * DON'T EDIT BELOW THIS LINE * * */
+  (function() {
+   var dsq = document.createElement('script');
+   dsq.type = 'text/javascript'; dsq.async =
+   true;
+   dsq.src = 'http://' +
+   disqus_shortname +
+   '.disqus.com/embed.js';
+   (document.getElementsByTagName('head')[0]
+    ||
+    document.getElementsByTagName('body')[0]).appendChild(dsq);
+   })();
+
+(function () {
+ var s = document.createElement('script'); s.async = true;
+ s.type = 'text/javascript';
+ s.src = 'http://' + disqus_shortname +
+ '.disqus.com/count.js';
+ (document.getElementsByTagName('HEAD')[0]
+  ||
+  document.getElementsByTagName('BODY')[0]).appendChild(s);
+ }());
+
+</script>
+<noscript>Please enable
+  JavaScript to view the
+  <a
+    href="http://disqus.com/?ref_noscript">comments
+    powered by
+    Disqus.</a></noscript>
+<a
+  href="http://disqus.com"
+  class="dsq-brlink">blog
+  comments powered by
+  <span
+    class="logo-disqus">Disqus</span></a>
+</div>
+  </article>
+</div>
+    <footer>
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>&nbsp;
+      <nav class="social">
+        <a href="http://twitter.com/rudy"><i class="fa fa-twitter"></i></a>&nbsp;
+        <a href="http://github.com/rudyjahchan/"><i class="fa fa-github"></i></a>&nbsp;
+        <a href="http://instagram.com/rudyjahchan"><i class="fa fa-instagram"></i></a>&nbsp;
+        <a href="http://feeds.feedburner.com/rudyjahchan"><i class="fa fa-rss"></i></a>
+      </nav>
+    </footer>
+    <script src="/javascripts/all.js"></script>
+  </body>
+</html>
