@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rudy Jahchan</title>
+    <link>http://rudyjahchan.com/</link>
+    <description>Recent content on Rudy Jahchan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Rudy Jahchan</copyright>
+    <lastBuildDate>Tue, 03 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://rudyjahchan.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tweaking this Site</title>
+      <link>http://rudyjahchan.com/blog/tweaking-site/</link>
+      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/tweaking-site/</guid>
+      <description>As my beloved wife pointed out, a New Year makes me return to this site to restructure it. Funny thing was this year I had no interest in a redesign. The old one still suited me and I really need to focus on WHY I have a site; not to maintain one but to WRITE. I had to break the cycle of not achieving the latter goal due to being distracted by the former.</description>
+    </item>
+    
+    <item>
+      <title>C5 Labs VRogger</title>
+      <link>http://rudyjahchan.com/blog/c5-labs-vrogger/</link>
+      <pubDate>Tue, 26 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/c5-labs-vrogger/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+For the last two weeks a few of us here at Carbon Five Santa Monica explored our latest love, Virtual Reality, by creating a game from scratch. We had a hard time limit of two weeks and our team was small. Just Bhavna, Sidney, Nicole, and Rudy working on a full game experience, with levels, sound and design.
+This was completely an exercise in prioritization and exploration of a platform that only half the team had any experience with.</description>
+    </item>
+    
+    <item>
+      <title>DIY Pokemon Go: Our Experience Building an Augmented Reality Scavenger Hunt</title>
+      <link>http://rudyjahchan.com/blog/diy-pokemon-go-our-experience-building-an-augmented-reality-scavenger-hunt/</link>
+      <pubDate>Fri, 22 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/diy-pokemon-go-our-experience-building-an-augmented-reality-scavenger-hunt/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Thanks to PokemonGO, the streets are filled with people racing around cities, stopping to interact with virtual characters they could see through their phone camera. The experience is familiar to us at Carbon Five; 6 months ago we were doing the same thing on the streets of San Francisco playing our own augmented reality game. A game our tiny, three person team conceived, built and delivered in under a month, in and around our regular client workload!</description>
+    </item>
+    
+    <item>
+      <title>Getting Started in VR with Javascript</title>
+      <link>http://rudyjahchan.com/blog/getting-started-in-vr-with-javascript/</link>
+      <pubDate>Wed, 13 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/getting-started-in-vr-with-javascript/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Virtual Reality is something we at Carbon Five have been playing around with the past few months, learning not only how to get started but how we can use our current toolset to work within the growing field. That&amp;rsquo;s why I was excited two weeks ago to give a talk on getting started in virtual reality through JavaScript and WebVR at EmpireJS in New York.</description>
+    </item>
+    
+    <item>
+      <title>Vintage Terminal Effect in CSS3</title>
+      <link>http://rudyjahchan.com/blog/vintage-terminal-effects-in-css3/</link>
+      <pubDate>Wed, 07 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/vintage-terminal-effects-in-css3/</guid>
+      <description>In addition to moving from Jekyll to Middleman for this site, I also wanted to do something special. Something that represented my quirky, geeky, 80s loving, hacker side instead of yet another Bootstrap styled blogging site. I debated between swiping Oran Looney&amp;rsquo;s Tron theme and one point considered making my entire site act like a console like Anders Evenrud&amp;rsquo;s demo. However, this could be a huge drain on the resources of any reader&amp;rsquo;s browsers, especially those on mobile devices.</description>
+    </item>
+    
+    <item>
+      <title>New Year, New Site</title>
+      <link>http://rudyjahchan.com/blog/new-year-new-site/</link>
+      <pubDate>Mon, 05 Jan 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/new-year-new-site/</guid>
+      <description>Hello, 2015! I love this time of year as another chance to kick-off new endeavors. For me, it means refreshing my website and get back into writing.
+Many times in the best year, I&amp;rsquo;ve thought &amp;ldquo;I really should write a blog post about that&amp;rdquo; &amp;hellip; and never did. There are the occasional code-centric posts I&amp;rsquo;ve written for Carbon Five but at heart I am still a writer. Writers gotta write though, so this is my go at it.</description>
+    </item>
+    
+    <item>
+      <title>Taking Advantage of Multi-Processor Environments in Node.js</title>
+      <link>http://rudyjahchan.com/blog/taking-advantage-of-multi-processor-environments-in-node-js/</link>
+      <pubDate>Fri, 28 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/taking-advantage-of-multi-processor-environments-in-node-js/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Node.js has more than proven itself capable of handling multiple events concurrently such as server connections, and all without exposing us to the complexities of threading. Still, this locks our apps down to a single process with a single thread of execution consuming a single event queue. On a machine with a single processor, this is no big loss; there is only one active process in any case.</description>
+    </item>
+    
+    <item>
+      <title>BDD Composition over Inheritance with RSpec Shared Examples</title>
+      <link>http://rudyjahchan.com/blog/bdd-composition-over-inheritence-with-rspec-shared-examples/</link>
+      <pubDate>Wed, 07 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/bdd-composition-over-inheritence-with-rspec-shared-examples/</guid>
+      <description>The technique of composition over inheritience is more than simply encapsulating objects into larger entities; its really about defining models as being made up of resuable behaviors. It makes sense then in Behavaior Driven Design we apply the technique not just when writing the implementations of our models but also when creating the specifications themselves.</description>
+    </item>
+    
+    <item>
+      <title>Monkey-Patching iOS with Objective-C Categories Part III: Swizzling</title>
+      <link>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/</link>
+      <pubDate>Wed, 20 Feb 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+In this series of posts, we&amp;rsquo;ll show how to monkey-patch in Objective-C through categories to add and change methods, to add new instance variables and properties, and introduce swizzling, a technique that allows us to extend and preserve existing functionality.</description>
+    </item>
+    
+    <item>
+      <title>Sweeter Javascript: Defining Properties to Add Syntactic Sugar</title>
+      <link>http://rudyjahchan.com/blog/sweeter-javascript-define-properties-to-add-syntactic-sugar/</link>
+      <pubDate>Tue, 12 Feb 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/sweeter-javascript-define-properties-to-add-syntactic-sugar/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Syntatic sugar makes for more human-readable code and, if done correctly, provides for more flexibility. In the world of Node many turn to Coffeescript to add that &amp;ldquo;sweetness&amp;rdquo;, but you can also achieve it with plain old Javascript. TL;DR »
+Object.defineProperty It all comes down to using defineProperty of the Object class. Introduced as part of ECMAScript 5 and implemented in Javascript 1.8.5 - which is supported by Node and most major browsers - it allows you to add or modify a property on an object by not just determining its value but its entire behaviour.</description>
+    </item>
+    
+    <item>
+      <title>Monkey-Patching iOS with Objective-C Categories Part II: Adding Instance Properties</title>
+      <link>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/</link>
+      <pubDate>Tue, 27 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+In this series of posts, we&amp;rsquo;ll show how to monkey-patch in Objective-C through categories to add and change methods, to add new instance variables and properties, and introduce swizzling, a technique that allows us to extend and preserve existing functionality.</description>
+    </item>
+    
+    <item>
+      <title>Moved from WordPress to Jekyll Part 2</title>
+      <link>http://rudyjahchan.com/blog/moved-from-wordpress-to-jekyll-part-2/</link>
+      <pubDate>Sat, 24 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/moved-from-wordpress-to-jekyll-part-2/</guid>
+      <description>Well so much for Jekyll encouraging me to blog more! But it has been a busy year since I got my site redesign up. Namely, my short film D.N.E. won BEST SCI-FI SHORT at Dragon*Con, I got my U.S. Permanent residency, and, oh yeah, I got married.
+But excuses aside! Let us delve into the technical details of my moving to Jekyll. Or if you want, skip ahead!
+Migrating my old Posts Jekyll&amp;rsquo;s documentation provides two ways to migrate posts from Wordpress.</description>
+    </item>
+    
+    <item>
+      <title>Cross-Domain Browser Window Messaging with HTML5 and Javascript</title>
+      <link>http://rudyjahchan.com/blog/cross-domain-browser-window-messaging-with-html5-and-javascript/</link>
+      <pubDate>Fri, 17 Aug 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/cross-domain-browser-window-messaging-with-html5-and-javascript/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+We&amp;rsquo;ve previously covered how JSONP and CORS allow thick-client web applications to circumvent the same origin policy preventing requests to servers in different domains. However, cross-domain interaction is also blocked on the client-side; browser windows loaded with different sites have limited access to each other in order to prevent security breaches. Sadly, this also prevents any communication between thick-clients of web applications that do know of and trust each other &amp;hellip; unless they use the Window#postMessage method introduced in HTML5.</description>
+    </item>
+    
+    <item>
+      <title>Moved from WordPress to Jekyll Part 1</title>
+      <link>http://rudyjahchan.com/blog/moved-from-wordpress-to-jekyll-part-1/</link>
+      <pubDate>Tue, 14 Aug 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/moved-from-wordpress-to-jekyll-part-1/</guid>
+      <description>Welcome to my redesigned website!
+Many changes are abounding, not the least of which is that I have moved off of using a self-hosted Wordpress to having the site generated by Jekyll on Github. It seems something of a tradition that the first post on a Jekyll based site after such a move is to cover the whys and whatfors, so here is my take on it!
+What&amp;rsquo;s Wrong with Wordpress?</description>
+    </item>
+    
+    <item>
+      <title>Monkey-Patching iOS with Objective-C Categories Part I: Simple Extensions and Overrides</title>
+      <link>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/</link>
+      <pubDate>Mon, 23 Jan 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little bit differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+Monkey-patching is extending or modifying the behavior of code at runtime without changing its original source code. You can monkey-patch any code, it doesn&amp;rsquo;t matter whether it&amp;rsquo;s your own code or not.</description>
+    </item>
+    
+    <item>
+      <title>Getting &#34;Test&#34;-y in iOS Apps: Test-Driven Development and Automated Deployment</title>
+      <link>http://rudyjahchan.com/blog/getting-test-y-in-ios-apps/</link>
+      <pubDate>Tue, 19 Jul 2011 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/getting-test-y-in-ios-apps/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Recently, Jonah and I have been exploring test-driven development and automated deployment on the iOS platform. As we were both attending iOSDevCamp 2011, we decided to give a lightning talk summarizing our discoveries and to generate excitement within others in the community to start their project on the right foot by testing right from the start. While it wasn&amp;rsquo;t recorded, here is some of the ground we covered in the brief time we had.</description>
+    </item>
+    
+    <item>
+      <title>Integrating Topic Branches in Git</title>
+      <link>http://rudyjahchan.com/blog/integrating-topic-branches-in-git/</link>
+      <pubDate>Mon, 01 Nov 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/integrating-topic-branches-in-git/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+A key feature of Git is how easy it is to create topic branches to separate and organize work. This power leads to a codebase with many more branches than you would typically see in other SCMs, like SVN. However, without an appropriate and consistent branch-and-merge strategy, your team will wind up with a confusing and unhelpful history.
+How do we avoid this mess? And what do we actually want our history to look like?</description>
+    </item>
+    
+    <item>
+      <title>Bumps In the Night - An Exorcise in Futility</title>
+      <link>http://rudyjahchan.com/blog/bumps-in-the-night-an-exorcise-in-futility/</link>
+      <pubDate>Sat, 19 Jun 2010 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/bumps-in-the-night-an-exorcise-in-futility/</guid>
+      <description>Over two months ago, I was whining to Jenni Powell how I didn&amp;rsquo;t get to collaborate anymore. So did the logical thing? Told me to shut up and invited me to guest-direct an episode of the horror-comedy show she produces called Bumps in the Night.
+It was a great opportunity for me, as I hadn&amp;rsquo;t called the shots in over two years since we last produced Galacticast, and this would be only the second time I directed somebody else&amp;rsquo;s material (the first was an amazing screenplay that Matthew Balthrop wrote for us).</description>
+    </item>
+    
+    <item>
+      <title>Going to California</title>
+      <link>http://rudyjahchan.com/blog/going-to-california/</link>
+      <pubDate>Wed, 13 Aug 2008 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/going-to-california/</guid>
+      <description>As the song says, going to California to make a new start.</description>
+    </item>
+    
+    <item>
+      <title>Drinks with the Devil</title>
+      <link>http://rudyjahchan.com/projects/writings/drinks-with-the-devil/</link>
+      <pubDate>Thu, 06 Dec 2007 00:00:00 -0700</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/writings/drinks-with-the-devil/</guid>
+      <description>The next round&amp;rsquo;s on you.</description>
+    </item>
+    
+    <item>
+      <title>A Comicbook Orange</title>
+      <link>http://rudyjahchan.com/projects/film-and-tv/a-comicbook-orange/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/film-and-tv/a-comicbook-orange/</guid>
+      <description>Reviews of comicbooks and interviews with their creators.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://rudyjahchan.com/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/about/</guid>
+      <description>Rudy’s fascination with mixing technology and storytelling began at age 10 when he mistakenly picked up the Micro-Adventure book Space Attack (he thought it was going to be about Star Wars).
+That happy accident led him to graduate from McGill University in Computer Science and start a career in software development playing with a wide range of domains; everything from front-end web and mobile applications to backend systems, from procedural to reactive programming, from startup to enterprise.</description>
+    </item>
+    
+    <item>
+      <title>Craft Check</title>
+      <link>http://rudyjahchan.com/projects/apps/craft-check/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/apps/craft-check/</guid>
+      <description>App to verify if a beer is genuinely craft!</description>
+    </item>
+    
+    <item>
+      <title>D.N.E. - Do Not Erase</title>
+      <link>http://rudyjahchan.com/projects/film-and-tv/dne/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/film-and-tv/dne/</guid>
+      <description>A short-film on the personal consequences of inventing time-travel.</description>
+    </item>
+    
+    <item>
+      <title>Galacticast</title>
+      <link>http://rudyjahchan.com/projects/film-and-tv/galacticast/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/film-and-tv/galacticast/</guid>
+      <description>A weekly, home-brewed sci-fi parody show.</description>
+    </item>
+    
+    <item>
+      <title>Kimdo Chestcaver - Fantasy Mining town Madame</title>
+      <link>http://rudyjahchan.com/projects/writings/mythrite-kimdo-chestcaver/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/writings/mythrite-kimdo-chestcaver/</guid>
+      <description>Bio of a mining town brothel owner in a forgotten fantasy realm.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="The technique of composition over inheritience is more than simply encapsulating objects into larger entities; its really about defining models as being made up of resuable behaviors. It makes sense then in Behavaior Driven Design we apply the technique not just when writing the implementations of our models but also when creating the specifications themselves.">
+    <meta name="keywords" content="">
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BDD Composition over Inheritance with RSpec Shared Examples"/>
+<meta name="twitter:description" content="The technique of composition over inheritience is more than simply encapsulating objects into larger entities; its really about defining models as being made up of resuable behaviors. It makes sense then in Behavaior Driven Design we apply the technique not just when writing the implementations of our models but also when creating the specifications themselves."/>
+<meta name="twitter:site" content="@rudy"/>
+
+    <meta property="og:title" content="BDD Composition over Inheritance with RSpec Shared Examples" />
+<meta property="og:description" content="The technique of composition over inheritience is more than simply encapsulating objects into larger entities; its really about defining models as being made up of resuable behaviors. It makes sense then in Behavaior Driven Design we apply the technique not just when writing the implementations of our models but also when creating the specifications themselves." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://rudyjahchan.com/blog/bdd-composition-over-inheritence-with-rspec-shared-examples/" />
+<meta property="article:published_time" content="2013-08-07T00:00:00+00:00" />
+<meta property="article:modified_time" content="2013-08-07T00:00:00+00:00" />
+
+    
+      <link rel="canonical" href="http://rudyjahchan.com/blog/bdd-composition-over-inheritence-with-rspec-shared-examples/">
+    
+    
+      <base href="http://rudyjahchan.com/blog/bdd-composition-over-inheritence-with-rspec-shared-examples/">
+    
+    <script src="https://kit.fontawesome.com/a8fb4a3b3a.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff" type="font/woff2" crossorigin="anonymous">
+    
+    
+    <link rel="stylesheet" href="http://rudyjahchan.com/scss/main.min.css">
+    
+    
+    <title>Rudy Jahchan | BDD Composition over Inheritance with RSpec Shared Examples</title>
+</head><body class=""><header class="site-header">
+    <h1><a href="/">Rudy Jahchan</a></h1>
+</header><div class="wrap">
+            <main class="side-main">
+<article>
+    <header>
+    <h1>BDD Composition over Inheritance with RSpec Shared Examples</h1>
+    <time datetime='2013-08-07'>
+        2013-08-07
+    </time>
+    </header>
+    <main>
+    <p><em>Originally posted on <a href="http://blog.carbonfive.com/2013/08/07/bdd-composition-over-inheritance-with-rspec-shared-examples/">Carbon Five&rsquo;s Blog</a>.</em></p>
+<p>The technique of <a href="http://en.wikipedia.org/wiki/Composition_over_inheritance" title="Composition over inheritence">composition over inheritience</a> is more than simply encapsulating objects into larger entities; its really about defining models as being made up of <em>resuable behaviors</em>. It makes sense then in <em>Behavaior</em> Driven Design we apply the technique not just when writing the implementations of our models but also when creating the specifications themselves. Instead of many files repeating the same functionality in large blocks of spec code, we end up with specs that look like:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=01_image_spec.rb"></script>
+
+<p>This is pleasantly tighter, DRYer, and tighter code. So how did we &ldquo;compose&rdquo; this spec and behaviors? <a href="#tldr">TL;DR</a></p>
+<h2 id="sample-domain">Sample Domain</h2>
+<p>Imagine we are developing a media management application. Within this system, an <strong>assignment</strong> can be created for an <strong>image</strong> into multiple <strong>galleries</strong>. This is simple enough to model.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=02_simple_models.rb"></script>
+
+<p>Additionally, each of these models can be marked with <em>metadata</em>, which comes in three flavors:</p>
+<ul>
+<li><strong>references</strong> to one or more <strong>creators</strong> and <strong>places</strong>.</li>
+<li><strong>tags</strong>, the traditional list of strings, stored in a <a href="http://reefpoints.dockyard.com/ruby/2012/06/18/postgres_ext-adding-postgres-data-types-to-active-record.html">Postgres array</a> and can be searched on.</li>
+<li>a <strong>hash-bag</strong> of simple string key-value pairs stored as a <a href="https://github.com/engageis/activerecord-postgres-hstore">Postgres <code>hstore</code></a> and are also searchable.</li>
+</ul>
+<p>There is one additonal important detail; not all types of metadata would be available on every type of model:</p>
+<ul>
+<li>Images can have all types of metadata; references, tags, and the hash-bag.</li>
+<li>Galleries can only have tags and the hash-bag.</li>
+<li>Assignments can only have the hash-bag.</li>
+</ul>
+<h2 id="implementing-images">Implementing Images</h2>
+<p>Given the above requirements, it is apparent that at some point composing with modules will come into play and we could leap to that point. But in practice, we would be following our story-based agile process, and so may end up fully developing the <code>Image</code> model first.</p>
+<p>We start by writing out a spec, using <a href="https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md">Factory-Girl</a> to handle instance generation.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=03_image_w_everything_spec.rb"></script>
+
+<p>And then implement the model to pass the spec. Note the custom code below to handle the Postgres array and hstore based tags and hashbag:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=04_image_w_everything.rb"></script>
+
+<h2 id="refactor-into-shared-examples">Refactor into Shared Examples</h2>
+<p>With working specs and implementation in hand for all of our metadata, we can move on to adding the same but different functionality to the remaining models. And as good devs, we HAVE to start with specs that define the behavior. We could simply use the ugly technique of &ldquo;copy-paste&rdquo; the spec code of <code>Image</code> into the specs of the <code>Assignment</code> and <code>Gallery</code>. But this begs the wrath of The Maintenance Gods and their acolytes, your fellow devs!</p>
+<p>So we won&rsquo;t, as we additionally follow the principle of DRY; <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">Don&rsquo;t Repeat Yourself</a>. This is where <a href="https://www.relishapp.com/rspec/rspec-core/v/2-14/docs/example-groups/shared-examples">RSpec shared examples</a> come into play. A shared example is a collection of context and examples you can declare with a name:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=05_shared_example_example.rb"></script>
+
+<p>The shared example can then be invoked within the context of your specs with <code>include_examples</code> or (my preference) <code>it_behaves_like</code>:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=06_shared_example_use_example.rb"></script>
+
+<p>You can even pass in parameters into a shared example:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=07_shared_example_parameters_example.rb"></script>
+
+<p>Using this feature we can refactor the behavior of each of the three different types of metadata into their own shared examples. Looking at the code in the original specs, we need to change two things to better support testing against any model; not calling the methods on the <code>Image</code> class and using the appropriate factory when instantiating instances to test against. We do this by passing the model we are testing and the factory to use as parameters:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=08_meta_data_examples.rb"></script>
+
+<p>Now we can rewrite the spec for <code>Image</code> to use these shared examples:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=09_image_spec_w_examples.rb"></script>
+
+<p>Even better we can now easily write the specs of the other two models:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=10_other_model_specs_with_examples.rb"></script>
+
+<p>We have effectively &ldquo;composed&rdquo; our specs from a set of behaviors! We also have not said anything about HOW this functionality will be achieved, maintaining the BDD mantra of testing <em>behavior</em> NOT <em>implementation</em>.</p>
+<h2 id="compose-with-modules-where-inheritence-will-fail-us">Compose with Modules (where Inheritence will fail us)</h2>
+<p>Now how to get these new specs to pass? Again the most ugly way would be to simply copy and paste but remember; those gods and devs sure are wrathful!</p>
+<p>In all seriousness, this is where code reuse becomes important and also illustrates where composition will trump inheritence. Yes, the desired functionality can be achieved with inheritence. We could introduce a parent <code>MetadataBase</code> class that all our models inherit from. Or decide that <code>Image</code> descends from <code>Gallery</code> which descends from <code>Assignment</code> with each level adding the additional metadata implementation needed their parent does not provide. But neither correctly represents our domain; the first example exposes functionality on <code>Assignment</code> and <code>Gallery</code> that really shouldn&rsquo;t be there while adding class bloat, and the other solution is just plain wrong!</p>
+<p>The better solution is to encapsulate the behavior of each specific kind of metadata into seperate modules:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=11_metadata_in_modules.rb"></script>
+
+<p>We can then compose our models by including the modules of behavior they actually have.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=12_models_w_modules.rb"></script>
+
+<p>This is extremely elegant on so many levels. It adheres to the <a href="http://en.wikipedia.org/wiki/Single_responsibility_principle">single responsibility principle</a> with each module solely focused around the logic of the metadata it represents. It DRYs up the implementation. And the resulting code practically reads like the domain model we outlined at the top of this post:</p>
+<ul>
+<li>An image includes references, tags, and a hash bag.</li>
+<li>A gallery includes tags and a hash bag.</li>
+<li>An assignment include just a hash bag.</li>
+</ul>
+<h2 id="getting-cleaner">Getting Cleaner</h2>
+<p>Our specs could stand to be DRYed up even further. The repetitive passing in of the class we are testing and its factory now standout like a sore thumb after all our efforts. What to do?</p>
+<p>By default the <code>subject</code> of a spec of a class is an instance of that class created via a call to <code>new</code>. Given that, we create a shared context that derives the model and factory from the current subject.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=13_subject_class.rb"></script>
+
+<p>We can then include the shared context within each shared example and drop the need to have them passed in.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=14_final_meta_data_examples.rb"></script>
+
+<p>Finally, our specs drop repeatedly passing the same set of arguments to the shared examples, reading cleaner than ever:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/5923483.js?file=15_final_model_specs.rb"></script>
+
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>There are further &ldquo;optimizations&rdquo; we could do to the code above. For example, we could also write specs for each module itself, testing all paths within it, and only compose the model specs from &ldquo;coarser&rdquo; variations that just verify the general functionality; this approach would speed up running the entire test suite. But these and other exercises are left for the reader to pursue.</p>
+<p>Most important is to realize that composition over inheritence can be elegantly implemented in our codebase from the very start, resulting in well-designed and easily maintainable domain, specs and implementation.</p>
+<h2 id="tldr">tl;dr</h2>
+<ul>
+<li>Use composition over inheritance when the latter does not correctly reflect the domain model.</li>
+<li>Use RSpec&rsquo;s <code>shared_example</code> to define the behaviors that are shared between objects.</li>
+<li>Compose your specs from those shared examples by invoking <code>it_behaves_like</code>.</li>
+<li>Implement the behaviors as <code>Module</code>s that you will <code>include</code> in your implementation.</li>
+</ul>
+
+    </main>
+    <footer>
+        
+
+    </footer>
+</article>
+
+            </main><footer class="site-footer">
+  <nav class="menu">
+    <ul>
+      
+      <li>
+        <a class="nav-link" href="/about/">
+          About
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/blog/">
+          Blog
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/projects/">
+          Projects
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+
+  <nav class="social">
+    
+      <a href="https://twitter.com/rudy"><i class="fa fa-twitter"></i></a>
+    
+      <a href="https://instagram.com/rudyjahchan"><i class="fa fa-instagram"></i></a>
+    
+      <a href="https://github.com/rudyjahchan/"><i class="fa fa-github"></i></a>
+    
+      <a href="https://feeds.feedburner.com/rudyjahchan"><i class="fa fa-rss"></i></a>
+    
+  </nav>
+</footer>
+</div>
+    </body>
+</html>

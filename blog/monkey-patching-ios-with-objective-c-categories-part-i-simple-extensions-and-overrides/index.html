@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little bit differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+Monkey-patching is extending or modifying the behavior of code at runtime without changing its original source code. You can monkey-patch any code, it doesn&rsquo;t matter whether it&rsquo;s your own code or not.">
+    <meta name="keywords" content="">
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Monkey-Patching iOS with Objective-C Categories Part I: Simple Extensions and Overrides"/>
+<meta name="twitter:description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little bit differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+Monkey-patching is extending or modifying the behavior of code at runtime without changing its original source code. You can monkey-patch any code, it doesn&rsquo;t matter whether it&rsquo;s your own code or not."/>
+<meta name="twitter:site" content="@rudy"/>
+
+    <meta property="og:title" content="Monkey-Patching iOS with Objective-C Categories Part I: Simple Extensions and Overrides" />
+<meta property="og:description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little bit differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+Monkey-patching is extending or modifying the behavior of code at runtime without changing its original source code. You can monkey-patch any code, it doesn&rsquo;t matter whether it&rsquo;s your own code or not." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/" />
+<meta property="article:published_time" content="2012-01-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2012-01-23T00:00:00+00:00" />
+
+
+    
+      <link rel="canonical" href="http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/">
+    
+    
+      <base href="http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/">
+    
+    <script src="https://kit.fontawesome.com/a8fb4a3b3a.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff" type="font/woff2" crossorigin="anonymous">
+    
+    
+    <link rel="stylesheet" href="http://rudyjahchan.com/scss/main.min.css">
+    
+    
+    <title>Rudy Jahchan | Monkey-Patching iOS with Objective-C Categories Part I: Simple Extensions and Overrides</title>
+</head><body class=""><header class="site-header">
+    <h1><a href="/">Rudy Jahchan</a></h1>
+</header><div class="wrap">
+            <main class="side-main">
+<article>
+    <header>
+    <h1>Monkey-Patching iOS with Objective-C Categories Part I: Simple Extensions and Overrides</h1>
+    <time datetime='2012-01-23'>
+        2012-01-23
+    </time>
+    </header>
+    <main>
+    <p><em>Originally posted on <a href="http://blog.carbonfive.com/2012/01/23/monkey-patching-ios-with-objective-c-categories-part-1-simple-extensions-and-overrides/">Carbon Five&rsquo;s Blog</a>.</em></p>
+<p>Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a <strong>little bit</strong> differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.</p>
+<p>Monkey-patching is extending or modifying the behavior of code at runtime <strong>without</strong> changing its original source code. You can monkey-patch any code, it doesn&rsquo;t matter whether it&rsquo;s your own code or not. This is distinctly different than traditional sub-classing because you are not creating a new class, instead, you are reopening an existing class and changing its behavior.</p>
+<p>Monkey-patching is possible in Objective-C by using <a href="http://developer.apple.com/library/ios/#documentation/cocoa/conceptual/objectivec/chapters/occategories.html">categories</a>. In fact, the definition of a category practically matches that of monkey-patching:</p>
+<blockquote>
+<p>A category allows you to add methods to an existing class, even to one for which you do not have the source.</p>
+</blockquote>
+<p>In this series of posts, we&rsquo;ll use categories to add and change methods, to add new instance variables and properties, and introduce swizzling, a technique that allows us to extend and preserve existing functionality. <a href="#tldr"><strong>TL;DR »</strong></a></p>
+<h2 id="category-basics">Category Basics</h2>
+<p>To modify an existing class specify the category in both its interface and implementation definitions:</p>
+<h4 id="interface-definition">Interface Definition</h4>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=AClassACategoryImplementation.h"></script>
+
+<h4 id="implementation">Implementation</h4>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=AClassACategoryImplementation.m"></script>
+
+<h2 id="adding-simple-methods">Adding Simple Methods</h2>
+<p>The most basic usage of categories is to add a new method to an existing class.</p>
+<p>Suppose in our application we want to output dates relative to the current time, e.g., &ldquo;13 minutes ago&rdquo;, &ldquo;4 hours ago&rdquo;, &ldquo;just now&rdquo;, etc. Traditional object-oriented solutions would have us introducing a new class that either extends <code>NSDate</code> (e.g., creating a <code>RelativeDescriptionDate</code> subclass with a <code>timeAgoInWords</code> instance method) or is a standalone helper/utility class (e.g., <code>[NSDateHelper timeAgoInWordsFromDate:myDate]</code>).</p>
+<p>But with categories, we can reopen the <code>NSDate</code> class and simply add a new instance method:</p>
+<h4 id="nsdateformattingh">NSDate+Formatting.h</h4>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=NSDateFormatting.h"></script>
+
+<h4 id="nsdateformattingm">NSDate+Formatting.m</h4>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=NSDateFormatting.m"></script>
+
+<p>Now <strong>every</strong> <code>NSDate</code> object will have the new method available to it. The following code:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=UsingNSDateFormatting.m"></script>
+
+<p>Will print out the following on the console:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=gistfile1.sh"></script>
+
+<h2 id="the-dangers-of-simply-overriding-methods">The Dangers of Simply Overriding Methods</h2>
+<p>We can take this a step further and instead of adding new behavior we&rsquo;ll override existing behavior. Continuing with our example, what if we wanted the default description of a <code>NSDate</code> object to include the time ago in words? We could simply do the following:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=NSDateFormatting2.m"></script>
+
+<p>However, this is <strong>strongly discouraged</strong> for two reasons.</p>
+<ol>
+<li>Other frameworks may rely on the expected behavior of the original method. We now have to go through the trouble of re-implementing that behavior, in addition to the new functionality we wanted to introduce, or risk strange side effects and possibly even crashing out.</li>
+<li>If multiple categories implement the same method, the last one loaded wins! The load order is consistent within an application, but it&rsquo;s arbitrary, out of our hands, and fragile. For all we know, our implementation could itself be overwritten by an internal framework category!</li>
+</ol>
+<p>Because of these reasons, this blunt approach to overriding methods should only be used for the simplest of cases. Later in this series, we&rsquo;ll explore how swizzling allows us to override a method while preserving all implementations.</p>
+<h2 id="including-your-monkey-patches">Including Your Monkey-Patches</h2>
+<p>Categories are not automatically &ldquo;picked up&rdquo; in a project. Any code that relies on the behavior will need to <code>#import</code> the necessary header files:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=EntryCell.m"></script>
+
+<p>However, including the same set of headers over and over again is redundant. We should first create a single header file that imports all of our most frequently used categories:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=Extensions.h"></script>
+
+<p>We can then import this single header file into a prefix header that is added to all source files. XCode projects often have a <code>.pch</code> file in the Supporting Files group for this very purpose.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1660134.js?file=pc.h"></script>
+
+<h2 id="next-up">Next Up</h2>
+<p>While adding and overriding classes is straightforward, there is one very big caveat when using Categories; you <strong>cannot add new instance variables</strong> to a class. We&rsquo;ll take a look at working around this limitation in the next post.</p>
+<h2 id="tldr">tl;dr</h2>
+<ul>
+<li>Use Objective-C categories to add functionality to existing classes without subclassing.</li>
+<li>Avoid simple overrides with categories as it can cause problems with other frameworks.</li>
+<li>Use prefix headers to easily import your extensions.</li>
+</ul>
+
+    </main>
+    <footer>
+        
+
+<section class="see-also">
+  
+    
+    
+    
+      <h3>See also in Monkey-Patching iOS with Objective-C Categories</h3>
+      <nav>
+        <ul>
+        
+        
+          
+            <li>
+              <a href="/blog/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/">Monkey-Patching iOS with Objective-C Categories Part III: Swizzling</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="/blog/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/">Monkey-Patching iOS with Objective-C Categories Part II: Adding Instance Properties</a>
+            </li>
+          
+        
+          
+        
+        </ul>
+      </nav>
+    
+  
+</section>
+
+    </footer>
+</article>
+
+            </main><footer class="site-footer">
+  <nav class="menu">
+    <ul>
+      
+      <li>
+        <a class="nav-link" href="/about/">
+          About
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/blog/">
+          Blog
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/projects/">
+          Projects
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+
+  <nav class="social">
+    
+      <a href="https://twitter.com/rudy"><i class="fa fa-twitter"></i></a>
+    
+      <a href="https://instagram.com/rudyjahchan"><i class="fa fa-instagram"></i></a>
+    
+      <a href="https://github.com/rudyjahchan/"><i class="fa fa-github"></i></a>
+    
+      <a href="https://feeds.feedburner.com/rudyjahchan"><i class="fa fa-rss"></i></a>
+    
+  </nav>
+</footer>
+</div>
+    </body>
+</html>

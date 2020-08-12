@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Rudy Jahchan</title>
+    <link>http://rudyjahchan.com/projects/</link>
+    <description>Recent content in Projects on Rudy Jahchan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Rudy Jahchan</copyright>
+    <lastBuildDate>Thu, 06 Dec 2007 00:00:00 -0700</lastBuildDate>
+    
+	<atom:link href="http://rudyjahchan.com/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Writings on Rudy Jahchan</title>
+    <link>http://rudyjahchan.com/projects/writings/</link>
+    <description>Recent content in Writings on Rudy Jahchan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Rudy Jahchan</copyright>
+    <lastBuildDate>Thu, 06 Dec 2007 00:00:00 -0700</lastBuildDate>
+    
+	<atom:link href="http://rudyjahchan.com/projects/writings/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Drinks with the Devil</title>
+      <link>http://rudyjahchan.com/projects/writings/drinks-with-the-devil/</link>
+      <pubDate>Thu, 06 Dec 2007 00:00:00 -0700</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/writings/drinks-with-the-devil/</guid>
+      <description>The next round&amp;rsquo;s on you.</description>
+    </item>
+    
+    <item>
+      <title>Kimdo Chestcaver - Fantasy Mining town Madame</title>
+      <link>http://rudyjahchan.com/projects/writings/mythrite-kimdo-chestcaver/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/writings/mythrite-kimdo-chestcaver/</guid>
+      <description>Bio of a mining town brothel owner in a forgotten fantasy realm.</description>
+    </item>
+    
+  </channel>
+</rss>

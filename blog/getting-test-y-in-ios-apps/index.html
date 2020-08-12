@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Recently, Jonah and I have been exploring test-driven development and automated deployment on the iOS platform. As we were both attending iOSDevCamp 2011, we decided to give a lightning talk summarizing our discoveries and to generate excitement within others in the community to start their project on the right foot by testing right from the start. While it wasn&rsquo;t recorded, here is some of the ground we covered in the brief time we had.">
+    <meta name="keywords" content="">
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Getting &#34;Test&#34;-y in iOS Apps: Test-Driven Development and Automated Deployment"/>
+<meta name="twitter:description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Recently, Jonah and I have been exploring test-driven development and automated deployment on the iOS platform. As we were both attending iOSDevCamp 2011, we decided to give a lightning talk summarizing our discoveries and to generate excitement within others in the community to start their project on the right foot by testing right from the start. While it wasn&rsquo;t recorded, here is some of the ground we covered in the brief time we had."/>
+<meta name="twitter:site" content="@rudy"/>
+
+    <meta property="og:title" content="Getting &#34;Test&#34;-y in iOS Apps: Test-Driven Development and Automated Deployment" />
+<meta property="og:description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Recently, Jonah and I have been exploring test-driven development and automated deployment on the iOS platform. As we were both attending iOSDevCamp 2011, we decided to give a lightning talk summarizing our discoveries and to generate excitement within others in the community to start their project on the right foot by testing right from the start. While it wasn&rsquo;t recorded, here is some of the ground we covered in the brief time we had." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://rudyjahchan.com/blog/getting-test-y-in-ios-apps/" />
+<meta property="article:published_time" content="2011-07-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2011-07-19T00:00:00+00:00" />
+
+    
+      <link rel="canonical" href="http://rudyjahchan.com/blog/getting-test-y-in-ios-apps/">
+    
+    
+      <base href="http://rudyjahchan.com/blog/getting-test-y-in-ios-apps/">
+    
+    <script src="https://kit.fontawesome.com/a8fb4a3b3a.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff" type="font/woff2" crossorigin="anonymous">
+    
+    
+    <link rel="stylesheet" href="http://rudyjahchan.com/scss/main.min.css">
+    
+    
+    <title>Rudy Jahchan | Getting &#34;Test&#34;-y in iOS Apps: Test-Driven Development and Automated Deployment</title>
+</head><body class=""><header class="site-header">
+    <h1><a href="/">Rudy Jahchan</a></h1>
+</header><div class="wrap">
+            <main class="side-main">
+<article>
+    <header>
+    <h1>Getting &#34;Test&#34;-y in iOS Apps: Test-Driven Development and Automated Deployment</h1>
+    <time datetime='2011-07-19'>
+        2011-07-19
+    </time>
+    </header>
+    <main>
+    <p><em>Originally posted on <a href="http://blog.carbonfive.com/2011/07/19/ios-apps-test-driven-development-and-automated-deployment/">Carbon Five&rsquo;s Blog</a>.</em></p>
+<p>Recently, Jonah and I have been exploring test-driven development and automated deployment on the iOS platform. As we were both attending <a href="http://www.iphonedevcamp.org/">iOSDevCamp 2011</a>, we decided to give a lightning talk summarizing our discoveries and to generate excitement within others in the community to start their project on the right foot by testing right from the start. While it wasn&rsquo;t recorded, here is some of the ground we covered in the brief time we had.</p>
+<div style="width:595px" id="__ss_8615702"><iframe src="http://www.slideshare.net/slideshow/embed_code/8615702" width="595" height="497" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe> <div style="padding:5px 0 12px"> View more <a href="http://www.slideshare.net/" target="_blank">presentations</a> from <a href="http://www.slideshare.net/rudyjahchan" target="_blank">rudyjahchan</a> </div> </div>
+<p><a href="#tldr">tl;dr - Too Long; Didn&rsquo;t Read »</a></p>
+<p><strong>Download:</strong> <a href="http://blog.carbonfive.com/2011/07/19/ios-apps-test-driven-development-and-automated-deployment/iosdevcamp2011-testdrivendev-2/">.ppt</a> | <a href="http://blog.carbonfive.com/2011/07/19/ios-apps-test-driven-development-and-automated-deployment/iosdevcamp2011-testdrivendev/">.pdf</a></p>
+<h2 id="unit-testing">Unit Testing</h2>
+<p>After briefly reviewing why we test first (you are doing that, aren&rsquo;t you?) we started with how to unit-test the behavior of classes in Objective-C. To Apple&rsquo;s credit, they&rsquo;ve bundled a unit-testing framework and the tools to use it in XCode; SenTestingKit. It follows the xUnit style of writing a series of tests with assertions, with an optional setup and teardown that can be executed before and after each test.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=MyCounterTest.m"></script>
+
+<p>SenTestingKit works but is by no means our favorite, having issues with readability, mocking, and running from the command-line. Luckily, there are already a number of great tools to address these issues.</p>
+<p><a href="http://code.google.com/p/hamcrest/wiki/TutorialObjectiveC">OCHamcrest</a> is the Objective-C port of the popular matching library <!-- raw HTML omitted --><a href="http://code.google.com/p/hamcrest/">Hamcrest</a>. Simply including the framework in your project gives you many useful matchers to allow you to write with more readability:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=MyCounterHamcrestTest.m"></script>
+
+<p>Likewise, adding the <a href="http://www.mulle-kybernetik.com/software/OCMock/">OCMock</a> framework provides a wealth of mocking functionality including stubbing of methods, verifying execution of expected methods, partial mocking allowing passthrough to real instances, and even the ability to swap in new implementations for methods.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=MyCounterOCMockTest.m"></script>
+
+<p>Finally, the <a href="http://code.google.com/p/google-toolbox-for-mac/wiki/iPhoneUnitTesting">Google Toolbox for Mac</a> and <a href="http://gabriel.github.com/gh-unit/">GHUnit</a> are excellent test runners, extending functionality including the capability to run headlessly.</p>
+<h2 id="behavior-driven-development">Behavior Driven Development</h2>
+<p>For a few years now the testing community has been moving towards a more BDD or &ldquo;spec&rdquo; style of test-writing, allowing for better structure, more readability, and less repetition of code. The classic example of this is the Ruby based RSpec framework:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=my_counter_spec.rb"></script>
+
+<p>For those interested more about writing tests in this style, the <a href="http://pragprog.com/book/achbd/the-rspec-book">RSpec Book</a> is an excellent introduction and reference. While its examples are language specific, its principles can be applied to similar frameworks.</p>
+<p><a href="https://github.com/pivotal/cedar">Cedar</a> from Pivotal Labs, takes full advantage of the new Objective-C blocks to mimic RSpec&rsquo;s structure:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=MyCounterSpec.m"></script>
+
+<p>Interestingly, instead of plugging into SenTestingKit, Cedar runs the specs as an app, allowing it to be compiled for the simulator or hardware device. Additionally, Cedar has baked in support to provide colorized output when run from the command-line; look into the accompanying project Rakefile to see how it is done.</p>
+<p>A more recent entry into the game is <a href="http://www.kiwi-lib.info/">Kiwi</a>. Kiwi is structurally similar to Cedar but provides much cleaner assertions:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=MyCounterKiwiSpec.m"></script>
+
+<p>Using Kiwi is as simple as including its source in your project. Since it sits atop of SenTestingKit, you can include running all tests as part of your XCode build process. Our brief usage of Kiwi has shown it has some issues running UI components but it does hold promise.</p>
+<h2 id="integration-testing">Integration Testing</h2>
+<p>More recently our explorations have taken us into looking for an integration and acceptance testing framework to include in our process. While we could write test or specs to do end-to-end testing, it&rsquo;s best to separate the concerns; in fact, we should start by writing integration tests that focus on the user experience!</p>
+<p>Again, using our experiences with web development in Ruby, we looked for something similar to <a href="http://cukes.info/">Cucumber</a>. Its use of plain text and the tools to parse it are an ideal way to specify what a system is expected to do:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=google_apps_account.feature"></script>
+
+<p>Is there a way to write Cucumber specs for iOS? There is! In fact there are two; <a href="https://github.com/unboxed/icuke">iCuke</a> and <a href="https://github.com/moredip/Frank">Frank</a>.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=iCuke.feature"></script>
+
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1090887.js?file=Frank.feature"></script>
+
+<p>However, there are problems with both projects. iCuke launches the application in the simulator and automatically launches an HTTP interface to interact with the screen. The project also hasn&rsquo;t seen a commit for over a year, though a number of forks seem to be actively developed. Frank, the other Cucumber based library, is actively maintained and follows a similar strategy of embedding an HTTP server.</p>
+<p>A Frank Cucumber driver then communicates with the server to fire-off user events. Our hesitation to use it comes in the amount of setup it requires with care needed to ensure you don&rsquo;t include it in a release build of the application. And for both iCuke and Frank, the idea of running an entire server feels incredibly heavy for what we want to do. Is there another option?</p>
+<p>Strangely enough, a possible candidate was released into the wild the day before our talk. <a href="https://github.com/square/KIF">KIF</a>, short for Keep It Functional, from <a href="https://squareup.com/">Square</a> aims to minimize the layers and load in order to test like a user. Each step in a scenario focuses on a single user action, targeting an interface component through the accessibility attributes. Well documented, and with the ability to capture screenshots (and video come the release of Lion), KIF has a lot of potential and we look forward to exploring it in the future.</p>
+<h2 id="continuous-integration-and-automated-deployment">Continuous Integration and Automated Deployment</h2>
+<p>We close the loop on the full agile process through continuous integration and automated deployment, ensuring code stability and getting it out in the hands of testers. We&rsquo;ve previously documented how to do so in other posts, including how to build XCode projects and run tests from the command-line, as well as rolling your own Over The Air distribution. Jonah provided <a href="http://blog.carbonfive.com/2011/05/04/automated-ad-hoc-builds-using-xcode-4/">a full script</a> that carries out all these steps from start to finish.</p>
+<p>Using Jonah&rsquo;s script and following the lead of Cedar, I started creating a set of <a href="http://rake.rubyforge.org/">Rake</a> tasks to carry out each step, from building to headlessly running specs to signing - all from the command-line (it can be found <a href="https://gist.github.com/1017153">here</a>). I also decided to use <a href="https://testflightapp.com/">TestFlight</a> to distribute and target builds; it provides a intuitive interface for our pre-release users to access the latest builds and easy to use tools for developers to manage those releases. Even better, their upload API allowed us to write a Rake task to deploy right from the command-line.</p>
+<h2 id="whats-missing">What&rsquo;s Missing</h2>
+<p>While we&rsquo;re excited to see all these great tools emerging for iOS development, there is still a LOT to be done to get us anywhere near the ease of writing tests that the Ruby world currently enjoys. While the nested spec-style of code alleviates duplication, you can still end up with large blocks of code that look like this:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1093622.js?file=BadCode.m"></script>
+
+<p>This doesn&rsquo;t really tell us anything about what we are trying to do! It would be far more pleasant to have a library like <a href="https://github.com/thoughtbot/factory_girl">Factory Girl</a> and simply write:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/1093622.js?file=GoodCode.m"></script>
+
+<p>Similarly, while CoreData provides a way to update schemas from one release to another, there is no proper migration path that can move forward and back to ensure compatibility. Add to that time-based testing like <a href="https://github.com/jtrupiano/timecop">Timecop</a> or automatic testing via <a href="https://github.com/guard/guard">Guard</a> and you have a slew of great projects that we could work on.</p>
+<h2 id="in-conclusion">In Conclusion</h2>
+<p>As you can see, there are a number of solid options to test and deploy your iOS projects. Personally, I&rsquo;m looking forward to bringing KIF into my current stack of Cedar, OCHamcrest, and OCMock. More importantly, there is plenty of room for new tools to help these processes. I plan on releasing a gem of the Rake tasks we&rsquo;ve whipped up, and hope to write an interpreter of gherkin (the language cucumber features are written in) to KIF. What would you like to see?</p>
+<h2 id="tldr">tl;dr</h2>
+<ul>
+<li>Test-driven principles still apply in iOS development.</li>
+<li>While out-of-the-box unit testing in XCode comes in SenTestingKit, it is somewhat limited. Use <a href="http://code.google.com/p/hamcrest/wiki/TutorialObjectiveC">OCHamcrest</a>, <a href="http://www.mulle-kybernetik.com/software/OCMock/">OCMock</a>, <a href="http://code.google.com/p/google-toolbox-for-mac/wiki/iPhoneUnitTesting">GTM</a>, and <a href="http://gabriel.github.com/gh-unit/">GHUnit</a> to expand functionality</li>
+<li>Alternatively, for a more BDD approach, use <a href="https://github.com/pivotal/cedar">Cedar</a> or the newer <a href="http://www.kiwi-lib.info/">Kiwi</a>.</li>
+<li>Cucumber driven integration tests have been implemented with iCuke and Frank,while the recently released KIF provides for doing the same in Object-C.</li>
+<li>Command line <a href="http://blog.carbonfive.com/2011/05/04/automated-ad-hoc-builds-using-xcode-4/">builds</a>, <a href="http://blog.carbonfive.com/2011/04/06/running-xcode-4-unit-tests-from-the-command-line/">running tests</a>, and <a href="http://blog.carbonfive.com/2011/05/04/automated-ad-hoc-builds-using-xcode-4/">Over The Air distribution</a> are all possible and documented. We&rsquo;ve done it as a <a href="http://blog.carbonfive.com/2011/05/04/automated-ad-hoc-builds-using-xcode-4/">bash script</a>, or <a href="https://gist.github.com/1017153">rake tasks</a>.</li>
+<li><a href="https://testflightapp.com/">TestFlight</a> provides not only a great way for your pre-release users to get your builds, but an API to automate sending it to them.</li>
+<li>There is much work to be done; factories, fixtures, time manipulation, &hellip; why not dive in?</li>
+</ul>
+
+    </main>
+    <footer>
+        
+
+    </footer>
+</article>
+
+            </main><footer class="site-footer">
+  <nav class="menu">
+    <ul>
+      
+      <li>
+        <a class="nav-link" href="/about/">
+          About
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/blog/">
+          Blog
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/projects/">
+          Projects
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+
+  <nav class="social">
+    
+      <a href="https://twitter.com/rudy"><i class="fa fa-twitter"></i></a>
+    
+      <a href="https://instagram.com/rudyjahchan"><i class="fa fa-instagram"></i></a>
+    
+      <a href="https://github.com/rudyjahchan/"><i class="fa fa-github"></i></a>
+    
+      <a href="https://feeds.feedburner.com/rudyjahchan"><i class="fa fa-rss"></i></a>
+    
+  </nav>
+</footer>
+</div>
+    </body>
+</html>

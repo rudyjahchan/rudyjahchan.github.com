@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Node.js has more than proven itself capable of handling multiple events concurrently such as server connections, and all without exposing us to the complexities of threading. Still, this locks our apps down to a single process with a single thread of execution consuming a single event queue. On a machine with a single processor, this is no big loss; there is only one active process in any case.">
+    <meta name="keywords" content="">
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Taking Advantage of Multi-Processor Environments in Node.js"/>
+<meta name="twitter:description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Node.js has more than proven itself capable of handling multiple events concurrently such as server connections, and all without exposing us to the complexities of threading. Still, this locks our apps down to a single process with a single thread of execution consuming a single event queue. On a machine with a single processor, this is no big loss; there is only one active process in any case."/>
+<meta name="twitter:site" content="@rudy"/>
+
+    <meta property="og:title" content="Taking Advantage of Multi-Processor Environments in Node.js" />
+<meta property="og:description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Node.js has more than proven itself capable of handling multiple events concurrently such as server connections, and all without exposing us to the complexities of threading. Still, this locks our apps down to a single process with a single thread of execution consuming a single event queue. On a machine with a single processor, this is no big loss; there is only one active process in any case." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://rudyjahchan.com/blog/taking-advantage-of-multi-processor-environments-in-node-js/" />
+<meta property="article:published_time" content="2014-02-28T00:00:00+00:00" />
+<meta property="article:modified_time" content="2014-02-28T00:00:00+00:00" />
+
+    
+      <link rel="canonical" href="http://rudyjahchan.com/blog/taking-advantage-of-multi-processor-environments-in-node-js/">
+    
+    
+      <base href="http://rudyjahchan.com/blog/taking-advantage-of-multi-processor-environments-in-node-js/">
+    
+    <script src="https://kit.fontawesome.com/a8fb4a3b3a.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff" type="font/woff2" crossorigin="anonymous">
+    
+    
+    <link rel="stylesheet" href="http://rudyjahchan.com/scss/main.min.css">
+    
+    
+    <title>Rudy Jahchan | Taking Advantage of Multi-Processor Environments in Node.js</title>
+</head><body class=""><header class="site-header">
+    <h1><a href="/">Rudy Jahchan</a></h1>
+</header><div class="wrap">
+            <main class="side-main">
+<article>
+    <header>
+    <h1>Taking Advantage of Multi-Processor Environments in Node.js</h1>
+    <time datetime='2014-02-28'>
+        2014-02-28
+    </time>
+    </header>
+    <main>
+    <p><em>Originally posted on <a href="http://blog.carbonfive.com/2014/02/28/taking-advantage-of-multi-processor-environments-in-node-js/">Carbon Five&rsquo;s Blog</a>.</em></p>
+<p><a href="http://nodejs.org">Node.js</a> has more than proven itself capable of handling
+multiple events concurrently such as server connections, and all without
+exposing us to the complexities of threading. Still, this locks
+our apps down to a single process with a single thread of execution
+consuming a single event queue. On a machine with a single processor, this
+is no big loss; there is only one active process in any case.</p>
+<p>But we live in a multi-core world now and out of the box Node does not take advantage of this,
+though it certainly has the ability to. <a href="#tldr">tldr »</a></p>
+<h2 id="the-problem">The &ldquo;Problem&rdquo;</h2>
+<p>To illustrate why this may be a problem for some applications, let&rsquo;s
+turn to a multi-player game system we recently released.</p>
+<p><a href="http://carbonfive.github.io/vimtronner">vimtronner</a> is a vim trainer built atop Node.js and
+<a href="http://socket.io">Socket.io</a> that allows multiple players
+to remotely connect to a server and compete against each other. More
+importantly, it can host many games at the same time. Each game uses
+<code>setInterval</code> to update its state inform all its players of
+changes every 100ms.</p>
+<p>Except that is not entirely true.</p>
+<p>As my colleague <a href="https://github.com/laser">Erin</a> explained
+in his post on the <a href="http://blog.carbonfive.com/2013/10/27/the-javascript-event-loop-explained/">JavaScript Event Loop</a>
+there is only a SINGLE queue of events that our single-threaded process
+works its way through. The <code>setTimeout</code> and <code>setInterval</code> function don&rsquo;t actually
+RUN their callbacks at the specified time intervals. They simply ENQUEUE them
+at that time, an important distinction.</p>
+<p>When there are no events in the queue ahead of it, the callback is executed
+more or less immediately, so there does not seem to be a problem. This
+is effectively the situation when only a single game is running on a server.</p>
+<p>But imagine if each game of vimtronner takes 10ms to update and broadcast its state
+(which would be generous). When two games are running, it will take 20ms to process
+through both games, leaving 80ms before the next updates are re-queued. At three games
+this becomes 30ms, at four 40, and so on.</p>
+<p>At 10 games we hit our problem point. The time taken to update all
+the games matches the time interval before new update callbacks are
+events. If just one more game is started, the time before each game next gets updated
+will be DELAYED by 10ms from the expected 100ms. This worsens as more games
+are added so a server running 20 games will take 200ms to update all the games before
+it is even able to process the next set of update events. ALL games are slowed down by half!</p>
+<p>This also does not even take into account the other events that are queued in the
+system from players joining and leaving games, asking for game lists, or
+even responding to simple controls from socket events.</p>
+<p>Games don&rsquo;t actually interact with one another so it makes no sense
+at all that they should block each other. Ideally each game should
+have its own event loop and queue.  Additionally, we want to
+minimize the impact taken handling socket events. And on a multi-core
+box dedicated to running just the server, we are wasting the processing
+power that will allow us to fulfill those needs.</p>
+<p>So how can we maximize multi-processor environments to
+parallelize tasks? Node&rsquo;s <a href="http://nodejs.org/about/">about page</a> directly supplies
+the answer:</p>
+<blockquote>
+<p>You can start new processes via <a href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options"><code>child_process.fork()</code></a> these other
+processes will be scheduled in parallel. For load balancing incoming
+connections across multiple processes use the <a href="http://nodejs.org/api/cluster.html#cluster_cluster_fork_env"><code>cluster</code></a> module.</p>
+</blockquote>
+<p>Let&rsquo;s take a look at how and when to use these two modules.</p>
+<h2 id="cluster-to-parallelize-the-same-flow-of-execution">Cluster to parallelize the SAME Flow of Execution</h2>
+<p>We&rsquo;ll begin with the <a href="http://nodejs.org/api/cluster.html"><code>cluster</code></a> module. Introduced around version 0.8,
+its stated purpose is to handle heavy workload by launching a cluster of
+Node processes. Additionally, these processes can share the same server
+ports, making it ideal for web applications.</p>
+<p>The use of this module is very easy, revolving around determining if the
+current Node process is the &ldquo;master&rdquo; who can launch &ldquo;workers&rdquo; with a
+call to <a href="http://nodejs.org/api/cluster.html#cluster_cluster_fork_env"><code>cluster.fork()</code></a>, or one of many &ldquo;workers&rdquo; who are all expected to carry
+out the same work. This is illustrated in the code below.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9275029.js"></script>
+
+<p>Let&rsquo;s write a program that calls the above named
+<code>cluster_example.coffee</code>:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9275043.js"></script>
+
+<p>I can then run it on my quad-core MacBook Pro and get the following output:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9276567.js"></script>
+
+<p>Reading through the lines we can see 8 workers were launched. But more
+importantly notice the repeated output surrounding the master and worker
+declaration lines. The &ldquo;Before the fork&rdquo; and &ldquo;After the fork&rdquo; came from
+the launch code itself, but more interesting is the repeated &ldquo;Launching
+cluster&rdquo;. This was from the MAIN example code not the launcher. It tells us that
+when we fork a cluster, we are running through the SAME program from the
+BEGINNING.</p>
+<p>This is what makes the <code>cluster</code> module ideal for parallelization of the
+SAME work across many Node processes. The code will go through the same initialization.
+You could introduce variation aside from the
+differing &ldquo;master&rdquo; vs &ldquo;worker&rdquo; behavior into the mix if you felt like it, but this
+would go against its intended purpose.</p>
+<p>You can see this in the common example of load balancing connections on a
+Node server instance:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9276981.js"></script>
+
+<p>Each worker process will start up a server and listen to the same port,
+a further feature of the <code>cluster</code> module.</p>
+<h2 id="child-process-a-different-flow-of-execution">Child Process a DIFFERENT Flow of Execution</h2>
+<p>Reading <a href="http://nodejs.org/about/">how <code>cluster</code> works</a>, you will discover it
+sits atop the other module we are interested in:
+<a href="http://nodejs.org/api/child_process.html"><code>child_process</code></a>.</p>
+<p>The module supplies a number of methods to coordinate the launching of processes
+and communication between them. While the <a href="http://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback"><code>exec</code></a> and
+<a href="http://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options"><code>spawn</code></a> methods
+allow calling external commands, of interest to us is again the
+<a href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options"><code>fork</code></a>
+function. When we call it, we pass the full path to a Node module we wish to run,
+as seen in this code below:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9276642.js"></script>
+
+<p>As before let&rsquo;s write some example program that calls this <code>launch</code> code:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9276661.js"></script>
+
+<p>Running this results in the following output:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9276683.js"></script>
+
+<p>Unlike the <code>cluster</code> example, we DON&rsquo;T see the repetition of the &ldquo;Launching&rdquo;
+message, or the &ldquo;Before&rdquo; and &ldquo;After&rdquo; messages surrounding the fork.
+Child processes launched this way BEGIN with the referenced module itself. We
+don&rsquo;t go through any of the same code as the parent process, unless
+explicitly required by the called module. Basically it&rsquo;s the way to go when we want to run
+processes independently with different initialization and concerns.</p>
+<p>This does not mean there is no way for the parent and child processes to
+coordinate with each other. There are standard mechanisms like piped
+streams or external messaging queues. But forked Node processes have an
+additional avenue; a built in Inter-Process Communication channel.
+Simple values and objects can be passed through this channel via the <code>send</code> functions
+on either the <a href="http://nodejs.org/api/child_process.html#child_process_child_send_message_sendhandle"><code>child_process</code></a> instance or the
+<a href="http://nodejs.org/api/process.html"><code>process</code> module</a> for either the parent or child process respectively.
+These objects arrive as <code>'message'</code> events on the other side.</p>
+<p>This is illustrated in the &ldquo;processified&rdquo; version of the
+<a href="http://carbonfive.github.io/vimtronner">vimtronner</a> game we released a month ago. Instead of the
+server managing games directly like it use to, it forks a child process
+for each game, sends configuration into it and waits for messages back.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9276835.js"></script>
+
+<p>Likewise, a new &lsquo;game_process&rsquo; module now wraps a game instance,
+responding to events from players sent from the server process and
+sending back game events.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/9276808.js"></script>
+
+<p>A final note. In addition to sending an object, the <code>send</code> allows the
+transmission of handles like TCP servers and sockets between process. It
+is through this mechanism that the <code>cluster</code> functionality was created.</p>
+<h2 id="the-downside">The Downside</h2>
+<p>There are some issues to keep in mind when taking advantage of the
+forking functionality. While Node processes are considered &ldquo;lightweight&rdquo;
+they do <a href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options">consume resources when starting up</a>:</p>
+<blockquote>
+<p>These child Nodes are still whole new instances of V8. Assume at least
+30ms startup and 10mb memory for each new Node. That is, you cannot
+create many thousands of them.</p>
+</blockquote>
+<p>Likewise, we while we can certainly run more things in parallel we are
+still ultimately CPU bound. A multi-core processor can only run as many
+processes as threads of execution it can throw at.</p>
+<p>Finally, when clustering servers, we
+must be aware that though the cluster can handle connections to the same
+endpoint, each worker is only aware of the connection it handles. So if
+two connections come in that are suppose to interact with other but are
+handled by different workers, the interaction can never take place
+without the support of other systems like Redis message queues or shared
+storage.</p>
+<h2 id="tldr">tl;dr</h2>
+<ul>
+<li>Use either the <a href="http://nodejs.org/api/child_process.html"><code>child_process</code></a> or the <a href="http://nodejs.org/api/cluster.html"><code>cluster</code></a> modules to take
+advantage of multi-processer environments.</li>
+<li>Use <code>cluster</code> when you want to parallelize the <em>SAME</em> flow of execution
+and server listening.</li>
+<li>Use <code>child_process</code> when you want <em>DIFFERENT</em> flows of execution
+working together.</li>
+<li>Take advantage of built in <a href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options">Inter-Process Communication</a> to pass
+objects between the processes.</li>
+</ul>
+
+    </main>
+    <footer>
+        
+
+    </footer>
+</article>
+
+            </main><footer class="site-footer">
+  <nav class="menu">
+    <ul>
+      
+      <li>
+        <a class="nav-link" href="/about/">
+          About
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/blog/">
+          Blog
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/projects/">
+          Projects
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+
+  <nav class="social">
+    
+      <a href="https://twitter.com/rudy"><i class="fa fa-twitter"></i></a>
+    
+      <a href="https://instagram.com/rudyjahchan"><i class="fa fa-instagram"></i></a>
+    
+      <a href="https://github.com/rudyjahchan/"><i class="fa fa-github"></i></a>
+    
+      <a href="https://feeds.feedburner.com/rudyjahchan"><i class="fa fa-rss"></i></a>
+    
+  </nav>
+</footer>
+</div>
+    </body>
+</html>

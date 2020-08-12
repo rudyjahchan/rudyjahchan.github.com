@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Syntatic sugar makes for more human-readable code and, if done correctly, provides for more flexibility. In the world of Node many turn to Coffeescript to add that &ldquo;sweetness&rdquo;, but you can also achieve it with plain old Javascript. TL;DR »
+Object.defineProperty It all comes down to using defineProperty of the Object class. Introduced as part of ECMAScript 5 and implemented in Javascript 1.8.5 - which is supported by Node and most major browsers - it allows you to add or modify a property on an object by not just determining its value but its entire behaviour.">
+    <meta name="keywords" content="">
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sweeter Javascript: Defining Properties to Add Syntactic Sugar"/>
+<meta name="twitter:description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Syntatic sugar makes for more human-readable code and, if done correctly, provides for more flexibility. In the world of Node many turn to Coffeescript to add that &ldquo;sweetness&rdquo;, but you can also achieve it with plain old Javascript. TL;DR »
+Object.defineProperty It all comes down to using defineProperty of the Object class. Introduced as part of ECMAScript 5 and implemented in Javascript 1.8.5 - which is supported by Node and most major browsers - it allows you to add or modify a property on an object by not just determining its value but its entire behaviour."/>
+<meta name="twitter:site" content="@rudy"/>
+
+    <meta property="og:title" content="Sweeter Javascript: Defining Properties to Add Syntactic Sugar" />
+<meta property="og:description" content="Originally posted on Carbon Five&rsquo;s Blog.
+Syntatic sugar makes for more human-readable code and, if done correctly, provides for more flexibility. In the world of Node many turn to Coffeescript to add that &ldquo;sweetness&rdquo;, but you can also achieve it with plain old Javascript. TL;DR »
+Object.defineProperty It all comes down to using defineProperty of the Object class. Introduced as part of ECMAScript 5 and implemented in Javascript 1.8.5 - which is supported by Node and most major browsers - it allows you to add or modify a property on an object by not just determining its value but its entire behaviour." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://rudyjahchan.com/blog/sweeter-javascript-define-properties-to-add-syntactic-sugar/" />
+<meta property="article:published_time" content="2013-02-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2013-02-12T00:00:00+00:00" />
+
+    
+      <link rel="canonical" href="http://rudyjahchan.com/blog/sweeter-javascript-define-properties-to-add-syntactic-sugar/">
+    
+    
+      <base href="http://rudyjahchan.com/blog/sweeter-javascript-define-properties-to-add-syntactic-sugar/">
+    
+    <script src="https://kit.fontawesome.com/a8fb4a3b3a.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="font" href="/fonts/SNNeoNoire-Regular.woff" type="font/woff2" crossorigin="anonymous">
+    
+    
+    <link rel="stylesheet" href="http://rudyjahchan.com/scss/main.min.css">
+    
+    
+    <title>Rudy Jahchan | Sweeter Javascript: Defining Properties to Add Syntactic Sugar</title>
+</head><body class=""><header class="site-header">
+    <h1><a href="/">Rudy Jahchan</a></h1>
+</header><div class="wrap">
+            <main class="side-main">
+<article>
+    <header>
+    <h1>Sweeter Javascript: Defining Properties to Add Syntactic Sugar</h1>
+    <time datetime='2013-02-12'>
+        2013-02-12
+    </time>
+    </header>
+    <main>
+    <p><em>Originally posted on <a href="http://blog.carbonfive.com/2013/02/12/sweeter-javascript-defining-properties-to-add-syntactic-sugar/">Carbon Five&rsquo;s Blog</a>.</em></p>
+<p>Syntatic sugar makes for more human-readable code and, if done
+correctly, provides for more flexibility. In the world of <a href="http://nodejs.org">Node</a>
+many turn to <a href="http://coffeescript.org/">Coffeescript</a> to add that &ldquo;sweetness&rdquo;,
+but you can also achieve it with plain old Javascript. <a href="#tldr"><strong>TL;DR »</strong></a></p>
+<h2 id="objectdefineproperty"><code>Object.defineProperty</code></h2>
+<p>It all comes down to using <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperty"><code>defineProperty</code></a> of the
+<code>Object</code> class. Introduced as part of ECMAScript 5 and
+implemented in Javascript 1.8.5 - which is supported by Node and most
+major browsers - it allows you to add or modify
+a property on an object by not just determining its value but its
+entire behaviour.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">	Object.<span style="color:#a6e22e">defineProperty</span>(<span style="color:#a6e22e">obj</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">descriptor</span>)
+</code></pre></div><p>The magic comes in the <code>descriptor</code> parameter. You can
+directly set an initial <code>value</code> that will always be returned
+by anyone using the property.  You can use other attributes in the
+descriptor to make the property
+<code>writable</code> (allowing new values assigned),
+<code>configurable</code> (permit further changes), and
+<code>enumerable</code> (returned during property enumeration).</p>
+<p>But you can go beyond the simple retrieval and assignment of value to
+properties by passing <em>functions</em> as the <code>get</code> and/or <code>set</code>
+attributes in the descriptor.</p>
+<p>Let&rsquo;s see how we can use it to add our sugar.</p>
+<h2 id="an-example-read-only-attributes">An Example: Read-only Attributes</h2>
+<p>Recently I published <a href="https://github.com/carbonfive/nock-vcr">nock-vcr</a>, a node module to deliver
+the same functionaly of the Ruby gem <a href="https://github.com/vcr/vcr">VCR</a> but built atop the HTTP
+mocking framework <a href="https://github.com/flatiron/nock">nock</a>. VCR use the metaphor of &ldquo;cassettes&rdquo;
+to record the HTTP interactions, with the interactions being written
+out to a file named after the name given to the cassette. If a
+cassette doesn&rsquo;t exist at the time of recording, it will be created.</p>
+<p>For various reasons, we don&rsquo;t want to give users of the module
+the ability to change the <code>name</code> of a <code>Cassette</code>
+once an instance is created. This is accomplished by using
+<code>Object.defineProperty</code> to explicity set the
+<code>value</code>:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette.js"></script>
+
+<p>Now when we instantiate an instance of <code>Cassette</code>, the string
+passed in the construtor is returned by the <code>name</code> property.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette.sh"></script>
+
+<p>More importantly, because we never set the <code>writable</code>
+attribute in the descriptor to <code>true</code>, no one can assign
+a new value to the property:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette-read-only.sh"></script>
+
+<h2 id="now-add-the-syntactic-sugar">Now Add the Syntactic Sugar</h2>
+<p>At this point, we haven&rsquo;t done anything to &ldquo;sweeten&rdquo; the syntax. An
+opportunity arises in implementing <code>exists</code>. If implemented
+as a function, it would be used as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">	<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">cassette</span>.<span style="color:#a6e22e">exists</span>())
+</code></pre></div><p>But wouldn&rsquo;t it be sweeter to do the following?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">	<span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">cassette</span>.<span style="color:#a6e22e">exists</span>)
+</code></pre></div><p>In this case, we pass in a <code>get</code> function when defining
+&lsquo;exists&rsquo; as a property. This function will be run every time the property is
+referenced, ensuring it represents the current state of the cassette, but without
+need of keeping tract with another attribute.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette-exists.js"></script>
+
+<p>Now we can call <code>exists</code> without need of the parenthesis:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=cassette-exists.sh"></script>
+
+<p>A small, &ldquo;sweet&rdquo; victory.</p>
+<h2 id="another-example-sweeter-tests">Another Example: Sweeter Tests</h2>
+<p>The previous example did not really gain us much; what are a couple of
+parenthesis in the larger scheme of things? A more useful example of this
+technique and the benefits of syntactic sugar comes in writing out a
+<a href="http://chaijs.com/">chai</a>-like test framework called <code>rooibos</code>.</p>
+<p>Let&rsquo;s begin by creating an <code>Assertion</code> &ldquo;class&rdquo;, that accepts a
+value we will be running our assertions against. We will also create and
+export <code>expect</code> function as the only interface into our framework and
+creating these assertions.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos.js"></script>
+
+<p>We can add two basic assertions; <code>truthy</code> which will
+assert if the value is non-falsy and <code>empty</code>, which asserts
+the value is has no characters if a string, no elements if an array, and
+is non-null or undefined in all other cases.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos-truthy-empty.js"></script>
+
+<p>At this point, we can use the framework as follows:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos-demo.sh"></script>
+
+<p>We can sweeten this further with <code>to</code> and <code>be</code> properties that pass through the <code>Assertion</code> instance, doing nothing but enhancing readability.</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos-passthroughs.js"></script>
+
+<p>So finally we can write our tests with the sweetest syntax of all:</p>
+<script type="application/javascript" src="https://gist.github.com/rudyjahchan/4753384.js?file=rooibos-passthroughs.sh"></script>
+
+<h2 id="tldr">tl;dr</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/defineProperty"><code>Object.defineProperty</code></a> allows you add more behavior when a
+property is assigned or referenced.</li>
+<li>By assigning a value with <code>Object.defineProperty</code> you make
+it read-only.</li>
+<li>Assign a <code>get</code> function to a property to introduce
+syntactic sugar like pass-throughs and queries for readability.</li>
+</ul>
+
+    </main>
+    <footer>
+        
+
+    </footer>
+</article>
+
+            </main><footer class="site-footer">
+  <nav class="menu">
+    <ul>
+      
+      <li>
+        <a class="nav-link" href="/about/">
+          About
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/blog/">
+          Blog
+        </a>
+      </li>
+      
+      <li>
+        <a class="nav-link" href="/projects/">
+          Projects
+        </a>
+      </li>
+      
+    </ul>
+  </nav>
+
+  <nav class="social">
+    
+      <a href="https://twitter.com/rudy"><i class="fa fa-twitter"></i></a>
+    
+      <a href="https://instagram.com/rudyjahchan"><i class="fa fa-instagram"></i></a>
+    
+      <a href="https://github.com/rudyjahchan/"><i class="fa fa-github"></i></a>
+    
+      <a href="https://feeds.feedburner.com/rudyjahchan"><i class="fa fa-rss"></i></a>
+    
+  </nav>
+</footer>
+</div>
+    </body>
+</html>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/apps/</loc>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/film-and-tv/</loc>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/tags/code/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/tags/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/tweaking-site/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/c5-labs-vrogger/</loc>
+    <lastmod>2016-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/diy-pokemon-go-our-experience-building-an-augmented-reality-scavenger-hunt/</loc>
+    <lastmod>2016-07-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/getting-started-in-vr-with-javascript/</loc>
+    <lastmod>2015-05-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/vintage-terminal-effects-in-css3/</loc>
+    <lastmod>2015-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/new-year-new-site/</loc>
+    <lastmod>2015-01-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/taking-advantage-of-multi-processor-environments-in-node-js/</loc>
+    <lastmod>2014-02-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/bdd-composition-over-inheritence-with-rspec-shared-examples/</loc>
+    <lastmod>2013-08-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/series/monkey-patching-ios-with-objective-c-categories/</loc>
+    <lastmod>2013-02-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/</loc>
+    <lastmod>2013-02-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/series/</loc>
+    <lastmod>2013-02-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/sweeter-javascript-define-properties-to-add-syntactic-sugar/</loc>
+    <lastmod>2013-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/</loc>
+    <lastmod>2012-11-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/series/moved-from-wordpress-to-jekyll/</loc>
+    <lastmod>2012-11-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/moved-from-wordpress-to-jekyll-part-2/</loc>
+    <lastmod>2012-11-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/cross-domain-browser-window-messaging-with-html5-and-javascript/</loc>
+    <lastmod>2012-08-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/moved-from-wordpress-to-jekyll-part-1/</loc>
+    <lastmod>2012-08-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/</loc>
+    <lastmod>2012-01-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/getting-test-y-in-ios-apps/</loc>
+    <lastmod>2011-07-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/integrating-topic-branches-in-git/</loc>
+    <lastmod>2010-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/bumps-in-the-night-an-exorcise-in-futility/</loc>
+    <lastmod>2010-06-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/tags/web-shows/</loc>
+    <lastmod>2010-06-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/blog/going-to-california/</loc>
+    <lastmod>2008-08-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/tags/news/</loc>
+    <lastmod>2008-08-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/writings/drinks-with-the-devil/</loc>
+    <lastmod>2007-12-06T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/</loc>
+    <lastmod>2007-12-06T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/tags/writing/</loc>
+    <lastmod>2007-12-06T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/writings/</loc>
+    <lastmod>2007-12-06T00:00:00-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/film-and-tv/a-comicbook-orange/</loc>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/about/</loc>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/apps/craft-check/</loc>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/film-and-tv/dne/</loc>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/film-and-tv/galacticast/</loc>
+  </url>
+  
+  <url>
+    <loc>http://rudyjahchan.com/projects/writings/mythrite-kimdo-chestcaver/</loc>
+  </url>
+  
+</urlset>

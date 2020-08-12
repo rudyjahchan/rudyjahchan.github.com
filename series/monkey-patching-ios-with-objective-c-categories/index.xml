@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Monkey-Patching iOS with Objective-C Categories on Rudy Jahchan</title>
+    <link>http://rudyjahchan.com/series/monkey-patching-ios-with-objective-c-categories/</link>
+    <description>Recent content in Monkey-Patching iOS with Objective-C Categories on Rudy Jahchan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Rudy Jahchan</copyright>
+    <lastBuildDate>Wed, 20 Feb 2013 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://rudyjahchan.com/series/monkey-patching-ios-with-objective-c-categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Monkey-Patching iOS with Objective-C Categories Part III: Swizzling</title>
+      <link>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/</link>
+      <pubDate>Wed, 20 Feb 2013 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-iii-swizzling/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+In this series of posts, we&amp;rsquo;ll show how to monkey-patch in Objective-C through categories to add and change methods, to add new instance variables and properties, and introduce swizzling, a technique that allows us to extend and preserve existing functionality.</description>
+    </item>
+    
+    <item>
+      <title>Monkey-Patching iOS with Objective-C Categories Part II: Adding Instance Properties</title>
+      <link>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/</link>
+      <pubDate>Tue, 27 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-ii-adding-instance-properties/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+In this series of posts, we&amp;rsquo;ll show how to monkey-patch in Objective-C through categories to add and change methods, to add new instance variables and properties, and introduce swizzling, a technique that allows us to extend and preserve existing functionality.</description>
+    </item>
+    
+    <item>
+      <title>Monkey-Patching iOS with Objective-C Categories Part I: Simple Extensions and Overrides</title>
+      <link>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/</link>
+      <pubDate>Mon, 23 Jan 2012 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/blog/monkey-patching-ios-with-objective-c-categories-part-i-simple-extensions-and-overrides/</guid>
+      <description>Originally posted on Carbon Five&amp;rsquo;s Blog.
+Have you ever wanted to introduce new functionality to base classes in the iOS SDK? Or just make them work a little bit differently? In order to do so, you must enter the wild and dangerous world of monkey-patching.
+Monkey-patching is extending or modifying the behavior of code at runtime without changing its original source code. You can monkey-patch any code, it doesn&amp;rsquo;t matter whether it&amp;rsquo;s your own code or not.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apps on Rudy Jahchan</title>
+    <link>http://rudyjahchan.com/projects/apps/</link>
+    <description>Recent content in Apps on Rudy Jahchan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Rudy Jahchan</copyright>
+    
+	<atom:link href="http://rudyjahchan.com/projects/apps/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Craft Check</title>
+      <link>http://rudyjahchan.com/projects/apps/craft-check/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://rudyjahchan.com/projects/apps/craft-check/</guid>
+      <description>App to verify if a beer is genuinely craft!</description>
+    </item>
+    
+  </channel>
+</rss>
