@@ -7,11 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Rudy Jahchan</copyright>
-    <lastBuildDate>Sat, 24 Nov 2012 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="http://rudyjahchan.com/series/moved-from-wordpress-to-jekyll/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 24 Nov 2012 00:00:00 +0000</lastBuildDate><atom:link href="http://rudyjahchan.com/series/moved-from-wordpress-to-jekyll/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Moved from WordPress to Jekyll Part 2</title>
       <link>http://rudyjahchan.com/blog/moved-from-wordpress-to-jekyll-part-2/</link>
